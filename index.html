@@ -254,6 +254,25 @@ body {
 .dark-popup .leaflet-popup-tip { background:#1a1f3a; }
 .dark-popup .leaflet-popup-content { margin:10px 14px; font-family:'Noto Sans KR',sans-serif; }
 
+/* ── 에펠탑 반짝이 애니메이션 효과 ── */
+.eiffel-light {
+  fill: #fff; /* 반짝이 조명 색상: 흰색 */
+  animation: sparkle-anim 1s infinite; /* 1초마다 반복 */
+  opacity: 0; /* 기본 상태는 안 보임 */
+}
+
+@keyframes sparkle-anim {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.1); } /* 가장 밝아질 때 */
+}
+
+/* 조명마다 반짝이는 시간차(Delay)를 주어 자연스럽게 */
+.eiffel-light:nth-child(2n) { animation-delay: 0.1s; }
+.eiffel-light:nth-child(3n) { animation-delay: 0.3s; }
+.eiffel-light:nth-child(4n) { animation-delay: 0.5s; }
+.eiffel-light:nth-child(5n) { animation-delay: 0.8s; }
+.eiffel-light:nth-child(6n) { animation-delay: 0.2s; }
+  
 ::-webkit-scrollbar { width:3px; height:3px; }
 ::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:2px; }
 </style>
@@ -263,26 +282,53 @@ body {
 <!-- ═══════════ HOME ═══════════ -->
 <div id="page-home" class="page active">
   <canvas id="stars-canvas"></canvas>
-  <div class="eiffel-bg">
-    <svg viewBox="0 0 200 340" xmlns="http://www.w3.org/2000/svg" fill="var(--cream)">
-      <rect x="98" y="0" width="4" height="40" rx="2" />
-      <path d="M92,40 L108,40 L105,60 L95,60 Z" />
+<div class="eiffel-bg">
+    <svg viewBox="0 0 200 380" xmlns="http://www.w3.org/2000/svg">
       
-      <rect x="85" y="60" width="30" height="6" rx="2" />
-      
-      <path d="M92,68 C80,140 70,180 55,200 L145,200 C130,180 120,140 108,68 Z" />
-      
-      <rect x="45" y="200" width="110" height="10" rx="3" />
-      
-      <path d="M43,212 C35,260 25,300 15,340 L55,340 C65,290 80,265 100,265 C120,265 135,290 145,340 L185,340 C175,300 165,260 157,212 Z" />
+      <g fill="var(--cream)" opacity="0.8">
+          <rect x="99" y="0" width="2" height="65" rx="1" />
+          <path d="M95,65 L105,65 L103,100 L97,100 Z" />
+
+          <rect x="85" y="100" width="30" height="6" rx="2" />
+
+          <path d="M92,108 C80,160 70,200 55,230 L145,230 C130,200 120,160 108,108 Z" />
+
+          <rect x="45" y="230" width="110" height="10" rx="3" />
+
+          <path d="M43,242 C35,290 25,330 15,380 L55,380 C65,330 80,305 100,305 C120,305 135,330 145,380 L185,380 C175,330 165,290 157,242 Z" />
+      </g>
+
+      <g class="eiffel-lights">
+          <circle cx="100" cy="15" r="1.3" class="eiffel-light"/>
+          <circle cx="100" cy="40" r="1.3" class="eiffel-light"/>
+          <circle cx="100" cy="65" r="1.3" class="eiffel-light"/>
+          <circle cx="100" cy="85" r="1.3" class="eiffel-light"/>
+          <circle cx="87" cy="103" r="1.3" class="eiffel-light"/>
+          <circle cx="100" cy="103" r="1.3" class="eiffel-light"/>
+          <circle cx="113" cy="103" r="1.3" class="eiffel-light"/>
+          <circle cx="93" cy="130" r="1.3" class="eiffel-light"/>
+          <circle cx="107" cy="130" r="1.3" class="eiffel-light"/>
+          <circle cx="88" cy="165" r="1.3" class="eiffel-light"/>
+          <circle cx="112" cy="165" r="1.3" class="eiffel-light"/>
+          <circle cx="78" cy="200" r="1.3" class="eiffel-light"/>
+          <circle cx="122" cy="200" r="1.3" class="eiffel-light"/>
+          <circle cx="50" cy="235" r="1.3" class="eiffel-light"/>
+          <circle cx="75" cy="235" r="1.3" class="eiffel-light"/>
+          <circle cx="100" cy="235" r="1.3" class="eiffel-light"/>
+          <circle cx="125" cy="235" r="1.3" class="eiffel-light"/>
+          <circle cx="150" cy="235" r="1.3" class="eiffel-light"/>
+          <circle cx="45" cy="270" r="1.3" class="eiffel-light"/>
+          <circle cx="155" cy="270" r="1.3" class="eiffel-light"/>
+          <circle cx="38" cy="310" r="1.3" class="eiffel-light"/>
+          <circle cx="162" cy="310" r="1.3" class="eiffel-light"/>
+          <circle cx="28" cy="350" r="1.3" class="eiffel-light"/>
+          <circle cx="172" cy="350" r="1.3" class="eiffel-light"/>
+          <circle cx="100" cy="308" r="1.3" class="eiffel-light"/>
+          <circle cx="82" cy="320" r="1.3" class="eiffel-light"/>
+          <circle cx="118" cy="320" r="1.3" class="eiffel-light"/>
+      </g>
     </svg>
   </div>
-  <div class="home-content">
-    <div class="flag-row">
-      <span style="background:#002395"></span>
-      <span style="background:#f5f0e8"></span>
-      <span style="background:#ed2939"></span>
-    </div>
     <h1 class="home-title">Paris &<br>Strasbourg</h1>
     <div class="home-sub">우리의 프랑스 여행 일지</div>
 
