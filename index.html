@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🇫🇷 파리 & 스트라스부르 여행 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root {
+  --navy: #0d1226;
+  --navy2: #1a1f3a;
+  --cream: #f5f0e8;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a0;
+  --red: #c0392b;
+  --muted: #7a7060;
+  --card: rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.08);
+  --bottom-h: 64px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--navy);
+  color: var(--cream);
+  padding-bottom: var(--bottom-h);
+}
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: var(--bottom-h);
+  background: rgba(10,14,30,0.97);
+  border-top: 1px solid rgba(201,168,76,0.2);
+  display: flex; z-index: 1000;
+  backdrop-filter: blur(12px);
+}
+.bnav-btn {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 3px;
+  background: none; border: none; color: rgba(245,240,232,0.38);
+  cursor: pointer; transition: color 0.2s; padding: 8px 0;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.bnav-btn .bi { font-size: 1.25rem; line-height: 1; }
+.bnav-btn .bl { font-size: 0.58rem; }
+.bnav-btn.active { color: var(--gold); }
+
+/* ══ HOME ══ */
+#page-home {
+  min-height: calc(100vh - var(--bottom-h));
+  position: relative; overflow: hidden;
+  background: radial-gradient(ellipse at 50% 0%, #1a2a4a 0%, #0d1226 60%);
+}
+#stars-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.eiffel-bg {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: min(320px, 85vw); z-index: 1; opacity: 0.13; pointer-events: none;
+}
+.home-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 52px 20px 24px;
+}
+.flag-row { display: flex; gap: 4px; margin-bottom: 20px; }
+.flag-row span { width: 7px; height: 28px; border-radius: 2px; }
+.home-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 9vw, 3.4rem);
+  font-style: italic; color: var(--gold);
+  text-align: center; line-height: 1.15;
+}
+.home-sub {
+  font-family: 'DM Mono', monospace; font-size: 0.68rem;
+  color: var(--gold-light); letter-spacing: 0.2em; margin-top: 8px; opacity: 0.7;
+}
+.dday-card {
+  margin-top: 28px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 20px; padding: 20px 28px; text-align: center;
+  width: 100%; max-width: 300px;
+  box-shadow: 0 0 40px rgba(201,168,76,0.08);
+}
+.dday-lbl { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.16em; color:var(--gold-light); opacity:0.75; margin-bottom:4px; }
+.dday-num { font-family:'Playfair Display',serif; font-size:3.8rem; font-weight:700; color:var(--gold); line-height:1; }
+.dday-desc { font-size:0.78rem; color:rgba(245,240,232,0.55); margin-top:6px; }
+.weather-row { display:flex; gap:10px; margin-top:14px; width:100%; max-width:300px; }
+.w-card {
+  flex:1; background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:13px 8px; text-align:center;
+}
+.w-city { font-size:0.6rem; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:0.1em; margin-bottom:5px; }
+.w-icon { font-size:1.7rem; display:block; margin-bottom:3px; }
+.w-temp { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--cream); }
+.w-desc { font-size:0.65rem; color:var(--muted); margin-top:2px; }
+.date-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.22);
+  border-radius:20px; padding:5px 14px; font-size:0.7rem;
+  color:var(--gold-light); font-family:'DM Mono',monospace;
+  letter-spacing:0.05em; margin-top:14px;
+}
+.quick-row { display:flex; gap:10px; margin-top:18px; width:100%; max-width:300px; }
+.quick-btn {
+  flex:1; background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:12px 6px; color:var(--cream);
+  cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-size:0.73rem;
+  text-align:center; transition:border-color 0.2s, background 0.2s;
+}
+.quick-btn:active { border-color:var(--gold); background:rgba(201,168,76,0.1); }
+.quick-btn .qi { font-size:1.2rem; display:block; margin-bottom:3px; }
+
+/* ══ MAP ══ */
+.map-day-btns { padding:14px 16px 0; background:rgba(0,0,0,0.2); }
+.map-day-lbl { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; color:var(--muted); margin-bottom:8px; }
+.map-day-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; padding-bottom:12px; }
+.map-day-btn {
+  background:rgba(255,255,255,0.07); border:2px solid rgba(255,255,255,0.12);
+  border-radius:10px; color:var(--cream); cursor:pointer;
+  text-align:center; transition:all 0.2s; padding:8px 4px;
+  font-family:'Noto Sans KR',sans-serif;
+}
+.map-day-btn .dn { font-size:1rem; font-weight:700; display:block; }
+.map-day-btn .dd { font-size:0.58rem; opacity:0.7; display:block; margin-top:1px; }
+.map-day-btn.active { background:var(--dc,#c9a84c); border-color:var(--dc,#c9a84c); color:#111; }
+#leaflet-map { width:100%; height:420px; z-index:1; }
+.map-strip { padding:12px 16px; background:rgba(0,0,0,0.3); border-top:1px solid var(--border); }
+.map-strip-title { font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--gold); margin-bottom:7px; }
+.spot-pills { display:flex; flex-wrap:wrap; gap:5px; }
+.spot-pill {
+  display:inline-block; padding:3px 10px; border-radius:12px;
+  font-size:0.7rem; background:rgba(255,255,255,0.08);
+  color:rgba(245,240,232,0.8); border:1px solid rgba(255,255,255,0.1);
+  cursor:pointer; transition:background 0.15s;
+}
+.spot-pill:active { background:rgba(201,168,76,0.2); border-color:var(--gold); }
+
+/* ══ SCHEDULE ══ */
+.schedule-wrap { padding:16px; max-width:800px; margin:0 auto; }
+.day-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-bottom:18px; }
+.day-btn {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:10px; padding:9px 4px; cursor:pointer;
+  text-align:center; transition:all 0.2s; color:var(--cream);
+}
+.day-btn.active { background:rgba(201,168,76,0.18); border-color:var(--gold); }
+.day-btn .day-num { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--gold); display:block; }
+.day-btn .day-label { font-size:0.58rem; color:var(--muted); display:block; margin-top:1px; }
+.day-content { display:none; }
+.day-content.active { display:block; }
+.day-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid rgba(201,168,76,0.2); }
+.day-icon { width:44px; height:44px; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
+.day-header h2 { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--gold); }
+.day-header p { font-size:0.73rem; color:var(--muted); margin-top:2px; }
+.timeline { position:relative; padding-left:14px; }
+.timeline::before { content:''; position:absolute; left:0; top:6px; bottom:6px; width:1px; background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,0.04)); }
+.event { position:relative; margin-bottom:10px; padding-left:18px; }
+.event::before { content:''; position:absolute; left:-5px; top:8px; width:10px; height:10px; background:var(--navy); border:2px solid var(--gold); border-radius:50%; }
+.event.transport::before { border-color:#5ba4cf; }
+.event.food::before { border-color:#e17055; }
+.event.sightseeing::before { border-color:#00b894; }
+.event.hotel::before { border-color:#a29bfe; }
+.event.note::before { border-color:rgba(201,168,76,0.3); width:6px; height:6px; left:-3px; }
+.event-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 12px; }
+.event.transport .event-card { border-left:3px solid #5ba4cf; }
+.event.food .event-card { border-left:3px solid #e17055; }
+.event.sightseeing .event-card { border-left:3px solid #00b894; }
+.event.hotel .event-card { border-left:3px solid #a29bfe; }
+.event-time { font-family:'DM Mono',monospace; font-size:0.63rem; color:var(--muted); margin-bottom:3px; }
+.event-title { font-size:0.87rem; font-weight:500; color:var(--cream); line-height:1.4; }
+.event-detail { font-size:0.75rem; color:rgba(245,240,232,0.5); margin-top:4px; line-height:1.5; }
+.event-note { background:rgba(201,168,76,0.07); border-left:2px solid rgba(201,168,76,0.4); border-radius:0 6px 6px 0; padding:5px 8px; margin-top:5px; font-size:0.72rem; color:var(--gold-light); line-height:1.5; }
+.tag { display:inline-block; padding:1px 7px; border-radius:8px; font-size:0.6rem; font-family:'DM Mono',monospace; margin-left:5px; vertical-align:middle; }
+.tag-confirm { background:rgba(46,213,115,0.15); color:#2ed573; }
+
+/* ══ BUDGET ══ */
+.budget-wrap { padding:16px; max-width:600px; margin:0 auto; }
+.budget-total { background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.04)); border:1px solid rgba(201,168,76,0.3); border-radius:16px; padding:20px; text-align:center; margin-bottom:14px; }
+.budget-total .bl { font-size:0.68rem; color:var(--muted); letter-spacing:0.1em; }
+.budget-total .ba { font-family:'Playfair Display',serif; font-size:2.4rem; color:var(--gold); margin:5px 0; }
+.cat-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:14px; }
+.cat-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 6px; text-align:center; }
+.cat-card .ci { font-size:1.1rem; margin-bottom:1px; }
+.cat-card .cn { font-size:0.6rem; color:var(--muted); }
+.cat-card .ca { font-family:'DM Mono',monospace; font-size:0.8rem; color:var(--gold); margin-top:2px; }
+.budget-input-row { display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+.budget-input-row input, .budget-input-row select { flex:1; min-width:90px; background:var(--card); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:9px 10px; color:var(--cream); font-family:'Noto Sans KR',sans-serif; font-size:0.84rem; }
+.budget-input-row input::placeholder { color:rgba(245,240,232,0.22); }
+.budget-input-row input:focus, .budget-input-row select:focus { outline:none; border-color:var(--gold); }
+.budget-input-row select option { background:var(--navy2); }
+.btn-add { background:var(--gold); color:var(--navy); border:none; border-radius:8px; padding:10px 16px; font-weight:700; cursor:pointer; font-size:0.85rem; font-family:'Noto Sans KR',sans-serif; flex:1 1 100%; }
+.expense-item { display:flex; align-items:center; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:10px; margin-bottom:7px; }
+.ex-left { flex:1; }
+.ex-cat { font-size:0.6rem; color:var(--muted); font-family:'DM Mono',monospace; }
+.ex-name { font-size:0.86rem; margin-top:1px; }
+.ex-amt { font-family:'DM Mono',monospace; font-size:0.92rem; color:var(--gold); }
+.ex-del { background:none; border:none; color:rgba(245,240,232,0.2); cursor:pointer; padding:4px 8px; }
+.section-lbl { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+.divider { height:1px; background:var(--border); margin:14px 0; }
+.empty-state { text-align:center; padding:30px 20px; color:var(--muted); font-size:0.84rem; }
+.empty-state .big { font-size:2rem; display:block; margin-bottom:6px; }
+
+/* ══ CHECKLIST ══ */
+.checklist-wrap { padding:16px; max-width:600px; margin:0 auto; }
+.check-section { margin-bottom:22px; }
+.check-section h3 { font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--gold); margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid rgba(201,168,76,0.18); }
+.progress-bar { height:3px; background:rgba(255,255,255,0.07); border-radius:2px; margin-bottom:9px; }
+.progress-fill { height:100%; background:var(--gold); border-radius:2px; transition:width 0.3s; }
+.check-item { display:flex; align-items:flex-start; gap:10px; padding:8px 8px; border-radius:8px; cursor:pointer; transition:background 0.15s; margin-bottom:1px; }
+.check-item:hover { background:rgba(255,255,255,0.04); }
+.check-box { width:20px; height:20px; border:2px solid rgba(201,168,76,0.35); border-radius:5px; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.check-item.done .check-box { background:var(--gold); border-color:var(--gold); }
+.check-item.done .check-box::after { content:'✓'; color:var(--navy); font-size:0.7rem; font-weight:700; }
+.check-label { font-size:0.85rem; line-height:1.5; }
+.check-item.done .check-label { text-decoration:line-through; color:var(--muted); }
+.check-note { font-size:0.68rem; color:rgba(245,240,232,0.32); margin-top:1px; }
+.check-item.locked { cursor:default; }
+.save-btn { background:var(--gold); color:var(--navy); border:none; border-radius:12px; padding:13px 36px; font-weight:700; font-family:'Noto Sans KR',sans-serif; font-size:0.92rem; cursor:pointer; box-shadow:0 4px 16px rgba(201,168,76,0.3); }
+#save-toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px); background:rgba(46,213,115,0.96); color:#111; padding:9px 22px; border-radius:20px; font-family:'Noto Sans KR',sans-serif; font-size:0.82rem; font-weight:700; opacity:0; transition:opacity 0.3s,transform 0.3s; z-index:9999; pointer-events:none; box-shadow:0 4px 16px rgba(0,0,0,0.3); }
+
+/* ══ MEMO ══ */
+.memo-wrap { padding:16px; max-width:600px; margin:0 auto; }
+.memo-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:10px; }
+.memo-card h4 { font-size:0.7rem; color:var(--gold); margin-bottom:10px; font-family:'DM Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; }
+.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.info-label { font-size:0.63rem; color:var(--muted); }
+.info-val { font-size:0.82rem; color:var(--cream); margin-top:2px; font-weight:500; }
+.memo-area { width:100%; background:var(--card); border:1px solid rgba(201,168,76,0.2); border-radius:10px; padding:12px; color:var(--cream); font-family:'Noto Sans KR',sans-serif; font-size:0.84rem; line-height:1.7; min-height:150px; resize:vertical; }
+.memo-area:focus { outline:none; border-color:var(--gold); }
+
+/* Accordion */
+.accordion { border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:10px; }
+.acc-header { display:flex; align-items:center; justify-content:space-between; padding:13px 14px; cursor:pointer; background:var(--card); }
+.acc-header h4 { font-size:0.78rem; color:var(--gold); font-family:'DM Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; }
+.acc-arrow { color:var(--muted); font-size:0.75rem; transition:transform 0.25s; }
+.acc-body { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+.acc-body.open { max-height:700px; }
+.acc-header.open .acc-arrow { transform:rotate(180deg); }
+.acc-inner { padding:12px 14px 14px; }
+.phrase-group { margin-bottom:10px; }
+.phrase-group-title { font-size:0.62rem; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:5px; }
+.phrase-item { display:flex; justify-content:space-between; align-items:baseline; padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.04); gap:10px; }
+.phrase-kr { font-size:0.76rem; color:rgba(245,240,232,0.55); flex-shrink:0; }
+.phrase-fr { font-size:0.8rem; color:var(--cream); font-style:italic; text-align:right; }
+
+/* Leaflet popup */
+.dark-popup .leaflet-popup-content-wrapper { background:#1a1f3a; color:var(--cream); border:1px solid rgba(201,168,76,0.4); border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.6); }
+.dark-popup .leaflet-popup-tip { background:#1a1f3a; }
+.dark-popup .leaflet-popup-content { margin:10px 14px; font-family:'Noto Sans KR',sans-serif; }
+
+::-webkit-scrollbar { width:3px; height:3px; }
+::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:2px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div id="page-home" class="page active">
+  <canvas id="stars-canvas"></canvas>
+  <div class="eiffel-bg">
+    <svg viewBox="0 0 200 340" xmlns="http://www.w3.org/2000/svg" fill="var(--cream)">
+      <rect x="98" y="0" width="4" height="40" rx="2" />
+      <path d="M92,40 L108,40 L105,60 L95,60 Z" />
+      
+      <rect x="85" y="60" width="30" height="6" rx="2" />
+      
+      <path d="M92,68 C80,140 70,180 55,200 L145,200 C130,180 120,140 108,68 Z" />
+      
+      <rect x="45" y="200" width="110" height="10" rx="3" />
+      
+      <path d="M43,212 C35,260 25,300 15,340 L55,340 C65,290 80,265 100,265 C120,265 135,290 145,340 L185,340 C175,300 165,260 157,212 Z" />
+    </svg>
+  </div>
+  <div class="home-content">
+    <div class="flag-row">
+      <span style="background:#002395"></span>
+      <span style="background:#f5f0e8"></span>
+      <span style="background:#ed2939"></span>
+    </div>
+    <h1 class="home-title">Paris &<br>Strasbourg</h1>
+    <div class="home-sub">우리의 프랑스 여행 일지</div>
+
+    <div class="dday-card">
+      <div class="dday-lbl" id="dday-label">D-DAY</div>
+      <div class="dday-num" id="dday-number">···</div>
+      <div class="dday-desc" id="dday-desc">계산 중...</div>
+    </div>
+
+    <div class="weather-row">
+      <div class="w-card">
+        <div class="w-city">PARIS</div>
+        <span class="w-icon" id="wp-icon">🌤</span>
+        <div class="w-temp" id="wp-temp">—°C</div>
+        <div class="w-desc" id="wp-desc">로딩 중</div>
+      </div>
+      <div class="w-card">
+        <div class="w-city">STRASBOURG</div>
+        <span class="w-icon" id="ws-icon">🌥</span>
+        <div class="w-temp" id="ws-temp">—°C</div>
+        <div class="w-desc" id="ws-desc">로딩 중</div>
+      </div>
+    </div>
+
+    <div class="date-badge">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
+
+    <div class="quick-row">
+      <button class="quick-btn" onclick="switchPage('map')"><span class="qi">🗺</span>지도</button>
+      <button class="quick-btn" onclick="switchPage('schedule')"><span class="qi">📅</span>일정</button>
+      <button class="quick-btn" onclick="switchPage('checklist')"><span class="qi">🎒</span>준비물</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MAP ═══════════ -->
+<div id="page-map" class="page">
+  <div class="map-day-btns">
+    <div class="map-day-lbl">DAY 선택 → 경로 표시</div>
+    <div class="map-day-grid">
+      <button class="map-day-btn active" onclick="showDay(1,this)" style="--dc:#FF6B6B"><span class="dn">1</span><span class="dd">3/7</span></button>
+      <button class="map-day-btn" onclick="showDay(2,this)" style="--dc:#FF9F43"><span class="dn">2</span><span class="dd">3/8</span></button>
+      <button class="map-day-btn" onclick="showDay(3,this)" style="--dc:#FECA57"><span class="dn">3</span><span class="dd">3/9</span></button>
+      <button class="map-day-btn" onclick="showDay(4,this)" style="--dc:#48DBFB"><span class="dn">4</span><span class="dd">3/10</span></button>
+      <button class="map-day-btn" onclick="showDay(5,this)" style="--dc:#1DD1A1"><span class="dn">5</span><span class="dd">3/11</span></button>
+      <button class="map-day-btn" onclick="showDay(6,this)" style="--dc:#A29BFE"><span class="dn">6</span><span class="dd">3/12</span></button>
+      <button class="map-day-btn" onclick="showDay(7,this)" style="--dc:#FD79A8"><span class="dn">7</span><span class="dd">3/13</span></button>
+      <button class="map-day-btn" onclick="showDay(8,this)" style="--dc:#74B9FF"><span class="dn">8</span><span class="dd">3/14</span></button>
+    </div>
+  </div>
+  <div id="leaflet-map"></div>
+  <div class="map-strip">
+    <div class="map-strip-title" id="map-day-title"></div>
+    <div class="spot-pills" id="map-day-spots"></div>
+  </div>
+</div>
+
+<!-- ═══════════ SCHEDULE ═══════════ -->
+<div id="page-schedule" class="page">
+<div class="schedule-wrap">
+  <div class="day-grid">
+    <div class="day-btn active" onclick="switchDay(1,this)"><span class="day-num">1</span><span class="day-label">3/7 토</span></div>
+    <div class="day-btn" onclick="switchDay(2,this)"><span class="day-num">2</span><span class="day-label">3/8 일</span></div>
+    <div class="day-btn" onclick="switchDay(3,this)"><span class="day-num">3</span><span class="day-label">3/9 월</span></div>
+    <div class="day-btn" onclick="switchDay(4,this)"><span class="day-num">4</span><span class="day-label">3/10 화</span></div>
+    <div class="day-btn" onclick="switchDay(5,this)"><span class="day-num">5</span><span class="day-label">3/11 수</span></div>
+    <div class="day-btn" onclick="switchDay(6,this)"><span class="day-num">6</span><span class="day-label">3/12 목</span></div>
+    <div class="day-btn" onclick="switchDay(7,this)"><span class="day-num">7</span><span class="day-label">3/13 금</span></div>
+    <div class="day-btn" onclick="switchDay(8,this)"><span class="day-num">8</span><span class="day-label">3/14 토</span></div>
+  </div>
+
+  <div id="day-1" class="day-content active">
+    <div class="day-header"><div class="day-icon">✈️</div><div><h2>인천 → 파리</h2><p>출발일 · 긴 여정의 시작</p></div></div>
+    <div class="timeline">
+      <div class="event transport"><div class="event-card"><div class="event-time">04:30 – 07:30</div><div class="event-title">🚌 시외우등 — 아산(온양) → 인천공항 제2터미널</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">10:05 – 16:25 (파리 현지)</div><div class="event-title">✈️ 아시아나 OZ0501 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">서울 ICN 출발 → 파리 CDG 도착</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">16:25 – 18:30</div><div class="event-title">🛂 샤를 드 골 공항 도착 · 입국 심사</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">18:30 – 19:30</div><div class="event-title">🚇 공항 → 파리 시내 이동</div></div></div>
+      <div class="event hotel"><div class="event-card"><div class="event-time">19:30 – 20:00</div><div class="event-title">🏨 디스트릭트 레퓌블리크 체크인</div><div class="event-note">République역 Sortie 5 (Boulevard de Magenta) 출구</div></div></div>
+      <div class="event note"><div class="event-card"><div class="event-title">🛒 Intermarché EXPRESS에서 저녁 해결 가능</div></div></div>
+    </div>
+  </div>
+
+  <div id="day-2" class="day-content">
+    <div class="day-header"><div class="day-icon">🏛</div><div><h2>파리 — 마레 & 노트르담</h2><p>마라톤 회피 동선 적용</p></div></div>
+    <div class="timeline">
+      <div class="event transport"><div class="event-card"><div class="event-time">08:00 – 08:30</div><div class="event-title">🚇 숙소 → 보쥬 광장 이동</div><div class="event-note">République → 8호선(Créteil방향) → Chemin Vert 하차 → 도보 5분</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">08:30 – 09:40</div><div class="event-title">🥐 아침 — Carette (보쥬 광장점)</div><div class="event-detail">크루아상 & 쇼콜라 쇼(핫초코) · 회랑 테라스석</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:40 – 11:30</div><div class="event-title">🌿 보쥬 광장 & 주변 산책</div><div class="event-detail">회랑 아치 → 잔디광장 → 빅토르 위고 하우스 → 카르나발레 → 피카소 미술관(외관)</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">11:30 – 13:00</div><div class="event-title">🥙 점심 — L'As du Fallafel</div><div class="event-detail">Falafel sandwich, Shawarma pita</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">13:00 – 15:00</div><div class="event-title">🍵 티타임 — Mariage Frères Marais</div><div class="event-detail">SWEET DREAM: JOYFUL HORSE · UME CHA 2026 단품</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">15:00 – 17:00</div><div class="event-title">🏙 오텔 드 빌 → 센강 → 시테섬</div><div class="event-note">⚠️ 마라톤: 오후 2시 이전 리볼리/센강 남쪽 이동 자제</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">16:00 – 18:30</div><div class="event-title">⛪ 노트르담 대성당 & 생루이섬</div><div class="event-detail">파사드 → 내부 관람 → 퐁생루이 다리 → 생루이섬 산책</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">18:50 – 19:40</div><div class="event-title">🏛 루브르 야경 (일몰 18:44)</div><div class="event-note">7호선 Pont Marie → Palais Royal-Musée du Louvre 하차</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">20:00 – 21:30</div><div class="event-title">🥞 저녁 — Breizh Café Montorgueil</div><div class="event-detail">La Complète 갈레트 + 드라이한 Cidre</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">21:30 – 22:00</div><div class="event-title">🚇 숙소 복귀</div><div class="event-note">3호선 Sentier → République · Sortie 5 출구</div></div></div>
+    </div>
+  </div>
+
+  <div id="day-3" class="day-content">
+    <div class="day-header"><div class="day-icon">🎨</div><div><h2>파리 — 루브르 & 오랑주리</h2><p>강변 산책 & 미술관의 날</p></div></div>
+    <div class="timeline">
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">08:00 – 08:40</div><div class="event-title">📸 오텔 드 빌 (시청사) 사진</div><div class="event-note">11호선 République → Hôtel de Ville 하차 · 월요일 아침 한산</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">08:55 – 09:25</div><div class="event-title">🥐 아침 — BO&MIE (Louvre-Rivoli)</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:25 – 11:40</div><div class="event-title">🏛 루브르 외관 → 팔레루아얄 → 갤러리 비비엔 → 퐁데자르 → 퐁 뇌프</div><div class="event-detail">피라미드 외관 → 기둥 정원 → 아케이드 → 센강 포토스팟</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">12:00 – 13:30</div><div class="event-title">🦆 점심 — Bistrot Victoires</div><div class="event-detail">Confit de canard (오리 콩피)</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">13:40 – 14:40</div><div class="event-title">🛍 갤러리 라파예트 오스만</div><div class="event-detail">8층 옥상 에펠탑 뷰 → 라뒤레 마카롱 → 이스파한 테이크아웃</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">14:40 – 15:00</div><div class="event-title">💎 방돔 광장 → 튈르리 정원</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30 – 17:00</div><div class="event-title">🎨 오랑주리 미술관 <span class="tag tag-confirm">⏰ 15:30 예약</span></div><div class="event-detail">모네 '수련' 관람</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">17:30 – 19:00</div><div class="event-title">🌅 콩코르드 광장 → 샹젤리제 → 개선문</div><div class="event-detail">일몰 18:44 — 개선문 노을 타이밍</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">19:30 – 21:00</div><div class="event-title">🐌 저녁 — Bouillon République</div><div class="event-detail">Escargots, Soupe à l'oignon, Bœuf bourguignon</div><div class="event-note">⚠️ 공홈 예약 필수</div></div></div>
+    </div>
+  </div>
+
+  <div id="day-4" class="day-content">
+    <div class="day-header"><div class="day-icon">🗼</div><div><h2>파리 — 에펠탑 & 바토 파리지앵</h2><p>운하 아침 + 유람선 야경</p></div></div>
+    <div class="timeline">
+      <div class="event food"><div class="event-card"><div class="event-time">08:00 – 08:30</div><div class="event-title">🥐 아침 — Mamiche (Rue du Château d'Eau)</div><div class="event-detail">잠봉샌드위치, 슈, 시나몬 롤 테이크아웃</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00 – 11:00</div><div class="event-title">🛶 레퓌블리크 광장 → 생마르탱 운하 산책</div><div class="event-detail">다리/수문 포토스팟 · 운하 옆 벤치 휴식</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">11:00 – 11:40</div><div class="event-title">🍰 브런치 — 유토피아 베이커리</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">11:40 – 12:20</div><div class="event-title">💌 La Poste — 집으로 엽서 보내기</div><div class="event-detail">160 Rue du Temple, 75003 Paris</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">13:00 – 17:30</div><div class="event-title">🗼 트로카데로 → 에펠탑 → 끌레흐 가 → 마르스 광장</div><div class="event-detail">대칭샷 → 철제 구조물 통과 → 에스프레소 휴식 → 피크닉 뷰</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">18:00 – 19:00</div><div class="event-title">🌉 비라켐 다리 (일몰 + 에펠탑 첫 점등)</div><div class="event-detail">인셉션 구조물 아래 · 18:45 에펠탑 점등</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">19:20 – 21:00</div><div class="event-title">🥩 저녁 — L'Atypic</div><div class="event-detail">타르타르, 푸아그라, 스테이크</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">21:30 – 22:30</div><div class="event-title">🚢 바토 파리지앵 유람선 <span class="tag tag-confirm">⏰ 21:30</span></div><div class="event-detail">매 정각 에펠탑 반짝임 + 센강 야경</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">22:30 – 23:00</div><div class="event-title">🚇 복귀 — Alma-Marceau → 9호선 → République</div></div></div>
+    </div>
+  </div>
+
+  <div id="day-5" class="day-content">
+    <div class="day-header"><div class="day-icon">🚄</div><div><h2>파리 → 스트라스부르</h2><p>TGV 이동 + 알자스 첫날</p></div></div>
+    <div class="timeline">
+      <div class="event food"><div class="event-card"><div class="event-time">07:00 – 08:00</div><div class="event-title">🥐 아침 — Le Pain des Copains</div></div></div>
+      <div class="event hotel"><div class="event-card"><div class="event-time">08:00 – 09:30</div><div class="event-title">🧳 체크아웃 → 파리 동역(Gare de l'Est) 이동</div><div class="event-detail">도보 15분(1km) · 짐 많으면 Uber</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">10:08 – 11:54</div><div class="event-title">🚄 OUIGO 7691 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">Paris Gare de l'Est → Strasbourg</div><div class="event-note">좌석: Voiture 8 / 803–804</div></div></div>
+      <div class="event hotel"><div class="event-card"><div class="event-time">12:00 – 12:30</div><div class="event-title">🏨 시티 레지던스 스트라스부르 짐 보관</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">13:00 – 14:30</div><div class="event-title">🍽 점심 — Winstub Le Zehnerglock <span class="tag tag-confirm">⏰ 13:00</span></div><div class="event-detail">Choucroute Garnie, Baeckeoffe</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">14:30 – 18:30</div><div class="event-title">⛩ 스트라스부르 대성당 → 구텐베르크 광장 → 구시가지 산책</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">18:30 – 20:00</div><div class="event-title">🔥 저녁 — La Fignette (오픈런!)</div><div class="event-detail">Tarte Flambée Traditionnelle, Gratinée</div><div class="event-note">⚠️ 예약 불가 — 오픈 전부터 줄 서기</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">20:00 – 21:00</div><div class="event-title">🌙 대성당 야경 감상</div></div></div>
+    </div>
+  </div>
+
+  <div id="day-6" class="day-content">
+    <div class="day-header"><div class="day-icon">🌸</div><div><h2>콜마르 당일치기</h2><p>동화 마을 · TER 기차 30분</p></div></div>
+    <div class="timeline">
+      <div class="event transport"><div class="event-card"><div class="event-time">08:00 – 09:00</div><div class="event-title">🚂 TER — 스트라스부르 → 콜마르</div><div class="event-note">'Colmar' 또는 'Mulhouse/Basel'행 · 2등석 자유석</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00 – 12:00</div><div class="event-title">🏘 콜마르 구시가지 → 쁘띠 베니스 산책</div><div class="event-detail">역 → 알록달록 골목 → 운하 따라 걷기 → 다리 포토스팟</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">12:00 – 13:30</div><div class="event-title">🍷 점심 — WISTUB BRENNER <span class="tag tag-confirm">⏰ 12:00</span></div><div class="event-detail">Tarte à l'oignon de Papi Lucien, Jarret de Porc braisé</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">13:30 – 15:30</div><div class="event-title">🍰 카페 — Pâtisserie Gilg</div><div class="event-detail">에끌레어, 구겔호프, 밀푀유, 포레 누아</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30 – 17:00</div><div class="event-title">🛍 쇼핑 → 운터린덴 미술관 외관</div><div class="event-detail">Rue des Clefs → Rue des Têtes → Maison des Têtes</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">17:00 – 18:00</div><div class="event-title">🚂 TER — 콜마르 → 스트라스부르 복귀</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">18:00 – 20:00</div><div class="event-title">🐟 저녁 — Maison Kammerzell <span class="tag tag-confirm">⏰ 18:15</span></div><div class="event-detail">Choucroute aux Poissons (생선 슈쿠르트)</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">20:00 – 21:30</div><div class="event-title">🌉 쿠베르교 & 보방 댐 야경 → 쁘띠 프랑스 야경 산책</div></div></div>
+    </div>
+  </div>
+
+  <div id="day-7" class="day-content">
+    <div class="day-header"><div class="day-icon">🇩🇪</div><div><h2>독일 켈 & 스트라스부르 쇼핑</h2><p>라인강 건너 독일 마트 원정</p></div></div>
+    <div class="timeline">
+      <div class="event transport"><div class="event-card"><div class="event-time">09:00 – 09:30</div><div class="event-title">🚋 트램 D — Ancienne Synagogue → Port du Rhin</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:30 – 12:30</div><div class="event-title">🌿 두 히브 가든 → Passerelle 다리 → 라인강변 산책</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">12:30 – 14:00</div><div class="event-title">🥨 점심 — Café Backhaus Dreher</div><div class="event-detail">프레첼, 독일식 페이스트리, 아우프슈니트</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">14:00 – 17:00</div><div class="event-title">🛒 독일 마트 쇼핑 (City Center Kehl · DM)</div><div class="event-detail">메쓰머, 테칸네, dmBio 차 등</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">17:00 – 17:30</div><div class="event-title">🚋 복귀 — Kehl → Ancienne Synagogue</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">17:30 – 19:30</div><div class="event-title">🛍 Place des Halles / Auchan 쇼핑</div><div class="event-detail">프랑스 기념품, 와인, 과자 (20:00 마감 전)</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">19:30 – 21:00</div><div class="event-title">🍷 저녁 — Le Tire-Bouchon <span class="tag tag-confirm">⏰ 19:30</span></div><div class="event-detail">6 garnitures, Joues de porc au pinot noir + spaetzle</div></div></div>
+      <div class="event hotel"><div class="event-card"><div class="event-time">21:15 –</div><div class="event-title">🧳 숙소 복귀 & 캐리어 짐 싸기</div></div></div>
+    </div>
+  </div>
+
+  <div id="day-8" class="day-content">
+    <div class="day-header"><div class="day-icon">🏠</div><div><h2>귀국 — 스트라스부르 → 인천</h2><p>여행의 마지막 날</p></div></div>
+    <div class="timeline">
+      <div class="event hotel"><div class="event-card"><div class="event-time">06:00 – 07:00</div><div class="event-title">🧳 체크아웃</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">07:31 – 09:29</div><div class="event-title">🚄 TGV INOUI 5470 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">Strasbourg → Paris CDG 2 (Gare TGV)</div><div class="event-note">좌석: Voiture 6 / 638–639</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">09:30 – 10:00</div><div class="event-title">🚋 CDGVAL 무료 셔틀 → 터미널 1</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">10:00 – 11:00</div><div class="event-title">🍔 아점 — 맥도날드</div><div class="event-detail">280™ Original (Bœuf Blanc), McWrap</div></div></div>
+      <div class="event sightseeing"><div class="event-card"><div class="event-time">11:00 – 15:25</div><div class="event-title">⏳ 랜드사이드 대기 & 택스리펀</div><div class="event-detail">PABLO 기계 바코드 스캔 · 폴/스타벅스 휴식</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">15:25 – 16:15</div><div class="event-title">✈️ 아시아나 카운터 오픈 (Terminal 1, Hall 1)</div><div class="event-detail">수하물 위탁 — 1등으로 줄 서기!</div></div></div>
+      <div class="event food"><div class="event-card"><div class="event-time">17:40 – 18:25</div><div class="event-title">🍽 저녁 — Bistrot Benoît (면세구역 Level 5)</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">18:25</div><div class="event-title">✈️ 아시아나 OZ0502 출국!</div><div class="event-detail">파리(CDG) 18:25 → 서울(ICN) 3/15 14:40</div></div></div>
+      <div class="event transport"><div class="event-card"><div class="event-time">3/15 18:05 – 21:35</div><div class="event-title">🚌 시외우등 — 인천공항 → 아산(온양)</div></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ BUDGET ═══════════ -->
+<div id="page-budget" class="page">
+<div class="budget-wrap">
+  <div class="budget-total">
+    <div class="bl">TOTAL SPENT</div>
+    <div class="ba" id="total-amount">€ 0</div>
+    <div style="font-size:0.73rem;color:rgba(245,240,232,0.38)">지출을 추가하면 자동 합산돼요</div>
+  </div>
+  <div class="cat-summary">
+    <div class="cat-card"><div class="ci">✈️</div><div class="cn">교통</div><div class="ca" id="cat-transport">€0</div></div>
+    <div class="cat-card"><div class="ci">🍽</div><div class="cn">식사</div><div class="ca" id="cat-food">€0</div></div>
+    <div class="cat-card"><div class="ci">🏨</div><div class="cn">숙박</div><div class="ca" id="cat-hotel">€0</div></div>
+    <div class="cat-card"><div class="ci">🎨</div><div class="cn">관광</div><div class="ca" id="cat-sightseeing">€0</div></div>
+    <div class="cat-card"><div class="ci">🛍</div><div class="cn">쇼핑</div><div class="ca" id="cat-shopping">€0</div></div>
+    <div class="cat-card"><div class="ci">☕</div><div class="cn">기타</div><div class="ca" id="cat-etc">€0</div></div>
+  </div>
+  <div class="section-lbl">지출 추가</div>
+  <div class="budget-input-row">
+    <input type="text" id="ex-name" placeholder="항목 (예: 루브르 입장료)">
+    <input type="number" id="ex-amount" placeholder="금액 (€)" min="0" step="0.01">
+  </div>
+  <div class="budget-input-row">
+    <select id="ex-cat">
+      <option value="transport">✈️ 교통</option>
+      <option value="food">🍽 식사</option>
+      <option value="hotel">🏨 숙박</option>
+      <option value="sightseeing">🎨 관광</option>
+      <option value="shopping">🛍 쇼핑</option>
+      <option value="etc">☕ 기타</option>
+    </select>
+    <button class="btn-add" onclick="addExpense()">+ 추가</button>
+  </div>
+  <div class="divider"></div>
+  <div class="section-lbl">지출 내역</div>
+  <div id="expense-list"><div class="empty-state"><span class="big">💶</span>아직 지출 내역이 없어요</div></div>
+</div>
+</div>
+
+<!-- ═══════════ CHECKLIST ═══════════ -->
+<div id="page-checklist" class="page">
+<div class="checklist-wrap">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
+    <button class="save-btn" onclick="saveChecks()" style="padding:9px 20px;font-size:0.8rem;">💾 저장하기</button>
+  </div>
+  <div class="check-section">
+    <h3>📄 서류 & 준비</h3>
+    <div class="progress-bar"><div class="progress-fill" id="prog-docs"></div></div>
+    <div id="list-docs"></div>
+  </div>
+  <div class="check-section">
+    <h3>🧳 짐 싸기</h3>
+    <div class="progress-bar"><div class="progress-fill" id="prog-pack"></div></div>
+    <div id="list-pack"></div>
+  </div>
+  <div class="check-section">
+    <h3>📱 앱 & 준비</h3>
+    <div class="progress-bar"><div class="progress-fill" id="prog-app"></div></div>
+    <div id="list-app"></div>
+  </div>
+  <div class="check-section">
+    <h3>🎫 예약 현황</h3>
+    <div class="progress-bar"><div class="progress-fill" id="prog-book"></div></div>
+    <div id="list-book"></div>
+  </div>
+  <div style="display:flex;justify-content:center;margin:20px 0 32px;">
+    <button class="save-btn" onclick="saveChecks()">💾 저장완료</button>
+  </div>
+</div>
+<div id="save-toast">✅ 저장완료!</div>
+</div>
+
+<!-- ═══════════ MEMO / INFO ═══════════ -->
+<div id="page-memo" class="page">
+<div class="memo-wrap">
+  <div class="memo-card">
+    <h4>✈️ 항공편</h4>
+    <div class="info-grid">
+      <div><div class="info-label">가는 편</div><div class="info-val">OZ0501 · 3/7 10:05 ICN→CDG</div></div>
+      <div><div class="info-label">오는 편</div><div class="info-val">OZ0502 · 3/14 18:25 CDG→ICN</div></div>
+    </div>
+  </div>
+  <div class="memo-card">
+    <h4>🚄 기차</h4>
+    <div class="info-grid">
+      <div><div class="info-label">파리→스트라스부르</div><div class="info-val">OUIGO 7691 · 10:08→11:54</div></div>
+      <div><div class="info-label">좌석</div><div class="info-val">Voiture 8 / 803–804</div></div>
+      <div><div class="info-label">스트라스부르→CDG</div><div class="info-val">TGV 5470 · 07:31→09:29</div></div>
+      <div><div class="info-label">좌석</div><div class="info-val">Voiture 6 / 638–639</div></div>
+    </div>
+  </div>
+  <div class="memo-card">
+    <h4>🏨 숙소</h4>
+    <div class="info-grid">
+      <div><div class="info-label">파리 (Day 1–5)</div><div class="info-val">디스트릭트 레퓌블리크</div></div>
+      <div><div class="info-label">출구</div><div class="info-val">République역 Sortie 5</div></div>
+      <div><div class="info-label">스트라스부르 (Day 5–8)</div><div class="info-val">시티 레지던스 스트라스부르</div></div>
+      <div><div class="info-label">트램역</div><div class="info-val">Ancienne Synagogue/Les Halles</div></div>
+    </div>
+  </div>
+  <div class="memo-card">
+    <h4>🌅 일몰 시간</h4>
+    <div style="font-size:0.82rem;line-height:2;color:var(--cream)">
+      <div>3/8 (Day 2) — <strong style="color:var(--gold)">18:44</strong> · 루브르 야경</div>
+      <div>3/9 (Day 3) — <strong style="color:var(--gold)">18:44</strong> · 개선문 노을</div>
+      <div>3/10 (Day 4) — <strong style="color:var(--gold)">18:45</strong> · 비라켐 에펠탑 점등</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <h4>🇫🇷 식당 주문 표현</h4><span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="phrase-group">
+          <div class="phrase-group-title">자리 / 입장</div>
+          <div class="phrase-item"><span class="phrase-kr">두 명이요</span><span class="phrase-fr">Pour deux, s'il vous plaît.</span></div>
+          <div class="phrase-item"><span class="phrase-kr">예약했어요</span><span class="phrase-fr">J'ai une réservation.</span></div>
+          <div class="phrase-item"><span class="phrase-kr">메뉴 주세요</span><span class="phrase-fr">La carte, s'il vous plaît.</span></div>
+        </div>
+        <div class="phrase-group">
+          <div class="phrase-group-title">주문</div>
+          <div class="phrase-item"><span class="phrase-kr">이걸로 할게요</span><span class="phrase-fr">Je vais prendre ça.</span></div>
+          <div class="phrase-item"><span class="phrase-kr">추천해주세요</span><span class="phrase-fr">Qu'est-ce que vous recommandez ?</span></div>
+          <div class="phrase-item"><span class="phrase-kr">물 주세요</span><span class="phrase-fr">De l'eau, s'il vous plaît.</span></div>
+          <div class="phrase-item"><span class="phrase-kr">맛있어요!</span><span class="phrase-fr">C'est délicieux !</span></div>
+        </div>
+        <div class="phrase-group">
+          <div class="phrase-group-title">계산</div>
+          <div class="phrase-item"><span class="phrase-kr">계산서 주세요</span><span class="phrase-fr">L'addition, s'il vous plaît.</span></div>
+          <div class="phrase-item"><span class="phrase-kr">카드 되나요?</span><span class="phrase-fr">Vous acceptez la carte ?</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <h4>🚇 교통 & 길찾기</h4><span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="phrase-group">
+          <div class="phrase-item"><span class="phrase-kr">~어디에 있나요?</span><span class="phrase-fr">Où est ~ ?</span></div>
+          <div class="phrase-item"><span class="phrase-kr">지하철역</span><span class="phrase-fr">la station de métro</span></div>
+          <div class="phrase-item"><span class="phrase-kr">얼마나 걸려요?</span><span class="phrase-fr">C'est loin d'ici ?</span></div>
+          <div class="phrase-item"><span class="phrase-kr">여기로 가주세요 (택시)</span><span class="phrase-fr">Amenez-moi ici, s'il vous plaît.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-header" onclick="toggleAcc(this)">
+      <h4>🛒 쇼핑 & 우체국</h4><span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <div class="acc-inner">
+        <div class="phrase-group">
+          <div class="phrase-item"><span class="phrase-kr">얼마예요?</span><span class="phrase-fr">C'est combien ?</span></div>
+          <div class="phrase-item"><span class="phrase-kr">한국으로 엽서 보내고 싶어요</span><span class="phrase-fr">Je voudrais envoyer cette carte postale en Corée.</span></div>
+          <div class="phrase-item"><span class="phrase-kr">우표 주세요</span><span class="phrase-fr">Un timbre, s'il vous plaît.</span></div>
+          <div class="phrase-item"><span class="phrase-kr">봉지 필요 없어요</span><span class="phrase-fr">Pas de sac, merci.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="memo-card">
+    <h4>📝 자유 메모</h4>
+    <textarea class="memo-area" id="free-memo" placeholder="여행 중 메모, 환율, 긴급연락처 등 자유롭게...">환율 참고: €1 ≈ 약 1,500원
+긴급전화: 112 (경찰), 15 (의료), 18 (소방)
+한국 영사관: +33-1-47-53-01-01</textarea>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ BOTTOM NAV ═══════════ -->
+<nav class="bottom-nav">
+  <button class="bnav-btn active" onclick="switchPage('home',this)"><span class="bi">🏠</span><span class="bl">홈</span></button>
+  <button class="bnav-btn" onclick="switchPage('map',this)"><span class="bi">🗺</span><span class="bl">지도</span></button>
+  <button class="bnav-btn" onclick="switchPage('schedule',this)"><span class="bi">📅</span><span class="bl">일정</span></button>
+  <button class="bnav-btn" onclick="switchPage('budget',this)"><span class="bi">💶</span><span class="bl">가계부</span></button>
+  <button class="bnav-btn" onclick="switchPage('checklist',this)"><span class="bi">🎒</span><span class="bl">준비물</span></button>
+  <button class="bnav-btn" onclick="switchPage('memo',this)"><span class="bi">📋</span><span class="bl">정보</span></button>
+</nav>
+
+<script>
+// ── PAGE SWITCH ──
+function switchPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if (btn) { btn.classList.add('active'); }
+  else {
+    document.querySelectorAll('.bnav-btn').forEach(b => {
+      if ((b.getAttribute('onclick')||'').includes("'"+id+"'")) b.classList.add('active');
+    });
+  }
+  if (id === 'map') setTimeout(() => { initLeafletMap(); if(leafletMap) leafletMap.invalidateSize(); }, 80);
+}
+
+// ── STARS ──
+(function() {
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = window.innerWidth; canvas.height = document.getElementById('page-home').offsetHeight || window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  const stars = Array.from({length:130}, () => ({
+    x: Math.random(), y: Math.random(),
+    r: Math.random()*1.4+0.3, a: Math.random(),
+    sp: Math.random()*0.007+0.003, ph: Math.random()*Math.PI*2
+  }));
+  function draw(t) {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s => {
+      const alpha = s.a*(0.4+0.6*Math.sin(t*s.sp+s.ph));
+      ctx.beginPath();
+      ctx.arc(s.x*canvas.width, s.y*canvas.height, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(232,213,160,${alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ── D-DAY ──
+(function() {
+  const start = new Date('2026-03-07T00:00:00');
+  const end   = new Date('2026-03-14T23:59:59');
+  const now   = new Date();
+  const numEl = document.getElementById('dday-number');
+  const lblEl = document.getElementById('dday-label');
+  const dscEl = document.getElementById('dday-desc');
+  if (now < start) {
+    const diff = Math.ceil((start - now) / 86400000);
+    lblEl.textContent = 'D -';
+    numEl.textContent = diff;
+    dscEl.textContent = '파리까지 ' + diff + '일 남았어요 ✈️';
+  } else if (now <= end) {
+    const day = Math.floor((now - start) / 86400000) + 1;
+    lblEl.textContent = 'DAY';
+    numEl.textContent = day;
+    dscEl.textContent = '지금 여행 중! 즐거운 하루 🇫🇷';
+  } else {
+    lblEl.textContent = '완료';
+    numEl.textContent = '🎉';
+    dscEl.textContent = '소중한 추억을 간직하세요 💛';
+  }
+})();
+
+// ── WEATHER ──
+async function fetchWeather(lat, lon, iconId, tempId, descId) {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&timezone=Europe/Paris`;
+    const data = await (await fetch(url)).json();
+    const temp = Math.round(data.current.temperature_2m);
+    const code = data.current.weathercode;
+    const IC = {0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',61:'🌧',71:'🌨',80:'🌦',95:'⛈'};
+    const DC = {0:'맑음',1:'대체로 맑음',2:'구름 조금',3:'흐림',45:'안개',48:'안개',51:'이슬비',61:'비',71:'눈',80:'소나기',95:'뇌우'};
+    const k = IC[code] ? code : Math.floor(code/10)*10;
+    document.getElementById(iconId).textContent = IC[k]||'🌡';
+    document.getElementById(tempId).textContent = temp+'°C';
+    document.getElementById(descId).textContent = DC[k]||'';
+  } catch(e) { document.getElementById(descId).textContent = '—'; }
+}
+fetchWeather(48.8566, 2.3522, 'wp-icon', 'wp-temp', 'wp-desc');
+fetchWeather(48.5734, 7.7521, 'ws-icon', 'ws-temp', 'ws-desc');
+
+// ── LEAFLET MAP ──
+const DAY_COLORS = {1:'#FF6B6B',2:'#FF9F43',3:'#FECA57',4:'#48DBFB',5:'#1DD1A1',6:'#A29BFE',7:'#FD79A8',8:'#74B9FF'};
+const DAY_FOCUS  = {5:[[48.855,2.335],[48.882,2.375]], 6:[[48.068,7.346],[48.086,7.374]]};
+const DAYS = {
+  1:{title:'Day 1 — 3/7 (토) · 인천 → 파리',spots:[
+    {name:'샤를드골 국제공항 (CDG)',lat:49.0097,lng:2.5479,icon:'✈️'},
+    {name:'Intermarché EXPRESS',lat:48.8674,lng:2.3622,icon:'🛒'},
+    {name:'디스트릭트 레퓌블리크 (숙소)',lat:48.8673,lng:2.3629,icon:'🏨'},
+  ]},
+  2:{title:'Day 2 — 3/8 (일) · 마레 & 노트르담',spots:[
+    {name:'디스트릭트 레퓌블리크',lat:48.8673,lng:2.3629,icon:'🏨'},
+    {name:'Carette (보쥬 광장)',lat:48.8551,lng:2.3625,icon:'☕'},
+    {name:'보쥬 광장',lat:48.8553,lng:2.3625,icon:'🌿'},
+    {name:"L'As du Fallafel",lat:48.8571,lng:2.3561,icon:'🥙'},
+    {name:'Mariage Frères Marais',lat:48.8572,lng:2.3536,icon:'🍵'},
+    {name:'오텔 드 빌 (시청사)',lat:48.8566,lng:2.3522,icon:'🏛'},
+    {name:'노트르담 대성당',lat:48.8530,lng:2.3499,icon:'⛪'},
+    {name:'퐁생루이 다리',lat:48.8519,lng:2.3538,icon:'🌉'},
+    {name:'생루이섬',lat:48.8515,lng:2.3561,icon:'🏝'},
+    {name:'루브르 야경',lat:48.8606,lng:2.3376,icon:'🏛'},
+    {name:'Breizh Café Montorgueil',lat:48.8631,lng:2.3468,icon:'🥞'},
+  ]},
+  3:{title:'Day 3 — 3/9 (월) · 루브르 & 오랑주리',spots:[
+    {name:'오텔 드 빌',lat:48.8566,lng:2.3522,icon:'📸'},
+    {name:'BO&MIE',lat:48.8600,lng:2.3445,icon:'🥐'},
+    {name:'루브르 박물관',lat:48.8606,lng:2.3376,icon:'🏛'},
+    {name:'Palais-Royal',lat:48.8638,lng:2.3370,icon:'🌿'},
+    {name:'Galerie Vivienne',lat:48.8648,lng:2.3386,icon:'🛍'},
+    {name:'Pont des Arts',lat:48.8583,lng:2.3373,icon:'🌉'},
+    {name:'Bistrot Victoires',lat:48.8625,lng:2.3425,icon:'🦆'},
+    {name:'갤러리 라파예트',lat:48.8736,lng:2.3323,icon:'🛍'},
+    {name:'튈르리 정원',lat:48.8638,lng:2.3274,icon:'🌿'},
+    {name:'오랑주리 미술관',lat:48.8638,lng:2.3225,icon:'🎨'},
+    {name:'콩코르드 광장',lat:48.8656,lng:2.3211,icon:'🏛'},
+    {name:'샹젤리제 & 개선문',lat:48.8738,lng:2.2950,icon:'🌅'},
+    {name:'Bouillon République',lat:48.8671,lng:2.3631,icon:'🐌'},
+  ]},
+  4:{title:'Day 4 — 3/10 (화) · 에펠탑 & 바토 파리지앵',spots:[
+    {name:'Mamiche 베이커리',lat:48.8710,lng:2.3573,icon:'🥐'},
+    {name:'생마르탱 운하',lat:48.8698,lng:2.3637,icon:'🛶'},
+    {name:'유토피아 베이커리',lat:48.8625,lng:2.3520,icon:'🍰'},
+    {name:'La Poste (우체국)',lat:48.8614,lng:2.3534,icon:'💌'},
+    {name:'트로카데로 광장',lat:48.8638,lng:2.2888,icon:'📸'},
+    {name:'에펠탑',lat:48.8584,lng:2.2945,icon:'🗼'},
+    {name:'끌레흐 가 (Rue Cler)',lat:48.8564,lng:2.3053,icon:'☕'},
+    {name:'마르스 광장',lat:48.8556,lng:2.2988,icon:'🌿'},
+    {name:'비라켐 다리',lat:48.8517,lng:2.2880,icon:'🌉'},
+    {name:"L'Atypic",lat:48.8527,lng:2.2965,icon:'🥩'},
+    {name:'바토 파리지앵 선착장',lat:48.8601,lng:2.2958,icon:'🚢'},
+  ]},
+  5:{title:'Day 5 — 3/11 (수) · 파리 → 스트라스부르',spots:[
+    {name:'Le Pain des Copains',lat:48.8684,lng:2.3594,icon:'🥐'},
+    {name:'파리 동역 (출발)',lat:48.8767,lng:2.3590,icon:'🚄'},
+    {name:'스트라스부르 역 (도착)',lat:48.5851,lng:7.7341,icon:'🚄'},
+    {name:'Winstub Le Zehnerglock',lat:48.5804,lng:7.7468,icon:'🍽'},
+    {name:'스트라스부르 대성당',lat:48.5818,lng:7.7507,icon:'⛩'},
+    {name:'La Fignette',lat:48.5798,lng:7.7460,icon:'🔥'},
+  ]},
+  6:{title:'Day 6 — 3/12 (목) · 콜마르 당일치기',spots:[
+    {name:'콜마르 역',lat:48.0764,lng:7.3584,icon:'🚂'},
+    {name:'쁘띠 베니스',lat:48.0771,lng:7.3564,icon:'🌊'},
+    {name:'WISTUB BRENNER',lat:48.0782,lng:7.3568,icon:'🍷'},
+    {name:'Pâtisserie Gilg',lat:48.0791,lng:7.3567,icon:'🍰'},
+    {name:'Maison des Têtes',lat:48.0806,lng:7.3579,icon:'🏛'},
+    {name:'운터린덴 미술관 (외관)',lat:48.0806,lng:7.3562,icon:'🎨'},
+    {name:'Maison Kammerzell (저녁)',lat:48.5819,lng:7.7507,icon:'🐟'},
+    {name:'쁘띠 프랑스 야경',lat:48.5793,lng:7.7410,icon:'🌙'},
+  ]},
+  7:{title:'Day 7 — 3/13 (금) · 독일 켈 & 쇼핑',spots:[
+    {name:'Ancienne Synagogue 트램역',lat:48.5805,lng:7.7481,icon:'🚋'},
+    {name:'두 히브 가든',lat:48.5745,lng:7.8050,icon:'🌿'},
+    {name:'Passerelle des Deux Rives',lat:48.5749,lng:7.7967,icon:'🌉'},
+    {name:'Café Backhaus Dreher',lat:48.5793,lng:7.8102,icon:'🥨'},
+    {name:'City Center Kehl (DM)',lat:48.5734,lng:7.8156,icon:'🛒'},
+    {name:'Place des Halles / Auchan',lat:48.5805,lng:7.7481,icon:'🛍'},
+    {name:'Le Tire-Bouchon',lat:48.5814,lng:7.7492,icon:'🍷'},
+  ]},
+  8:{title:'Day 8 — 3/14 (토) · 귀국',spots:[
+    {name:'스트라스부르 역 (TGV 출발)',lat:48.5851,lng:7.7341,icon:'🚄'},
+    {name:'Paris CDG Terminal 2',lat:49.0097,lng:2.5479,icon:'🚄'},
+    {name:'CDG Terminal 1',lat:49.0062,lng:2.5725,icon:'✈️'},
+    {name:'Bistrot Benoît (면세구역)',lat:49.0066,lng:2.5740,icon:'🍽'},
+    {name:'탑승 게이트 OZ0502',lat:49.0070,lng:2.5745,icon:'✈️'},
+  ]},
+};
+
+let leafletMap=null, curLayers=[], curMarkers=[];
+
+function initLeafletMap() {
+  if (leafletMap) return;
+  leafletMap = L.map('leaflet-map', { scrollWheelZoom:false, tap:true })
+    .setView([48.8566,2.3522], 13);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution:'© OpenStreetMap © CARTO', maxZoom:19
+  }).addTo(leafletMap);
+  // 한 손가락: 스크롤 / 두 손가락: 지도 이동
+  leafletMap.on('touchstart', e => {
+    if (e.originalEvent.touches.length < 2) leafletMap.dragging.disable();
+    else leafletMap.dragging.enable();
+  });
+  leafletMap.on('touchend', () => leafletMap.dragging.enable());
+  showDay(1, document.querySelector('.map-day-btn'));
+}
+
+function showDay(dayNum, btn) {
+  if (!leafletMap) return;
+  curLayers.forEach(l => leafletMap.removeLayer(l));
+  curLayers=[]; curMarkers=[];
+  document.querySelectorAll('.map-day-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const day=DAYS[dayNum], color=DAY_COLORS[dayNum], spots=day.spots;
+  const line = L.polyline(spots.map(s=>[s.lat,s.lng]),{color,weight:3.5,opacity:0.85,dashArray:'8,5'}).addTo(leafletMap);
+  curLayers.push(line);
+  spots.forEach((spot,i) => {
+    const isFirst=i===0, isLast=i===spots.length-1, sz=isFirst||isLast?32:26;
+    const icon = L.divIcon({
+      html:`<div style="width:${sz}px;height:${sz}px;background:${isLast?'#fff':color};border:2.5px solid ${isFirst?'#fff':isLast?color:'rgba(255,255,255,0.45)'};border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);">${isFirst?'<span style="font-size:12px">🟢</span>':isLast?'<span style="font-size:12px">🔴</span>':`<span style="color:#111;font-weight:700;font-size:10px">${i+1}</span>`}</div>`,
+      className:'', iconSize:[sz,sz], iconAnchor:[sz/2,sz/2]
+    });
+    const m = L.marker([spot.lat,spot.lng],{icon}).addTo(leafletMap)
+      .bindPopup(`<b style="color:#c9a84c">${spot.icon} ${spot.name}</b><br><span style="color:#999;font-size:0.72rem">${i+1}번째 · Day ${dayNum}</span>`,{className:'dark-popup'});
+    curLayers.push(m); curMarkers.push(m);
+  });
+  if (DAY_FOCUS[dayNum]) leafletMap.fitBounds(DAY_FOCUS[dayNum],{padding:[20,20]});
+  else leafletMap.fitBounds(line.getBounds(),{padding:[30,30]});
+  document.getElementById('map-day-title').textContent = day.title;
+  document.getElementById('map-day-spots').innerHTML = spots
+    .map((s,i)=>`<span class="spot-pill" onclick="flyTo(${i})">${s.icon} ${s.name}</span>`).join('');
+}
+
+function flyTo(idx) {
+  if (!curMarkers[idx]) return;
+  leafletMap.flyTo(curMarkers[idx].getLatLng(), 16, {duration:0.8});
+  setTimeout(()=>curMarkers[idx].openPopup(), 900);
+}
+
+// ── DAY SWITCH ──
+function switchDay(num, btn) {
+  document.querySelectorAll('.day-content').forEach(d=>d.classList.remove('active'));
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('day-'+num).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── BUDGET ──
+let expenses = JSON.parse(localStorage.getItem('fr_expenses')||'[]');
+function saveExp(){ try{localStorage.setItem('fr_expenses',JSON.stringify(expenses));}catch(e){} }
+function addExpense(){
+  const name=document.getElementById('ex-name').value.trim();
+  const amount=parseFloat(document.getElementById('ex-amount').value);
+  const cat=document.getElementById('ex-cat').value;
+  if(!name||isNaN(amount)||amount<=0) return;
+  expenses.push({name,amount,cat,id:Date.now()});
+  saveExp(); renderExp();
+  document.getElementById('ex-name').value='';
+  document.getElementById('ex-amount').value='';
+}
+function deleteExpense(id){ expenses=expenses.filter(e=>e.id!==id); saveExp(); renderExp(); }
+function renderExp(){
+  const list=document.getElementById('expense-list');
+  const cats={transport:0,food:0,hotel:0,sightseeing:0,shopping:0,etc:0};
+  let total=0;
+  expenses.forEach(e=>{ total+=e.amount; if(cats[e.cat]!==undefined) cats[e.cat]+=e.amount; });
+  document.getElementById('total-amount').textContent='€ '+total.toFixed(2);
+  Object.keys(cats).forEach(k=>{ const el=document.getElementById('cat-'+k); if(el) el.textContent='€'+cats[k].toFixed(2); });
+  if(!expenses.length){ list.innerHTML='<div class="empty-state"><span class="big">💶</span>아직 지출 내역이 없어요</div>'; return; }
+  const cn={transport:'✈️ 교통',food:'🍽 식사',hotel:'🏨 숙박',sightseeing:'🎨 관광',shopping:'🛍 쇼핑',etc:'☕ 기타'};
+  list.innerHTML=[...expenses].reverse().map(e=>`<div class="expense-item"><div class="ex-left"><div class="ex-cat">${cn[e.cat]||e.cat}</div><div class="ex-name">${e.name}</div></div><div class="ex-amt">€${e.amount.toFixed(2)}</div><button class="ex-del" onclick="deleteExpense(${e.id})">✕</button></div>`).join('');
+}
+renderExp();
+
+// ── CHECKLIST ──
+const CONFIRMED = ['b1','b2','b3','b4'];
+const checkData = {
+  docs:[
+    {id:'d1',text:'여권 유효기간 확인 (6개월 이상)',note:''},
+    {id:'d2',text:'항공권 출력 / 모바일 저장',note:'OZ0501, OZ0502'},
+    {id:'d3',text:'기차 티켓 출력 / 저장',note:'OUIGO 7691, TGV 5470'},
+    {id:'d4',text:'숙소 예약 확인서 출력',note:'디스트릭트 레퓌블리크 / 시티 레지던스'},
+    {id:'d5',text:'여행자 보험 가입 확인',note:''},
+  ],
+  pack:[
+    {id:'p1',text:'여권 + 복사본',note:''},
+    {id:'p2',text:'유로 현금',note:'출국 전 환전'},
+    {id:'p3',text:'신용카드 (해외 결제용)',note:''},
+    {id:'p4',text:'카메라 + 충전기',note:''},
+    {id:'p5',text:'유럽 여행용 어댑터',note:'C타입 플러그'},
+    {id:'p6',text:'상비약 (소화제, 두통약 등)',note:''},
+    {id:'p7',text:'편한 운동화',note:'매일 10km+ 도보 예정'},
+    {id:'p8',text:'우산 / 경량 레인재킷',note:'3월은 비 올 수 있음'},
+    {id:'p9',text:'보조배터리',note:'지도 앱 많이 써야 함'},
+    {id:'p10',text:'목베개',note:'비행 12시간+'},
+  ],
+  app:[
+    {id:'a1',text:'구글맵 오프라인 파리/스트라스부르 다운로드',note:''},
+    {id:'a2',text:'Bonjour RATP (파리 지하철)',note:''},
+    {id:'a3',text:'SNCF Connect (TGV/TER)',note:''},
+    {id:'a4',text:'Uber 앱 설치',note:''},
+    {id:'a5',text:'Google Translate 한→프 오프라인 팩',note:''},
+    {id:'a6',text:'숙박 앱에서 예약 확인',note:''},
+  ],
+  book:[
+    {id:'b1',text:'아시아나 OZ0501 (인천→파리)',note:'3/7 10:05 ✅ 예약완료',locked:true},
+    {id:'b2',text:'아시아나 OZ0502 (파리→인천)',note:'3/14 18:25 ✅ 예약완료',locked:true},
+    {id:'b3',text:'OUIGO 7691 (파리→스트라스부르)',note:'3/11 10:08 ✅ 예약완료',locked:true},
+    {id:'b4',text:'TGV 5470 (스트라스부르→CDG)',note:'3/14 07:31 ✅ 예약완료',locked:true},
+    {id:'b5',text:'바토 파리지앵 (유람선 21:30)',note:'Day 4 · 공홈 온라인 예매'},
+    {id:'b6',text:'오랑주리 미술관',note:'Day 3 · 15:30 온라인 예약'},
+    {id:'b7',text:'Breizh Café Montorgueil',note:'Day 2 · 저녁 · 공홈 예약'},
+    {id:'b8',text:'Bouillon République',note:'Day 3 · 저녁 · 공홈 온라인 예약'},
+    {id:"b9",text:"L'Atypic",note:'Day 4 · 저녁 · 공홈/TheFork'},
+    {id:'b10',text:'Winstub Le Zehnerglock',note:'Day 5 · 점심 13:00 · zehnerglock.fr'},
+    {id:'b11',text:'WISTUB BRENNER (콜마르)',note:'Day 6 · 점심 12:00 · wistub-brenner.fr'},
+    {id:'b12',text:'Maison Kammerzell',note:'Day 6 · 저녁 18:15 · maison-kammerzell.com'},
+    {id:'b13',text:'Le Tire-Bouchon',note:'Day 7 · 저녁 19:30 · 공홈 예약'},
+  ]
+};
+let checkState = JSON.parse(localStorage.getItem('fr_checks')||'{}');
+CONFIRMED.forEach(id=>{ checkState[id]=true; });
+
+function saveChecks(){
+  try{ localStorage.setItem('fr_checks',JSON.stringify(checkState)); }catch(e){}
+  const t=document.getElementById('save-toast');
+  t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; }, 2000);
+}
+
+function renderChecklist(){
+  Object.keys(checkData).forEach(sec=>{
+    const el=document.getElementById('list-'+sec); if(!el) return;
+    const items=checkData[sec];
+    const done=items.filter(i=>checkState[i.id]).length;
+    const prog=document.getElementById('prog-'+sec);
+    if(prog) prog.style.width=(items.length?(done/items.length*100):0)+'%';
+    el.innerHTML=items.map(item=>{
+      const isDone=checkState[item.id], isLocked=item.locked;
+      return `<label class="check-item ${isDone?'done':''} ${isLocked?'locked':''}" onclick="${isLocked?'':` toggleCheck('${item.id}','${sec}')`}">
+        <div class="check-box" style="${isLocked?'background:var(--gold);border-color:var(--gold);':''}">
+          ${isDone||isLocked?'<span style="color:#111;font-size:0.7rem;font-weight:700">✓</span>':''}
+        </div>
+        <div>
+          <div class="check-label">${item.text}${isLocked?' <span style="font-size:0.58rem;color:var(--gold);font-family:DM Mono,monospace">CONFIRMED</span>':''}</div>
+          ${item.note?`<div class="check-note">${item.note}</div>`:''}
+        </div>
+      </label>`;
+    }).join('');
+  });
+}
+function toggleCheck(id,sec){
+  if(CONFIRMED.includes(id)) return;
+  checkState[id]=!checkState[id];
+  renderChecklist();
+}
+renderChecklist();
+
+// ── ACCORDION ──
+function toggleAcc(header){
+  const body=header.nextElementSibling;
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  header.classList.toggle('open',!open);
+}
+
+// ── MEMO ──
+const memoEl=document.getElementById('free-memo');
+memoEl.addEventListener('input',function(){ try{localStorage.setItem('fr_memo',this.value);}catch(e){} });
+const sm=localStorage.getItem('fr_memo');
+if(sm) memoEl.value=sm;
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', ()=>{
+  // 지도는 탭할 때만 로딩
+});
+</script>
+</body>
+</html>
