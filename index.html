@@ -14,7 +14,6 @@
   --cream: #f5f0e8;
   --gold: #c9a84c;
   --gold-light: #e8d5a0;
-  --red: #c0392b;
   --muted: #7a7060;
   --card: rgba(255,255,255,0.05);
   --border: rgba(255,255,255,0.08);
@@ -91,9 +90,22 @@ body {
   width: 100%; max-width: 300px;
   box-shadow: 0 0 40px rgba(201,168,76,0.08);
 }
-.dday-lbl { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.16em; color:var(--gold-light); opacity:0.75; margin-bottom:4px; }
-.dday-num { font-family:'Playfair Display',serif; font-size:3.8rem; font-weight:700; color:var(--gold); line-height:1; }
-.dday-desc { font-size:0.78rem; color:rgba(245,240,232,0.55); margin-top:6px; }
+.dday-lbl {
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.16em;
+  color:var(--gold-light);
+  opacity:0.75;
+  margin-bottom:8px;
+}
+.dday-num {
+  font-family:'Playfair Display',serif;
+  font-size:2.8rem;
+  font-weight:700;
+  color:var(--gold);
+  line-height:1.05;
+}
+.dday-desc { font-size:0.78rem; color:rgba(245,240,232,0.55); margin-top:8px; }
 
 .weather-row { display:flex; gap:10px; margin-top:14px; width:100%; max-width:300px; }
 .w-card {
@@ -113,15 +125,46 @@ body {
   letter-spacing:0.05em; margin-top:14px;
 }
 
-.quick-row { display:flex; gap:10px; margin-top:18px; width:100%; max-width:300px; }
-.quick-btn {
-  flex:1; background:var(--card); border:1px solid var(--border);
-  border-radius:12px; padding:12px 6px; color:var(--cream);
-  cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-size:0.73rem;
-  text-align:center; transition:border-color 0.2s, background 0.2s;
+/* ══ SHARED SUBPAGE HEADER ══ */
+.subpage-header {
+  display: none;
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid rgba(201,168,76,0.14);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
 }
-.quick-btn:active { border-color:var(--gold); background:rgba(201,168,76,0.1); }
-.quick-btn .qi { font-size:1.2rem; display:block; margin-bottom:3px; }
+.subpage-header.show { display: block; }
+.subpage-header-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+.subpage-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.55rem, 6vw, 2.2rem);
+  font-style: italic;
+  color: var(--gold);
+  line-height: 1.15;
+}
+.subpage-sub {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(245,240,232,0.72);
+  margin-top: 6px;
+}
+.subpage-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(201,168,76,0.18);
+  background: rgba(201,168,76,0.06);
+  color: var(--gold-light);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+}
 
 /* ══ MAP ══ */
 .map-day-btns { padding:14px 16px 0; background:rgba(0,0,0,0.2); }
@@ -391,8 +434,8 @@ body {
     <div class="date-badge" style="margin-top:20px;">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
 
     <div class="dday-card">
-      <div class="dday-lbl" id="dday-label">D-DAY</div>
-      <div class="dday-num" id="dday-number">···</div>
+      <div class="dday-lbl" id="dday-label">TRIP COUNTDOWN</div>
+      <div class="dday-num" id="dday-number">D-8</div>
       <div class="dday-desc" id="dday-desc">계산 중...</div>
     </div>
 
@@ -421,12 +464,14 @@ body {
         <div id="time-fr" class="c-time">--:--</div>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="quick-row">
-      <button class="quick-btn" onclick="switchPage('map')"><span class="qi">🗺</span>지도</button>
-      <button class="quick-btn" onclick="switchPage('schedule')"><span class="qi">📅</span>일정</button>
-      <button class="quick-btn" onclick="switchPage('checklist')"><span class="qi">🎒</span>준비물</button>
-    </div>
+<div id="subpage-header" class="subpage-header">
+  <div class="subpage-header-inner">
+    <div class="subpage-title">Paris &amp; Strasbourg</div>
+    <div class="subpage-sub">우리의 프랑스 여행 일지</div>
+    <div class="subpage-date">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
   </div>
 </div>
 
@@ -887,7 +932,6 @@ function switchPage(id, btn) {
 
   const target = document.getElementById('page-' + id);
   if (!target) return;
-
   target.classList.add('active');
 
   if (btn) {
@@ -898,6 +942,11 @@ function switchPage(id, btn) {
         b.classList.add('active');
       }
     });
+  }
+
+  const subHeader = document.getElementById('subpage-header');
+  if (subHeader) {
+    subHeader.classList.toggle('show', id !== 'home');
   }
 
   if (id === 'map') {
@@ -959,16 +1008,16 @@ function switchPage(id, btn) {
 
   if (now < start) {
     const diff = Math.ceil((start - now) / 86400000);
-    lblEl.textContent = 'D -';
-    numEl.textContent = diff;
+    lblEl.textContent = 'TRIP COUNTDOWN';
+    numEl.textContent = 'D-' + diff;
     dscEl.textContent = '파리까지 ' + diff + '일 남았어요 ✈️';
   } else if (now <= end) {
     const day = Math.floor((now - start) / 86400000) + 1;
-    lblEl.textContent = 'DAY';
-    numEl.textContent = day;
+    lblEl.textContent = 'TRAVEL DAY';
+    numEl.textContent = 'DAY ' + day;
     dscEl.textContent = '지금 여행 중! 즐거운 하루 🇫🇷';
   } else {
-    lblEl.textContent = '완료';
+    lblEl.textContent = 'COMPLETED';
     numEl.textContent = '🎉';
     dscEl.textContent = '소중한 추억을 간직하세요 💛';
   }
@@ -984,7 +1033,6 @@ async function fetchWeather(lat, lon, iconId, tempId, descId) {
 
     const IC = {0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',61:'🌧',71:'🌨',80:'🌦',95:'⛈'};
     const DC = {0:'맑음',1:'대체로 맑음',2:'구름 조금',3:'흐림',45:'안개',48:'안개',51:'이슬비',61:'비',71:'눈',80:'소나기',95:'뇌우'};
-
     const k = IC[code] ? code : Math.floor(code / 10) * 10;
 
     const iconEl = document.getElementById(iconId);
@@ -1193,9 +1241,7 @@ const EX_RATE = 1700;
 let expenses = JSON.parse(localStorage.getItem('fr_expenses') || '[]');
 
 function saveExp() {
-  try {
-    localStorage.setItem('fr_expenses', JSON.stringify(expenses));
-  } catch (e) {}
+  try { localStorage.setItem('fr_expenses', JSON.stringify(expenses)); } catch (e) {}
 }
 
 function addExpense() {
@@ -1333,9 +1379,7 @@ let checkState = JSON.parse(localStorage.getItem('fr_checks') || '{}');
 CONFIRMED.forEach(id => { checkState[id] = true; });
 
 function saveChecks() {
-  try {
-    localStorage.setItem('fr_checks', JSON.stringify(checkState));
-  } catch (e) {}
+  try { localStorage.setItem('fr_checks', JSON.stringify(checkState)); } catch (e) {}
 
   const t = document.getElementById('save-toast');
   if (!t) return;
@@ -1394,9 +1438,7 @@ function toggleAcc(header) {
 const memoEl = document.getElementById('free-memo');
 if (memoEl) {
   memoEl.addEventListener('input', function() {
-    try {
-      localStorage.setItem('fr_memo', this.value);
-    } catch (e) {}
+    try { localStorage.setItem('fr_memo', this.value); } catch (e) {}
   });
 
   const sm = localStorage.getItem('fr_memo');
@@ -1422,9 +1464,9 @@ function updateClocks() {
 setInterval(updateClocks, 1000);
 updateClocks();
 
-// ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
-  // 지도는 탭할 때만 로딩
+  const subHeader = document.getElementById('subpage-header');
+  if (subHeader) subHeader.classList.remove('show');
 });
 </script>
 </body>
