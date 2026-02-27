@@ -59,15 +59,12 @@ body {
 }
 #stars-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 
-/* ── 에펠탑 중앙 정렬 및 배경 (투명도 삭제) ── */
 .eiffel-bg {
   position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
   width: min(320px, 85vw); z-index: 1; pointer-events: none;
-  display: flex; justify-content: center; /* 완벽한 중앙 정렬 */
+  display: flex; justify-content: center;
 }
-.eiffel-bg svg {
-  width: 100%; height: auto; /* 삐뚤어짐 방지 */
-}
+.eiffel-bg svg { width: 100%; height: auto; }
 
 .home-content {
   position: relative; z-index: 2;
@@ -97,6 +94,7 @@ body {
 .dday-lbl { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.16em; color:var(--gold-light); opacity:0.75; margin-bottom:4px; }
 .dday-num { font-family:'Playfair Display',serif; font-size:3.8rem; font-weight:700; color:var(--gold); line-height:1; }
 .dday-desc { font-size:0.78rem; color:rgba(245,240,232,0.55); margin-top:6px; }
+
 .weather-row { display:flex; gap:10px; margin-top:14px; width:100%; max-width:300px; }
 .w-card {
   flex:1; background:var(--card); border:1px solid var(--border);
@@ -106,6 +104,7 @@ body {
 .w-icon { font-size:1.7rem; display:block; margin-bottom:3px; }
 .w-temp { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--cream); }
 .w-desc { font-size:0.65rem; color:var(--muted); margin-top:2px; }
+
 .date-badge {
   display:inline-flex; align-items:center; gap:6px;
   background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.22);
@@ -113,6 +112,7 @@ body {
   color:var(--gold-light); font-family:'DM Mono',monospace;
   letter-spacing:0.05em; margin-top:14px;
 }
+
 .quick-row { display:flex; gap:10px; margin-top:18px; width:100%; max-width:300px; }
 .quick-btn {
   flex:1; background:var(--card); border:1px solid var(--border);
@@ -197,11 +197,21 @@ body {
 .cat-card .cn { font-size:0.6rem; color:var(--muted); }
 .cat-card .ca { font-family:'DM Mono',monospace; font-size:0.8rem; color:var(--gold); margin-top:2px; }
 .budget-input-row { display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
-.budget-input-row input, .budget-input-row select { flex:1; min-width:90px; background:var(--card); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:9px 10px; color:var(--cream); font-family:'Noto Sans KR',sans-serif; font-size:0.84rem; }
+.budget-input-row input, .budget-input-row select {
+  flex:1; min-width:90px; background:var(--card);
+  border:1px solid rgba(201,168,76,0.2); border-radius:8px;
+  padding:9px 10px; color:var(--cream);
+  font-family:'Noto Sans KR',sans-serif; font-size:0.84rem;
+}
 .budget-input-row input::placeholder { color:rgba(245,240,232,0.22); }
 .budget-input-row input:focus, .budget-input-row select:focus { outline:none; border-color:var(--gold); }
 .budget-input-row select option { background:var(--navy2); }
-.btn-add { background:var(--gold); color:var(--navy); border:none; border-radius:8px; padding:10px 16px; font-weight:700; cursor:pointer; font-size:0.85rem; font-family:'Noto Sans KR',sans-serif; flex:1 1 100%; }
+.btn-add {
+  background:var(--gold); color:var(--navy); border:none;
+  border-radius:8px; padding:10px 16px; font-weight:700;
+  cursor:pointer; font-size:0.85rem; font-family:'Noto Sans KR',sans-serif;
+  flex:1 1 100%;
+}
 .expense-item { display:flex; align-items:center; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:10px; margin-bottom:7px; }
 .ex-left { flex:1; }
 .ex-cat { font-size:0.6rem; color:var(--muted); font-family:'DM Mono',monospace; }
@@ -216,20 +226,45 @@ body {
 /* ══ CHECKLIST ══ */
 .checklist-wrap { padding:16px; max-width:600px; margin:0 auto; }
 .check-section { margin-bottom:22px; }
-.check-section h3 { font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--gold); margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid rgba(201,168,76,0.18); }
+.check-section h3 {
+  font-family:'Playfair Display',serif; font-size:0.95rem;
+  color:var(--gold); margin-bottom:8px; padding-bottom:6px;
+  border-bottom:1px solid rgba(201,168,76,0.18);
+}
 .progress-bar { height:3px; background:rgba(255,255,255,0.07); border-radius:2px; margin-bottom:9px; }
 .progress-fill { height:100%; background:var(--gold); border-radius:2px; transition:width 0.3s; }
-.check-item { display:flex; align-items:flex-start; gap:10px; padding:8px 8px; border-radius:8px; cursor:pointer; transition:background 0.15s; margin-bottom:1px; }
+.check-item {
+  display:flex; align-items:flex-start; gap:10px; padding:8px 8px;
+  border-radius:8px; cursor:pointer; transition:background 0.15s; margin-bottom:1px;
+}
 .check-item:hover { background:rgba(255,255,255,0.04); }
-.check-box { width:20px; height:20px; border:2px solid rgba(201,168,76,0.35); border-radius:5px; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.check-box {
+  width:20px; height:20px; border:2px solid rgba(201,168,76,0.35);
+  border-radius:5px; flex-shrink:0; margin-top:1px;
+  display:flex; align-items:center; justify-content:center; transition:all 0.2s;
+}
 .check-item.done .check-box { background:var(--gold); border-color:var(--gold); }
 .check-item.done .check-box::after { content:'✓'; color:var(--navy); font-size:0.7rem; font-weight:700; }
 .check-label { font-size:0.85rem; line-height:1.5; }
 .check-item.done .check-label { text-decoration:line-through; color:var(--muted); }
 .check-note { font-size:0.68rem; color:rgba(245,240,232,0.32); margin-top:1px; }
 .check-item.locked { cursor:default; }
-.save-btn { background:var(--gold); color:var(--navy); border:none; border-radius:12px; padding:13px 36px; font-weight:700; font-family:'Noto Sans KR',sans-serif; font-size:0.92rem; cursor:pointer; box-shadow:0 4px 16px rgba(201,168,76,0.3); }
-#save-toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px); background:rgba(46,213,115,0.96); color:#111; padding:9px 22px; border-radius:20px; font-family:'Noto Sans KR',sans-serif; font-size:0.82rem; font-weight:700; opacity:0; transition:opacity 0.3s,transform 0.3s; z-index:9999; pointer-events:none; box-shadow:0 4px 16px rgba(0,0,0,0.3); }
+.save-btn {
+  background:var(--gold); color:var(--navy); border:none;
+  border-radius:12px; padding:13px 36px; font-weight:700;
+  font-family:'Noto Sans KR',sans-serif; font-size:0.92rem;
+  cursor:pointer; box-shadow:0 4px 16px rgba(201,168,76,0.3);
+}
+#save-toast {
+  position:fixed; bottom:80px; left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:rgba(46,213,115,0.96); color:#111;
+  padding:9px 22px; border-radius:20px;
+  font-family:'Noto Sans KR',sans-serif; font-size:0.82rem; font-weight:700;
+  opacity:0; transition:opacity 0.3s,transform 0.3s;
+  z-index:9999; pointer-events:none;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+}
 
 /* ══ MEMO ══ */
 .memo-wrap { padding:16px; max-width:600px; margin:0 auto; }
@@ -238,7 +273,13 @@ body {
 .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .info-label { font-size:0.63rem; color:var(--muted); }
 .info-val { font-size:0.82rem; color:var(--cream); margin-top:2px; font-weight:500; }
-.memo-area { width:100%; background:var(--card); border:1px solid rgba(201,168,76,0.2); border-radius:10px; padding:12px; color:var(--cream); font-family:'Noto Sans KR',sans-serif; font-size:0.84rem; line-height:1.7; min-height:150px; resize:vertical; }
+.memo-area {
+  width:100%; background:var(--card);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:10px; padding:12px; color:var(--cream);
+  font-family:'Noto Sans KR',sans-serif; font-size:0.84rem;
+  line-height:1.7; min-height:150px; resize:vertical;
+}
 .memo-area:focus { outline:none; border-color:var(--gold); }
 
 /* Accordion */
@@ -257,37 +298,39 @@ body {
 .phrase-fr { font-size:0.8rem; color:var(--cream); font-style:italic; text-align:right; }
 
 /* Leaflet popup */
-.dark-popup .leaflet-popup-content-wrapper { background:#1a1f3a; color:var(--cream); border:1px solid rgba(201,168,76,0.4); border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.6); }
+.dark-popup .leaflet-popup-content-wrapper {
+  background:#1a1f3a; color:var(--cream);
+  border:1px solid rgba(201,168,76,0.4);
+  border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.6);
+}
 .dark-popup .leaflet-popup-tip { background:#1a1f3a; }
 .dark-popup .leaflet-popup-content { margin:10px 14px; font-family:'Noto Sans KR',sans-serif; }
 
-/* ── 에펠탑 반짝이 애니메이션 효과 (비행 현상 수정완료) ── */
+/* Eiffel lights */
 .eiffel-light {
   fill: #fff;
   animation: sparkle-anim 1s infinite;
   opacity: 0;
 }
-
 @keyframes sparkle-anim {
   0%, 100% { opacity: 0; }
-  50% { opacity: 1; } /* transform 제거하여 제자리에서 깜빡임 */
+  50% { opacity: 1; }
 }
-
-/* 조명마다 깜빡이는 속도와 타이밍을 다르게 해서 리얼하게 */
 .eiffel-light:nth-child(1n) { animation-duration: 0.7s; }
 .eiffel-light:nth-child(2n) { animation-duration: 1.2s; animation-delay: 0.2s; }
 .eiffel-light:nth-child(3n) { animation-duration: 0.9s; animation-delay: 0.5s; }
 .eiffel-light:nth-child(4n) { animation-duration: 1.4s; animation-delay: 0.1s; }
 .eiffel-light:nth-child(5n) { animation-duration: 0.8s; animation-delay: 0.7s; }
-  
-/* ── 듀얼 시계 위젯 스타일 ── */
+
+/* Dual clock */
 .clock-row { display:flex; gap:10px; margin-top:14px; width:100%; max-width:300px; }
 .c-card {
   flex:1; background:var(--card); border:1px solid var(--border);
   border-radius:14px; padding:12px 8px; text-align:center;
 }
 .c-lbl { font-size:0.6rem; color:var(--muted); font-family:'Noto Sans KR',sans-serif; letter-spacing:0.1em; margin-bottom:5px; }
-.c-time { font-family:'DM Mono',monospace; font-size:1.4rem; color:var(--gold-light); font-weight:500; letter-spacing: 0.05em; }
+.c-time { font-family:'DM Mono',monospace; font-size:1.4rem; color:var(--gold-light); font-weight:500; letter-spacing:0.05em; }
+
 ::-webkit-scrollbar { width:3px; height:3px; }
 ::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:2px; }
 </style>
@@ -296,25 +339,17 @@ body {
 
 <div id="page-home" class="page active">
   <canvas id="stars-canvas"></canvas>
-  
+
   <div class="eiffel-bg">
-<div class="eiffel-bg">
     <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
-      
       <g fill="var(--cream)" opacity="0.15">
         <rect x="98" y="0" width="4" height="40" rx="1" />
         <path d="M92,40 L108,40 L105,70 L95,70 Z" />
-        
         <rect x="85" y="70" width="30" height="6" rx="2" />
-        
         <path d="M92,76 L108,76 L125,180 L75,180 Z" />
-        
         <rect x="65" y="180" width="70" height="10" rx="2" />
-        
         <path d="M68,190 L132,190 L160,320 L40,320 Z" />
-        
         <rect x="30" y="320" width="140" height="14" rx="3" />
-        
         <path d="M34,334 L166,334 L185,400 L145,400 L135,360 C120,340 80,340 65,360 L55,400 L15,400 Z" />
       </g>
 
@@ -343,16 +378,17 @@ body {
     </svg>
   </div>
 
-<div class="home-content">
+  <div class="home-content">
     <div class="flag-row">
       <span style="background:#002395"></span>
       <span style="background:#f5f0e8"></span>
       <span style="background:#ed2939"></span>
     </div>
+
     <h1 class="home-title">Paris &<br>Strasbourg</h1>
     <div class="home-sub">우리의 프랑스 여행 일지</div>
 
-    <div class="date-badge" style="margin-top:20px; margin-bottom:-10px;">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
+    <div class="date-badge" style="margin-top:20px;">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
 
     <div class="dday-card">
       <div class="dday-lbl" id="dday-label">D-DAY</div>
@@ -385,9 +421,6 @@ body {
         <div id="time-fr" class="c-time">--:--</div>
       </div>
     </div>
-  </div>
-
-    <div class="date-badge">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
 
     <div class="quick-row">
       <button class="quick-btn" onclick="switchPage('map')"><span class="qi">🗺</span>지도</button>
@@ -419,410 +452,422 @@ body {
 </div>
 
 <div id="page-schedule" class="page">
-<div class="schedule-wrap">
-  <div class="day-grid">
-    <div class="day-btn active" onclick="switchDay(1,this)"><span class="day-num">1</span><span class="day-label">3/7 토</span></div>
-    <div class="day-btn" onclick="switchDay(2,this)"><span class="day-num">2</span><span class="day-label">3/8 일</span></div>
-    <div class="day-btn" onclick="switchDay(3,this)"><span class="day-num">3</span><span class="day-label">3/9 월</span></div>
-    <div class="day-btn" onclick="switchDay(4,this)"><span class="day-num">4</span><span class="day-label">3/10 화</span></div>
-    <div class="day-btn" onclick="switchDay(5,this)"><span class="day-num">5</span><span class="day-label">3/11 수</span></div>
-    <div class="day-btn" onclick="switchDay(6,this)"><span class="day-num">6</span><span class="day-label">3/12 목</span></div>
-    <div class="day-btn" onclick="switchDay(7,this)"><span class="day-num">7</span><span class="day-label">3/13 금</span></div>
-    <div class="day-btn" onclick="switchDay(8,this)"><span class="day-num">8</span><span class="day-label">3/14 토</span></div>
-  </div>
+  <div class="schedule-wrap">
+    <div class="day-grid">
+      <div class="day-btn active" onclick="switchDay(1,this)"><span class="day-num">1</span><span class="day-label">3/7 토</span></div>
+      <div class="day-btn" onclick="switchDay(2,this)"><span class="day-num">2</span><span class="day-label">3/8 일</span></div>
+      <div class="day-btn" onclick="switchDay(3,this)"><span class="day-num">3</span><span class="day-label">3/9 월</span></div>
+      <div class="day-btn" onclick="switchDay(4,this)"><span class="day-num">4</span><span class="day-label">3/10 화</span></div>
+      <div class="day-btn" onclick="switchDay(5,this)"><span class="day-num">5</span><span class="day-label">3/11 수</span></div>
+      <div class="day-btn" onclick="switchDay(6,this)"><span class="day-num">6</span><span class="day-label">3/12 목</span></div>
+      <div class="day-btn" onclick="switchDay(7,this)"><span class="day-num">7</span><span class="day-label">3/13 금</span></div>
+      <div class="day-btn" onclick="switchDay(8,this)"><span class="day-num">8</span><span class="day-label">3/14 토</span></div>
+    </div>
 
-  <div id="day-1" class="day-content active">
-    <div class="day-header"><div class="day-icon">✈️</div><div><h2>인천 → 파리</h2><p>출발일 · 긴 여정의 시작</p></div></div>
-    <div class="timeline">
-      <div class="event transport"><div class="event-card"><div class="event-time">04:30 – 07:30</div><div class="event-title">🚌 시외우등 — 아산(온양) → 인천공항 제2터미널</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">10:05 – 16:25 (파리 현지)</div><div class="event-title">✈️ 아시아나 OZ0501 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">서울 ICN 출발 → 파리 CDG 도착</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">16:25 – 18:30</div><div class="event-title">🛂 샤를 드 골 공항 도착 · 입국 심사</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">18:30 – 19:30</div><div class="event-title">🚇 공항 → 파리 시내 이동</div></div></div>
-      <div class="event hotel"><div class="event-card"><div class="event-time">19:30 – 20:00</div><div class="event-title">🏨 디스트릭트 레퓌블리크 체크인</div><div class="event-note">République역 Sortie 5 (Boulevard de Magenta) 출구</div></div></div>
-      <div class="event note"><div class="event-card"><div class="event-title">🛒 Intermarché EXPRESS에서 저녁 해결 가능</div></div></div>
+    <div id="day-1" class="day-content active">
+      <div class="day-header"><div class="day-icon">✈️</div><div><h2>인천 → 파리</h2><p>출발일 · 긴 여정의 시작</p></div></div>
+      <div class="timeline">
+        <div class="event transport"><div class="event-card"><div class="event-time">04:30 – 07:30</div><div class="event-title">🚌 시외우등 — 아산(온양) → 인천공항 제2터미널</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">10:05 – 16:25 (파리 현지)</div><div class="event-title">✈️ 아시아나 OZ0501 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">서울 ICN 출발 → 파리 CDG 도착</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">16:25 – 18:30</div><div class="event-title">🛂 샤를 드 골 공항 도착 · 입국 심사</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">18:30 – 19:30</div><div class="event-title">🚇 공항 → 파리 시내 이동</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">19:30 – 20:00</div><div class="event-title">🏨 디스트릭트 레퓌블리크 체크인</div><div class="event-note">République역 Sortie 5 (Boulevard de Magenta) 출구</div></div></div>
+        <div class="event note"><div class="event-card"><div class="event-title">🛒 Intermarché EXPRESS에서 저녁 해결 가능</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-2" class="day-content">
+      <div class="day-header"><div class="day-icon">🏛</div><div><h2>파리 — 마레 & 노트르담</h2><p>마라톤 회피 동선 적용</p></div></div>
+      <div class="timeline">
+        <div class="event transport"><div class="event-card"><div class="event-time">08:00 – 08:30</div><div class="event-title">🚇 숙소 → 보쥬 광장 이동</div><div class="event-note">République → 8호선(Créteil방향) → Chemin Vert 하차 → 도보 5분</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">08:30 – 09:40</div><div class="event-title">🥐 아침 — Carette (보쥬 광장점)</div><div class="event-detail">크루아상 & 쇼콜라 쇼(핫초코) · 회랑 테라스석</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:40 – 11:30</div><div class="event-title">🌿 보쥬 광장 & 주변 산책</div><div class="event-detail">회랑 아치 → 잔디광장 → 빅토르 위고 하우스 → 카르나발레 → 피카소 미술관(외관)</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">11:30 – 13:00</div><div class="event-title">🥙 점심 — L'As du Fallafel</div><div class="event-detail">Falafel sandwich, Shawarma pita</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">13:00 – 15:00</div><div class="event-title">🍵 티타임 — Mariage Frères Marais</div><div class="event-detail">SWEET DREAM: JOYFUL HORSE · UME CHA 2026 단품</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:00 – 17:00</div><div class="event-title">🏙 오텔 드 빌 → 센강 → 시테섬</div><div class="event-note">⚠️ 마라톤: 오후 2시 이전 리볼리/센강 남쪽 이동 자제</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">16:00 – 18:30</div><div class="event-title">⛪ 노트르담 대성당 & 생루이섬</div><div class="event-detail">파사드 → 내부 관람 → 퐁생루이 다리 → 생루이섬 산책</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">18:50 – 19:40</div><div class="event-title">🏛 루브르 야경 (일몰 18:44)</div><div class="event-note">7호선 Pont Marie → Palais Royal-Musée du Louvre 하차</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">20:00 – 21:30</div><div class="event-title">🥞 저녁 — Breizh Café Montorgueil</div><div class="event-detail">La Complète 갈레트 + 드라이한 Cidre</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">21:30 – 22:00</div><div class="event-title">🚇 숙소 복귀</div><div class="event-note">3호선 Sentier → République · Sortie 5 출구</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-3" class="day-content">
+      <div class="day-header"><div class="day-icon">🎨</div><div><h2>파리 — 루브르 & 오랑주리</h2><p>강변 산책 & 미술관의 날</p></div></div>
+      <div class="timeline">
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">08:00 – 08:40</div><div class="event-title">📸 오텔 드 빌 (시청사) 사진</div><div class="event-note">11호선 République → Hôtel de Ville 하차 · 월요일 아침 한산</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">08:55 – 09:25</div><div class="event-title">🥐 아침 — BO&MIE (Louvre-Rivoli)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:25 – 11:40</div><div class="event-title">🏛 루브르 외관 → 팔레루아얄 → 갤러리 비비엔 → 퐁데자르 → 퐁 뇌프</div><div class="event-detail">피라미드 외관 → 기둥 정원 → 아케이드 → 센강 포토스팟</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">12:00 – 13:30</div><div class="event-title">🦆 점심 — Bistrot Victoires</div><div class="event-detail">Confit de canard (오리 콩피)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">13:40 – 14:40</div><div class="event-title">🛍 갤러리 라파예트 오스만</div><div class="event-detail">8층 옥상 에펠탑 뷰 → 라뒤레 마카롱 → 이스파한 테이크아웃</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">14:40 – 15:00</div><div class="event-title">💎 방돔 광장 → 튈르리 정원</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30 – 17:00</div><div class="event-title">🎨 오랑주리 미술관 <span class="tag tag-confirm">⏰ 15:30 예약</span></div><div class="event-detail">모네 '수련' 관람</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">17:30 – 19:00</div><div class="event-title">🌅 콩코르드 광장 → 샹젤리제 → 개선문</div><div class="event-detail">일몰 18:44 — 개선문 노을 타이밍</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">19:30 – 21:00</div><div class="event-title">🐌 저녁 — Bouillon République</div><div class="event-detail">Escargots, Soupe à l'oignon, Bœuf bourguignon</div><div class="event-note">⚠️ 공홈 예약 필수</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-4" class="day-content">
+      <div class="day-header"><div class="day-icon">🗼</div><div><h2>파리 — 에펠탑 & 바토 파리지앵</h2><p>운하 아침 + 유람선 야경</p></div></div>
+      <div class="timeline">
+        <div class="event food"><div class="event-card"><div class="event-time">08:00 – 08:30</div><div class="event-title">🥐 아침 — Mamiche (Rue du Château d'Eau)</div><div class="event-detail">잠봉샌드위치, 슈, 시나몬 롤 테이크아웃</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00 – 11:00</div><div class="event-title">🛶 레퓌블리크 광장 → 생마르탱 운하 산책</div><div class="event-detail">다리/수문 포토스팟 · 운하 옆 벤치 휴식</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">11:00 – 11:40</div><div class="event-title">🍰 브런치 — 유토피아 베이커리</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">11:40 – 12:20</div><div class="event-title">💌 La Poste — 집으로 엽서 보내기</div><div class="event-detail">160 Rue du Temple, 75003 Paris</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">13:00 – 17:30</div><div class="event-title">🗼 트로카데로 → 에펠탑 → 끌레흐 가 → 마르스 광장</div><div class="event-detail">대칭샷 → 철제 구조물 통과 → 에스프레소 휴식 → 피크닉 뷰</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">18:00 – 19:00</div><div class="event-title">🌉 비라켐 다리 (일몰 + 에펠탑 첫 점등)</div><div class="event-detail">인셉션 구조물 아래 · 18:45 에펠탑 점등</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">19:20 – 21:00</div><div class="event-title">🥩 저녁 — L'Atypic</div><div class="event-detail">타르타르, 푸아그라, 스테이크</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">21:30 – 22:30</div><div class="event-title">🚢 바토 파리지앵 유람선 <span class="tag tag-confirm">⏰ 21:30</span></div><div class="event-detail">매 정각 에펠탑 반짝임 + 센강 야경</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">22:30 – 23:00</div><div class="event-title">🚇 복귀 — Alma-Marceau → 9호선 → République</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-5" class="day-content">
+      <div class="day-header"><div class="day-icon">🚄</div><div><h2>파리 → 스트라스부르</h2><p>TGV 이동 + 알자스 첫날</p></div></div>
+      <div class="timeline">
+        <div class="event food"><div class="event-card"><div class="event-time">07:00 – 08:00</div><div class="event-title">🥐 아침 — Le Pain des Copains</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">08:00 – 09:30</div><div class="event-title">🧳 체크아웃 → 파리 동역(Gare de l'Est) 이동</div><div class="event-detail">도보 15분(1km) · 짐 많으면 Uber</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">10:08 – 11:54</div><div class="event-title">🚄 OUIGO 7691 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">Paris Gare de l'Est → Strasbourg</div><div class="event-note">좌석: Voiture 8 / 803–804</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">12:00 – 12:30</div><div class="event-title">🏨 시티 레지던스 스트라스부르 짐 보관</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">13:00 – 14:30</div><div class="event-title">🍽 점심 — Winstub Le Zehnerglock <span class="tag tag-confirm">⏰ 13:00</span></div><div class="event-detail">Choucroute Garnie, Baeckeoffe</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">14:30 – 18:30</div><div class="event-title">⛩ 스트라스부르 대성당 → 구텐베르크 광장 → 구시가지 산책</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">18:30 – 20:00</div><div class="event-title">🔥 저녁 — La Fignette (오픈런!)</div><div class="event-detail">Tarte Flambée Traditionnelle, Gratinée</div><div class="event-note">⚠️ 예약 불가 — 오픈 전부터 줄 서기</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">20:00 – 21:00</div><div class="event-title">🌙 대성당 야경 감상</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-6" class="day-content">
+      <div class="day-header"><div class="day-icon">🌸</div><div><h2>콜마르 당일치기</h2><p>동화 마을 · TER 기차 30분</p></div></div>
+      <div class="timeline">
+        <div class="event transport"><div class="event-card"><div class="event-time">08:00 – 09:00</div><div class="event-title">🚂 TER — 스트라스부르 → 콜마르</div><div class="event-note">'Colmar' 또는 'Mulhouse/Basel'행 · 2등석 자유석</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00 – 12:00</div><div class="event-title">🏘 콜마르 구시가지 → 쁘띠 베니스 산책</div><div class="event-detail">역 → 알록달록 골목 → 운하 따라 걷기 → 다리 포토스팟</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">12:00 – 13:30</div><div class="event-title">🍷 점심 — WISTUB BRENNER <span class="tag tag-confirm">⏰ 12:00</span></div><div class="event-detail">Tarte à l'oignon de Papi Lucien, Jarret de Porc braisé</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">13:30 – 15:30</div><div class="event-title">🍰 카페 — Pâtisserie Gilg</div><div class="event-detail">에끌레어, 구겔호프, 밀푀유, 포레 누아</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30 – 17:00</div><div class="event-title">🛍 쇼핑 → 운터린덴 미술관 외관</div><div class="event-detail">Rue des Clefs → Rue des Têtes → Maison des Têtes</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">17:00 – 18:00</div><div class="event-title">🚂 TER — 콜마르 → 스트라스부르 복귀</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">18:00 – 20:00</div><div class="event-title">🐟 저녁 — Maison Kammerzell <span class="tag tag-confirm">⏰ 18:15</span></div><div class="event-detail">Choucroute aux Poissons (생선 슈쿠르트)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">20:00 – 21:30</div><div class="event-title">🌉 쿠베르교 & 보방 댐 야경 → 쁘띠 프랑스 야경 산책</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-7" class="day-content">
+      <div class="day-header"><div class="day-icon">🇩🇪</div><div><h2>독일 켈 & 스트라스부르 쇼핑</h2><p>라인강 건너 독일 마트 원정</p></div></div>
+      <div class="timeline">
+        <div class="event transport"><div class="event-card"><div class="event-time">09:00 – 09:30</div><div class="event-title">🚋 트램 D — Ancienne Synagogue → Port du Rhin</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:30 – 12:30</div><div class="event-title">🌿 두 히브 가든 → Passerelle 다리 → 라인강변 산책</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">12:30 – 14:00</div><div class="event-title">🥨 점심 — Café Backhaus Dreher</div><div class="event-detail">프레첼, 독일식 페이스트리, 아우프슈니트</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">14:00 – 17:00</div><div class="event-title">🛒 독일 마트 쇼핑 (City Center Kehl · DM)</div><div class="event-detail">메쓰머, 테칸네, dmBio 차 등</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">17:00 – 17:30</div><div class="event-title">🚋 복귀 — Kehl → Ancienne Synagogue</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">17:30 – 19:30</div><div class="event-title">🛍 Place des Halles / Auchan 쇼핑</div><div class="event-detail">프랑스 기념품, 와인, 과자 (20:00 마감 전)</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">19:30 – 21:00</div><div class="event-title">🍷 저녁 — Le Tire-Bouchon <span class="tag tag-confirm">⏰ 19:30</span></div><div class="event-detail">6 garnitures, Joues de porc au pinot noir + spaetzle</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">21:15 –</div><div class="event-title">🧳 숙소 복귀 & 캐리어 짐 싸기</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-8" class="day-content">
+      <div class="day-header"><div class="day-icon">🏠</div><div><h2>귀국 — 스트라스부르 → 인천</h2><p>여행의 마지막 날</p></div></div>
+      <div class="timeline">
+        <div class="event hotel"><div class="event-card"><div class="event-time">06:00 – 07:00</div><div class="event-title">🧳 체크아웃</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">07:31 – 09:29</div><div class="event-title">🚄 TGV INOUI 5470 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">Strasbourg → Paris CDG 2 (Gare TGV)</div><div class="event-note">좌석: Voiture 6 / 638–639</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">09:30 – 10:00</div><div class="event-title">🚋 CDGVAL 무료 셔틀 → 터미널 1</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">10:00 – 11:00</div><div class="event-title">🍔 아점 — 맥도날드</div><div class="event-detail">280™ Original (Bœuf Blanc), McWrap</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">11:00 – 15:25</div><div class="event-title">⏳ 랜드사이드 대기 & 택스리펀</div><div class="event-detail">PABLO 기계 바코드 스캔 · 폴/스타벅스 휴식</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">15:25 – 16:15</div><div class="event-title">✈️ 아시아나 카운터 오픈 (Terminal 1, Hall 1)</div><div class="event-detail">수하물 위탁 — 1등으로 줄 서기!</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">17:40 – 18:25</div><div class="event-title">🍽 저녁 — Bistrot Benoît (면세구역 Level 5)</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">18:25</div><div class="event-title">✈️ 아시아나 OZ0502 출국!</div><div class="event-detail">파리(CDG) 18:25 → 서울(ICN) 3/15 14:40</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">3/15 18:05 – 21:35</div><div class="event-title">🚌 시외우등 — 인천공항 → 아산(온양)</div></div></div>
+      </div>
     </div>
   </div>
-
-  <div id="day-2" class="day-content">
-    <div class="day-header"><div class="day-icon">🏛</div><div><h2>파리 — 마레 & 노트르담</h2><p>마라톤 회피 동선 적용</p></div></div>
-    <div class="timeline">
-      <div class="event transport"><div class="event-card"><div class="event-time">08:00 – 08:30</div><div class="event-title">🚇 숙소 → 보쥬 광장 이동</div><div class="event-note">République → 8호선(Créteil방향) → Chemin Vert 하차 → 도보 5분</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">08:30 – 09:40</div><div class="event-title">🥐 아침 — Carette (보쥬 광장점)</div><div class="event-detail">크루아상 & 쇼콜라 쇼(핫초코) · 회랑 테라스석</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:40 – 11:30</div><div class="event-title">🌿 보쥬 광장 & 주변 산책</div><div class="event-detail">회랑 아치 → 잔디광장 → 빅토르 위고 하우스 → 카르나발레 → 피카소 미술관(외관)</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">11:30 – 13:00</div><div class="event-title">🥙 점심 — L'As du Fallafel</div><div class="event-detail">Falafel sandwich, Shawarma pita</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">13:00 – 15:00</div><div class="event-title">🍵 티타임 — Mariage Frères Marais</div><div class="event-detail">SWEET DREAM: JOYFUL HORSE · UME CHA 2026 단품</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">15:00 – 17:00</div><div class="event-title">🏙 오텔 드 빌 → 센강 → 시테섬</div><div class="event-note">⚠️ 마라톤: 오후 2시 이전 리볼리/센강 남쪽 이동 자제</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">16:00 – 18:30</div><div class="event-title">⛪ 노트르담 대성당 & 생루이섬</div><div class="event-detail">파사드 → 내부 관람 → 퐁생루이 다리 → 생루이섬 산책</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">18:50 – 19:40</div><div class="event-title">🏛 루브르 야경 (일몰 18:44)</div><div class="event-note">7호선 Pont Marie → Palais Royal-Musée du Louvre 하차</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">20:00 – 21:30</div><div class="event-title">🥞 저녁 — Breizh Café Montorgueil</div><div class="event-detail">La Complète 갈레트 + 드라이한 Cidre</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">21:30 – 22:00</div><div class="event-title">🚇 숙소 복귀</div><div class="event-note">3호선 Sentier → République · Sortie 5 출구</div></div></div>
-    </div>
-  </div>
-
-  <div id="day-3" class="day-content">
-    <div class="day-header"><div class="day-icon">🎨</div><div><h2>파리 — 루브르 & 오랑주리</h2><p>강변 산책 & 미술관의 날</p></div></div>
-    <div class="timeline">
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">08:00 – 08:40</div><div class="event-title">📸 오텔 드 빌 (시청사) 사진</div><div class="event-note">11호선 République → Hôtel de Ville 하차 · 월요일 아침 한산</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">08:55 – 09:25</div><div class="event-title">🥐 아침 — BO&MIE (Louvre-Rivoli)</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:25 – 11:40</div><div class="event-title">🏛 루브르 외관 → 팔레루아얄 → 갤러리 비비엔 → 퐁데자르 → 퐁 뇌프</div><div class="event-detail">피라미드 외관 → 기둥 정원 → 아케이드 → 센강 포토스팟</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">12:00 – 13:30</div><div class="event-title">🦆 점심 — Bistrot Victoires</div><div class="event-detail">Confit de canard (오리 콩피)</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">13:40 – 14:40</div><div class="event-title">🛍 갤러리 라파예트 오스만</div><div class="event-detail">8층 옥상 에펠탑 뷰 → 라뒤레 마카롱 → 이스파한 테이크아웃</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">14:40 – 15:00</div><div class="event-title">💎 방돔 광장 → 튈르리 정원</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30 – 17:00</div><div class="event-title">🎨 오랑주리 미술관 <span class="tag tag-confirm">⏰ 15:30 예약</span></div><div class="event-detail">모네 '수련' 관람</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">17:30 – 19:00</div><div class="event-title">🌅 콩코르드 광장 → 샹젤리제 → 개선문</div><div class="event-detail">일몰 18:44 — 개선문 노을 타이밍</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">19:30 – 21:00</div><div class="event-title">🐌 저녁 — Bouillon République</div><div class="event-detail">Escargots, Soupe à l'oignon, Bœuf bourguignon</div><div class="event-note">⚠️ 공홈 예약 필수</div></div></div>
-    </div>
-  </div>
-
-  <div id="day-4" class="day-content">
-    <div class="day-header"><div class="day-icon">🗼</div><div><h2>파리 — 에펠탑 & 바토 파리지앵</h2><p>운하 아침 + 유람선 야경</p></div></div>
-    <div class="timeline">
-      <div class="event food"><div class="event-card"><div class="event-time">08:00 – 08:30</div><div class="event-title">🥐 아침 — Mamiche (Rue du Château d'Eau)</div><div class="event-detail">잠봉샌드위치, 슈, 시나몬 롤 테이크아웃</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00 – 11:00</div><div class="event-title">🛶 레퓌블리크 광장 → 생마르탱 운하 산책</div><div class="event-detail">다리/수문 포토스팟 · 운하 옆 벤치 휴식</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">11:00 – 11:40</div><div class="event-title">🍰 브런치 — 유토피아 베이커리</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">11:40 – 12:20</div><div class="event-title">💌 La Poste — 집으로 엽서 보내기</div><div class="event-detail">160 Rue du Temple, 75003 Paris</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">13:00 – 17:30</div><div class="event-title">🗼 트로카데로 → 에펠탑 → 끌레흐 가 → 마르스 광장</div><div class="event-detail">대칭샷 → 철제 구조물 통과 → 에스프레소 휴식 → 피크닉 뷰</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">18:00 – 19:00</div><div class="event-title">🌉 비라켐 다리 (일몰 + 에펠탑 첫 점등)</div><div class="event-detail">인셉션 구조물 아래 · 18:45 에펠탑 점등</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">19:20 – 21:00</div><div class="event-title">🥩 저녁 — L'Atypic</div><div class="event-detail">타르타르, 푸아그라, 스테이크</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">21:30 – 22:30</div><div class="event-title">🚢 바토 파리지앵 유람선 <span class="tag tag-confirm">⏰ 21:30</span></div><div class="event-detail">매 정각 에펠탑 반짝임 + 센강 야경</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">22:30 – 23:00</div><div class="event-title">🚇 복귀 — Alma-Marceau → 9호선 → République</div></div></div>
-    </div>
-  </div>
-
-  <div id="day-5" class="day-content">
-    <div class="day-header"><div class="day-icon">🚄</div><div><h2>파리 → 스트라스부르</h2><p>TGV 이동 + 알자스 첫날</p></div></div>
-    <div class="timeline">
-      <div class="event food"><div class="event-card"><div class="event-time">07:00 – 08:00</div><div class="event-title">🥐 아침 — Le Pain des Copains</div></div></div>
-      <div class="event hotel"><div class="event-card"><div class="event-time">08:00 – 09:30</div><div class="event-title">🧳 체크아웃 → 파리 동역(Gare de l'Est) 이동</div><div class="event-detail">도보 15분(1km) · 짐 많으면 Uber</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">10:08 – 11:54</div><div class="event-title">🚄 OUIGO 7691 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">Paris Gare de l'Est → Strasbourg</div><div class="event-note">좌석: Voiture 8 / 803–804</div></div></div>
-      <div class="event hotel"><div class="event-card"><div class="event-time">12:00 – 12:30</div><div class="event-title">🏨 시티 레지던스 스트라스부르 짐 보관</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">13:00 – 14:30</div><div class="event-title">🍽 점심 — Winstub Le Zehnerglock <span class="tag tag-confirm">⏰ 13:00</span></div><div class="event-detail">Choucroute Garnie, Baeckeoffe</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">14:30 – 18:30</div><div class="event-title">⛩ 스트라스부르 대성당 → 구텐베르크 광장 → 구시가지 산책</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">18:30 – 20:00</div><div class="event-title">🔥 저녁 — La Fignette (오픈런!)</div><div class="event-detail">Tarte Flambée Traditionnelle, Gratinée</div><div class="event-note">⚠️ 예약 불가 — 오픈 전부터 줄 서기</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">20:00 – 21:00</div><div class="event-title">🌙 대성당 야경 감상</div></div></div>
-    </div>
-  </div>
-
-  <div id="day-6" class="day-content">
-    <div class="day-header"><div class="day-icon">🌸</div><div><h2>콜마르 당일치기</h2><p>동화 마을 · TER 기차 30분</p></div></div>
-    <div class="timeline">
-      <div class="event transport"><div class="event-card"><div class="event-time">08:00 – 09:00</div><div class="event-title">🚂 TER — 스트라스부르 → 콜마르</div><div class="event-note">'Colmar' 또는 'Mulhouse/Basel'행 · 2등석 자유석</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00 – 12:00</div><div class="event-title">🏘 콜마르 구시가지 → 쁘띠 베니스 산책</div><div class="event-detail">역 → 알록달록 골목 → 운하 따라 걷기 → 다리 포토스팟</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">12:00 – 13:30</div><div class="event-title">🍷 점심 — WISTUB BRENNER <span class="tag tag-confirm">⏰ 12:00</span></div><div class="event-detail">Tarte à l'oignon de Papi Lucien, Jarret de Porc braisé</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">13:30 – 15:30</div><div class="event-title">🍰 카페 — Pâtisserie Gilg</div><div class="event-detail">에끌레어, 구겔호프, 밀푀유, 포레 누아</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30 – 17:00</div><div class="event-title">🛍 쇼핑 → 운터린덴 미술관 외관</div><div class="event-detail">Rue des Clefs → Rue des Têtes → Maison des Têtes</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">17:00 – 18:00</div><div class="event-title">🚂 TER — 콜마르 → 스트라스부르 복귀</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">18:00 – 20:00</div><div class="event-title">🐟 저녁 — Maison Kammerzell <span class="tag tag-confirm">⏰ 18:15</span></div><div class="event-detail">Choucroute aux Poissons (생선 슈쿠르트)</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">20:00 – 21:30</div><div class="event-title">🌉 쿠베르교 & 보방 댐 야경 → 쁘띠 프랑스 야경 산책</div></div></div>
-    </div>
-  </div>
-
-  <div id="day-7" class="day-content">
-    <div class="day-header"><div class="day-icon">🇩🇪</div><div><h2>독일 켈 & 스트라스부르 쇼핑</h2><p>라인강 건너 독일 마트 원정</p></div></div>
-    <div class="timeline">
-      <div class="event transport"><div class="event-card"><div class="event-time">09:00 – 09:30</div><div class="event-title">🚋 트램 D — Ancienne Synagogue → Port du Rhin</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">09:30 – 12:30</div><div class="event-title">🌿 두 히브 가든 → Passerelle 다리 → 라인강변 산책</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">12:30 – 14:00</div><div class="event-title">🥨 점심 — Café Backhaus Dreher</div><div class="event-detail">프레첼, 독일식 페이스트리, 아우프슈니트</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">14:00 – 17:00</div><div class="event-title">🛒 독일 마트 쇼핑 (City Center Kehl · DM)</div><div class="event-detail">메쓰머, 테칸네, dmBio 차 등</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">17:00 – 17:30</div><div class="event-title">🚋 복귀 — Kehl → Ancienne Synagogue</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">17:30 – 19:30</div><div class="event-title">🛍 Place des Halles / Auchan 쇼핑</div><div class="event-detail">프랑스 기념품, 와인, 과자 (20:00 마감 전)</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">19:30 – 21:00</div><div class="event-title">🍷 저녁 — Le Tire-Bouchon <span class="tag tag-confirm">⏰ 19:30</span></div><div class="event-detail">6 garnitures, Joues de porc au pinot noir + spaetzle</div></div></div>
-      <div class="event hotel"><div class="event-card"><div class="event-time">21:15 –</div><div class="event-title">🧳 숙소 복귀 & 캐리어 짐 싸기</div></div></div>
-    </div>
-  </div>
-
-  <div id="day-8" class="day-content">
-    <div class="day-header"><div class="day-icon">🏠</div><div><h2>귀국 — 스트라스부르 → 인천</h2><p>여행의 마지막 날</p></div></div>
-    <div class="timeline">
-      <div class="event hotel"><div class="event-card"><div class="event-time">06:00 – 07:00</div><div class="event-title">🧳 체크아웃</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">07:31 – 09:29</div><div class="event-title">🚄 TGV INOUI 5470 <span class="tag tag-confirm">✅ 예약완료</span></div><div class="event-detail">Strasbourg → Paris CDG 2 (Gare TGV)</div><div class="event-note">좌석: Voiture 6 / 638–639</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">09:30 – 10:00</div><div class="event-title">🚋 CDGVAL 무료 셔틀 → 터미널 1</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">10:00 – 11:00</div><div class="event-title">🍔 아점 — 맥도날드</div><div class="event-detail">280™ Original (Bœuf Blanc), McWrap</div></div></div>
-      <div class="event sightseeing"><div class="event-card"><div class="event-time">11:00 – 15:25</div><div class="event-title">⏳ 랜드사이드 대기 & 택스리펀</div><div class="event-detail">PABLO 기계 바코드 스캔 · 폴/스타벅스 휴식</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">15:25 – 16:15</div><div class="event-title">✈️ 아시아나 카운터 오픈 (Terminal 1, Hall 1)</div><div class="event-detail">수하물 위탁 — 1등으로 줄 서기!</div></div></div>
-      <div class="event food"><div class="event-card"><div class="event-time">17:40 – 18:25</div><div class="event-title">🍽 저녁 — Bistrot Benoît (면세구역 Level 5)</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">18:25</div><div class="event-title">✈️ 아시아나 OZ0502 출국!</div><div class="event-detail">파리(CDG) 18:25 → 서울(ICN) 3/15 14:40</div></div></div>
-      <div class="event transport"><div class="event-card"><div class="event-time">3/15 18:05 – 21:35</div><div class="event-title">🚌 시외우등 — 인천공항 → 아산(온양)</div></div></div>
-    </div>
-  </div>
-</div>
 </div>
 
 <div id="page-budget" class="page">
-<div class="budget-wrap">
-  <div class="budget-total">
-    <div class="bl">TOTAL SPENT</div>
-    <div class="ba" id="total-amount">€ 0</div>
-    <div style="font-size:0.73rem;color:rgba(245,240,232,0.38)">지출을 추가하면 자동 합산돼요</div>
+  <div class="budget-wrap">
+    <div class="budget-total">
+      <div class="bl">TOTAL SPENT</div>
+      <div class="ba" id="total-amount">€ 0</div>
+      <div style="font-size:0.73rem;color:rgba(245,240,232,0.38)">지출을 추가하면 자동 합산돼요</div>
+    </div>
+
+    <div class="cat-summary">
+      <div class="cat-card"><div class="ci">✈️</div><div class="cn">교통</div><div class="ca" id="cat-transport">€0</div></div>
+      <div class="cat-card"><div class="ci">🍽</div><div class="cn">식사</div><div class="ca" id="cat-food">€0</div></div>
+      <div class="cat-card"><div class="ci">🏨</div><div class="cn">숙박</div><div class="ca" id="cat-hotel">€0</div></div>
+      <div class="cat-card"><div class="ci">🎨</div><div class="cn">관광</div><div class="ca" id="cat-sightseeing">€0</div></div>
+      <div class="cat-card"><div class="ci">🛍</div><div class="cn">쇼핑</div><div class="ca" id="cat-shopping">€0</div></div>
+      <div class="cat-card"><div class="ci">☕</div><div class="cn">기타</div><div class="ca" id="cat-etc">€0</div></div>
+    </div>
+
+    <div class="section-lbl">지출 추가</div>
+    <div class="budget-input-row">
+      <input type="text" id="ex-name" placeholder="항목 (예: 루브르 입장료)">
+      <input type="number" id="ex-amount" placeholder="금액" min="0" step="0.01">
+      <select id="ex-currency" style="flex: 0.4; min-width: 65px;">
+        <option value="EUR">€ (유로)</option>
+        <option value="KRW">₩ (원화)</option>
+      </select>
+    </div>
+    <div class="budget-input-row">
+      <select id="ex-cat">
+        <option value="transport">✈️ 교통</option>
+        <option value="food">🍽 식사</option>
+        <option value="hotel">🏨 숙박</option>
+        <option value="sightseeing">🎨 관광</option>
+        <option value="shopping">🛍 쇼핑</option>
+        <option value="etc">☕ 기타</option>
+      </select>
+      <button class="btn-add" onclick="addExpense()">+ 추가</button>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-lbl">지출 내역</div>
+    <div id="expense-list"><div class="empty-state"><span class="big">💶</span>아직 지출 내역이 없어요</div></div>
   </div>
-  <div class="cat-summary">
-    <div class="cat-card"><div class="ci">✈️</div><div class="cn">교통</div><div class="ca" id="cat-transport">€0</div></div>
-    <div class="cat-card"><div class="ci">🍽</div><div class="cn">식사</div><div class="ca" id="cat-food">€0</div></div>
-    <div class="cat-card"><div class="ci">🏨</div><div class="cn">숙박</div><div class="ca" id="cat-hotel">€0</div></div>
-    <div class="cat-card"><div class="ci">🎨</div><div class="cn">관광</div><div class="ca" id="cat-sightseeing">€0</div></div>
-    <div class="cat-card"><div class="ci">🛍</div><div class="cn">쇼핑</div><div class="ca" id="cat-shopping">€0</div></div>
-    <div class="cat-card"><div class="ci">☕</div><div class="cn">기타</div><div class="ca" id="cat-etc">€0</div></div>
-  </div>
-  <div class="section-lbl">지출 추가</div>
-  <div class="budget-input-row">
-    <input type="text" id="ex-name" placeholder="항목 (예: 루브르 입장료)">
-    <input type="number" id="ex-amount" placeholder="금액" min="0" step="0.01">
-    <select id="ex-currency" style="flex: 0.4; min-width: 65px;">
-      <option value="EUR">€ (유로)</option>
-      <option value="KRW">₩ (원화)</option>
-    </select>
-  </div>
-  <div class="budget-input-row">
-    <select id="ex-cat">
-      <option value="transport">✈️ 교통</option>
-      <option value="food">🍽 식사</option>
-      <option value="hotel">🏨 숙박</option>
-      <option value="sightseeing">🎨 관광</option>
-      <option value="shopping">🛍 쇼핑</option>
-      <option value="etc">☕ 기타</option>
-    </select>
-    <button class="btn-add" onclick="addExpense()">+ 추가</button>
-  </div>
-  <div class="divider"></div>
-  <div class="section-lbl">지출 내역</div>
-  <div id="expense-list"><div class="empty-state"><span class="big">💶</span>아직 지출 내역이 없어요</div></div>
-</div>
 </div>
 
 <div id="page-checklist" class="page">
-<div class="checklist-wrap">
-  <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
-    <button class="save-btn" onclick="saveChecks()" style="padding:9px 20px;font-size:0.8rem;">💾 저장하기</button>
+  <div class="checklist-wrap">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
+      <button class="save-btn" onclick="saveChecks()" style="padding:9px 20px;font-size:0.8rem;">💾 저장하기</button>
+    </div>
+
+    <div class="check-section">
+      <h3>📄 서류 & 준비</h3>
+      <div class="progress-bar"><div class="progress-fill" id="prog-docs"></div></div>
+      <div id="list-docs"></div>
+    </div>
+
+    <div class="check-section">
+      <h3>🧳 짐 싸기</h3>
+      <div class="progress-bar"><div class="progress-fill" id="prog-pack"></div></div>
+      <div id="list-pack"></div>
+    </div>
+
+    <div class="check-section">
+      <h3>📱 앱 & 준비</h3>
+      <div class="progress-bar"><div class="progress-fill" id="prog-app"></div></div>
+      <div id="list-app"></div>
+    </div>
+
+    <div class="check-section">
+      <h3>🎫 예약 현황</h3>
+      <div class="progress-bar"><div class="progress-fill" id="prog-book"></div></div>
+      <div id="list-book"></div>
+    </div>
   </div>
-  <div class="check-section">
-    <h3>📄 서류 & 준비</h3>
-    <div class="progress-bar"><div class="progress-fill" id="prog-docs"></div></div>
-    <div id="list-docs"></div>
-  </div>
-  <div class="check-section">
-    <h3>🧳 짐 싸기</h3>
-    <div class="progress-bar"><div class="progress-fill" id="prog-pack"></div></div>
-    <div id="list-pack"></div>
-  </div>
-  <div class="check-section">
-    <h3>📱 앱 & 준비</h3>
-    <div class="progress-bar"><div class="progress-fill" id="prog-app"></div></div>
-    <div id="list-app"></div>
-  </div>
-  <div class="check-section">
-    <h3>🎫 예약 현황</h3>
-    <div class="progress-bar"><div class="progress-fill" id="prog-book"></div></div>
-    <div id="list-book"></div>
-  </div>
-</div>
-<div id="save-toast">✅ 저장완료!</div>
+  <div id="save-toast">✅ 저장완료!</div>
 </div>
 
 <div id="page-memo" class="page">
-<div class="memo-wrap">
-  <div class="memo-card">
-    <h4>✈️ 항공편</h4>
-    <div class="info-grid">
-      <div><div class="info-label">가는 편</div><div class="info-val">OZ0501 · 3/7 10:05 ICN→CDG</div></div>
-      <div><div class="info-label">오는 편</div><div class="info-val">OZ0502 · 3/14 18:25 CDG→ICN</div></div>
+  <div class="memo-wrap">
+    <div class="memo-card">
+      <h4>✈️ 항공편</h4>
+      <div class="info-grid">
+        <div><div class="info-label">가는 편</div><div class="info-val">OZ0501 · 3/7 10:05 ICN→CDG</div></div>
+        <div><div class="info-label">오는 편</div><div class="info-val">OZ0502 · 3/14 18:25 CDG→ICN</div></div>
+      </div>
     </div>
-  </div>
-  <div class="memo-card">
-    <h4>🚄 기차</h4>
-    <div class="info-grid">
-      <div><div class="info-label">파리→스트라스부르</div><div class="info-val">OUIGO 7691 · 10:08→11:54</div></div>
-      <div><div class="info-label">좌석</div><div class="info-val">Voiture 8 / 803–804</div></div>
-      <div><div class="info-label">스트라스부르→CDG</div><div class="info-val">TGV 5470 · 07:31→09:29</div></div>
-      <div><div class="info-label">좌석</div><div class="info-val">Voiture 6 / 638–639</div></div>
-    </div>
-  </div>
-  <div class="memo-card">
-    <h4>🏨 숙소</h4>
-    <div class="info-grid">
-      <div><div class="info-label">파리 (Day 1–5)</div><div class="info-val">디스트릭트 레퓌블리크</div></div>
-      <div><div class="info-label">출구</div><div class="info-val">République역 Sortie 5</div></div>
-      <div><div class="info-label">스트라스부르 (Day 5–8)</div><div class="info-val">시티 레지던스 스트라스부르</div></div>
-      <div><div class="info-label">트램역</div><div class="info-val">Ancienne Synagogue/Les Halles</div></div>
-    </div>
-  </div>
-  <div class="memo-card">
-    <h4>🌅 일몰 시간</h4>
-    <div style="font-size:0.82rem;line-height:2;color:var(--cream)">
-      <div>3/8 (Day 2) — <strong style="color:var(--gold)">18:44</strong> · 루브르 야경</div>
-      <div>3/9 (Day 3) — <strong style="color:var(--gold)">18:44</strong> · 개선문 노을</div>
-      <div>3/10 (Day 4) — <strong style="color:var(--gold)">18:45</strong> · 비라켐 에펠탑 점등</div>
-    </div>
-  </div>
 
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)">
-      <h4>🇫🇷 식당 주문 표현</h4><span class="acc-arrow">▼</span>
+    <div class="memo-card">
+      <h4>🚄 기차</h4>
+      <div class="info-grid">
+        <div><div class="info-label">파리→스트라스부르</div><div class="info-val">OUIGO 7691 · 10:08→11:54</div></div>
+        <div><div class="info-label">좌석</div><div class="info-val">Voiture 8 / 803–804</div></div>
+        <div><div class="info-label">스트라스부르→CDG</div><div class="info-val">TGV 5470 · 07:31→09:29</div></div>
+        <div><div class="info-label">좌석</div><div class="info-val">Voiture 6 / 638–639</div></div>
+      </div>
     </div>
-    <div class="acc-body">
-      <div class="acc-inner">
-        <div class="phrase-group">
-          <div class="phrase-group-title">자리 / 입장</div>
-          <div class="phrase-item">
-            <span class="phrase-kr">두 명이요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Pour deux, s'il vous plaît.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(뿌흐 두, 씰 부 쁠레)</div>
+
+    <div class="memo-card">
+      <h4>🏨 숙소</h4>
+      <div class="info-grid">
+        <div><div class="info-label">파리 (Day 1–5)</div><div class="info-val">디스트릭트 레퓌블리크</div></div>
+        <div><div class="info-label">출구</div><div class="info-val">République역 Sortie 5</div></div>
+        <div><div class="info-label">스트라스부르 (Day 5–8)</div><div class="info-val">시티 레지던스 스트라스부르</div></div>
+        <div><div class="info-label">트램역</div><div class="info-val">Ancienne Synagogue/Les Halles</div></div>
+      </div>
+    </div>
+
+    <div class="memo-card">
+      <h4>🌅 일몰 시간</h4>
+      <div style="font-size:0.82rem;line-height:2;color:var(--cream)">
+        <div>3/8 (Day 2) — <strong style="color:var(--gold)">18:44</strong> · 루브르 야경</div>
+        <div>3/9 (Day 3) — <strong style="color:var(--gold)">18:44</strong> · 개선문 노을</div>
+        <div>3/10 (Day 4) — <strong style="color:var(--gold)">18:45</strong> · 비라켐 에펠탑 점등</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <h4>🇫🇷 식당 주문 표현</h4><span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <div class="phrase-group">
+            <div class="phrase-group-title">자리 / 입장</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">두 명이요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Pour deux, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(뿌흐 두, 씰 부 쁠레)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">예약했어요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">J'ai une réservation.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(줴 윈 헤제흐바씨옹)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">메뉴 주세요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">La carte, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(라 꺄흐뜨, 씰 부 쁠레)</div>
+              </div>
             </div>
           </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">예약했어요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">J'ai une réservation.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(줴 윈 헤제흐바씨옹)</div>
+
+          <div class="phrase-group">
+            <div class="phrase-group-title">주문</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">이걸로 할게요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Je vais prendre ça.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(쥬 베 프헝드흐 싸)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">추천해주세요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Qu'est-ce que vous recommandez ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(께쓰 끄 부 헤꼬멍데?)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">물 주세요(무료 수돗물)</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Une carafe d'eau, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(윈 꺄하프 도, 씰 부 쁠레)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">맛있어요!</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">C'est délicieux !</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(쎄 델리씨유!)</div>
+              </div>
             </div>
           </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">메뉴 주세요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">La carte, s'il vous plaît.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(라 꺄흐뜨, 씰 부 쁠레)</div>
+
+          <div class="phrase-group">
+            <div class="phrase-group-title">계산</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">계산서 주세요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">L'addition, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(라디씨옹, 씰 부 쁠레)</div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="phrase-group">
-          <div class="phrase-group-title">주문</div>
-          <div class="phrase-item">
-            <span class="phrase-kr">이걸로 할게요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Je vais prendre ça.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(쥬 베 프헝드흐 싸)</div>
-            </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">추천해주세요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Qu'est-ce que vous recommandez ?</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(께쓰 끄 부 헤꼬멍데?)</div>
-            </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">물 주세요(무료 수돗물)</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Une carafe d'eau, s'il vous plaît.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(윈 꺄하프 도, 씰 부 쁠레)</div>
-            </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">맛있어요!</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">C'est délicieux !</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(쎄 델리씨유!)</div>
-            </div>
-          </div>
-        </div>
-        <div class="phrase-group">
-          <div class="phrase-group-title">계산</div>
-          <div class="phrase-item">
-            <span class="phrase-kr">계산서 주세요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">L'addition, s'il vous plaît.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(라디씨옹, 씰 부 쁠레)</div>
-            </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">카드 되나요?</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Vous acceptez la carte ?</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(부 작쎕떼 라 꺄흐뜨?)</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">카드 되나요?</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Vous acceptez la carte ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(부 작쎕떼 라 꺄흐뜨?)</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)">
-      <h4>🚇 교통 & 길찾기</h4><span class="acc-arrow">▼</span>
-    </div>
-    <div class="acc-body">
-      <div class="acc-inner">
-        <div class="phrase-group">
-          <div class="phrase-item">
-            <span class="phrase-kr">~어디에 있나요?</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Où est ~ ?</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(우 에 ~ ?)</div>
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <h4>🚇 교통 & 길찾기</h4><span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <div class="phrase-group">
+            <div class="phrase-item">
+              <span class="phrase-kr">~어디에 있나요?</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Où est ~ ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(우 에 ~ ?)</div>
+              </div>
             </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">지하철역</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">la station de métro</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(라 쓰따씨옹 드 메트호)</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">지하철역</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">la station de métro</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(라 쓰따씨옹 드 메트호)</div>
+              </div>
             </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">얼마나 걸려요?</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">C'est loin d'ici ?</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(쎄 루앙 디씨?)</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">얼마나 걸려요?</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">C'est loin d'ici ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(쎄 루앙 디씨?)</div>
+              </div>
             </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">여기로 가주세요(택시)</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">À cette adresse, s'il vous plaît.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(아 쎄따드헤쓰, 씰 부 쁠레)</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">여기로 가주세요(택시)</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">À cette adresse, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(아 쎄따드헤쓰, 씰 부 쁠레)</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="accordion">
-    <div class="acc-header" onclick="toggleAcc(this)">
-      <h4>🛒 쇼핑 & 우체국</h4><span class="acc-arrow">▼</span>
-    </div>
-    <div class="acc-body">
-      <div class="acc-inner">
-        <div class="phrase-group">
-          <div class="phrase-item">
-            <span class="phrase-kr">얼마예요?</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">C'est combien ?</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(쎄 꽁비앙?)</div>
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <h4>🛒 쇼핑 & 우체국</h4><span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <div class="phrase-group">
+            <div class="phrase-item">
+              <span class="phrase-kr">얼마예요?</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">C'est combien ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(쎄 꽁비앙?)</div>
+              </div>
             </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">한국으로 엽서 보낼게요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Pour envoyer en Corée du Sud.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(뿌흐 엉부아예 엉 꼬헤 뒤 쉬드)</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">한국으로 엽서 보낼게요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Pour envoyer en Corée du Sud.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(뿌흐 엉부아예 엉 꼬헤 뒤 쉬드)</div>
+              </div>
             </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">우표 주세요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Un timbre, s'il vous plaît.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(앙 땡브흐, 씰 부 쁠레)</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">우표 주세요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Un timbre, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(앙 땡브흐, 씰 부 쁠레)</div>
+              </div>
             </div>
-          </div>
-          <div class="phrase-item">
-            <span class="phrase-kr">봉지 안주셔도 돼요</span>
-            <div style="text-align:right;">
-              <div class="phrase-fr">Pas de sac, merci.</div>
-              <div style="font-size:0.65rem; color:var(--muted);">(빠 드 싹, 메흐씨)</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">봉지 안주셔도 돼요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Pas de sac, merci.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(빠 드 싹, 메흐씨)</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="memo-card">
-    <h4>📝 자유 메모</h4>
-    <textarea class="memo-area" id="free-memo" placeholder="여행 중 메모, 환율, 긴급연락처 등 자유롭게...">환율 참고: €1 ≈ 약 1,500원
+    <div class="memo-card">
+      <h4>📝 자유 메모</h4>
+      <textarea class="memo-area" id="free-memo" placeholder="여행 중 메모, 환율, 긴급연락처 등 자유롭게...">환율 참고: €1 ≈ 약 1,500원
 긴급전화: 112 (경찰), 15 (의료), 18 (소방)
 한국 영사관: +33-1-47-53-01-01</textarea>
+    </div>
   </div>
-</div>
 </div>
 
 <nav class="bottom-nav">
@@ -839,49 +884,79 @@ body {
 function switchPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  if (btn) { btn.classList.add('active'); }
-  else {
+
+  const target = document.getElementById('page-' + id);
+  if (!target) return;
+
+  target.classList.add('active');
+
+  if (btn) {
+    btn.classList.add('active');
+  } else {
     document.querySelectorAll('.bnav-btn').forEach(b => {
-      if ((b.getAttribute('onclick')||'').includes("'"+id+"'")) b.classList.add('active');
+      if ((b.getAttribute('onclick') || '').includes("'" + id + "'")) {
+        b.classList.add('active');
+      }
     });
   }
-  if (id === 'map') setTimeout(() => { initLeafletMap(); if(leafletMap) leafletMap.invalidateSize(); }, 80);
+
+  if (id === 'map') {
+    setTimeout(() => {
+      initLeafletMap();
+      if (leafletMap) leafletMap.invalidateSize();
+    }, 80);
+  }
 }
 
 // ── STARS ──
 (function() {
   const canvas = document.getElementById('stars-canvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  function resize() { canvas.width = window.innerWidth; canvas.height = document.getElementById('page-home').offsetHeight || window.innerHeight; }
-  window.addEventListener('resize', resize); resize();
-  const stars = Array.from({length:130}, () => ({
-    x: Math.random(), y: Math.random(),
-    r: Math.random()*1.4+0.3, a: Math.random(),
-    sp: Math.random()*0.007+0.003, ph: Math.random()*Math.PI*2
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = document.getElementById('page-home').offsetHeight || window.innerHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  const stars = Array.from({ length: 130 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    r: Math.random() * 1.4 + 0.3,
+    a: Math.random(),
+    sp: Math.random() * 0.007 + 0.003,
+    ph: Math.random() * Math.PI * 2
   }));
+
   function draw(t) {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     stars.forEach(s => {
-      const alpha = s.a*(0.4+0.6*Math.sin(t*s.sp+s.ph));
+      const alpha = s.a * (0.4 + 0.6 * Math.sin(t * s.sp + s.ph));
       ctx.beginPath();
-      ctx.arc(s.x*canvas.width, s.y*canvas.height, s.r, 0, Math.PI*2);
+      ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(232,213,160,${alpha})`;
       ctx.fill();
     });
     requestAnimationFrame(draw);
   }
+
   requestAnimationFrame(draw);
 })();
 
 // ── D-DAY ──
 (function() {
   const start = new Date('2026-03-07T00:00:00');
-  const end   = new Date('2026-03-14T23:59:59');
-  const now   = new Date();
+  const end = new Date('2026-03-14T23:59:59');
+  const now = new Date();
+
   const numEl = document.getElementById('dday-number');
   const lblEl = document.getElementById('dday-label');
   const dscEl = document.getElementById('dday-desc');
+  if (!numEl || !lblEl || !dscEl) return;
+
   if (now < start) {
     const diff = Math.ceil((start - now) / 86400000);
     lblEl.textContent = 'D -';
@@ -906,20 +981,33 @@ async function fetchWeather(lat, lon, iconId, tempId, descId) {
     const data = await (await fetch(url)).json();
     const temp = Math.round(data.current.temperature_2m);
     const code = data.current.weathercode;
+
     const IC = {0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',61:'🌧',71:'🌨',80:'🌦',95:'⛈'};
     const DC = {0:'맑음',1:'대체로 맑음',2:'구름 조금',3:'흐림',45:'안개',48:'안개',51:'이슬비',61:'비',71:'눈',80:'소나기',95:'뇌우'};
-    const k = IC[code] ? code : Math.floor(code/10)*10;
-    document.getElementById(iconId).textContent = IC[k]||'🌡';
-    document.getElementById(tempId).textContent = temp+'°C';
-    document.getElementById(descId).textContent = DC[k]||'';
-  } catch(e) { document.getElementById(descId).textContent = '—'; }
+
+    const k = IC[code] ? code : Math.floor(code / 10) * 10;
+
+    const iconEl = document.getElementById(iconId);
+    const tempEl = document.getElementById(tempId);
+    const descEl = document.getElementById(descId);
+
+    if (iconEl) iconEl.textContent = IC[k] || '🌡';
+    if (tempEl) tempEl.textContent = temp + '°C';
+    if (descEl) descEl.textContent = DC[k] || '';
+  } catch (e) {
+    const descEl = document.getElementById(descId);
+    if (descEl) descEl.textContent = '—';
+  }
 }
 fetchWeather(48.8566, 2.3522, 'wp-icon', 'wp-temp', 'wp-desc');
 fetchWeather(48.5734, 7.7521, 'ws-icon', 'ws-temp', 'ws-desc');
 
 // ── LEAFLET MAP ──
 const DAY_COLORS = {1:'#FF6B6B',2:'#FF9F43',3:'#FECA57',4:'#48DBFB',5:'#1DD1A1',6:'#A29BFE',7:'#FD79A8',8:'#74B9FF'};
-const DAY_FOCUS  = {5:[[48.855,2.335],[48.882,2.375]], 6:[[48.068,7.346],[48.086,7.374]]};
+const DAY_FOCUS = {
+  5:[[48.855,2.335],[48.882,2.375]],
+  6:[[48.068,7.346],[48.086,7.374]]
+};
 const DAYS = {
   1:{title:'Day 1 — 3/7 (토) · 인천 → 파리',spots:[
     {name:'샤를드골 국제공항 (CDG)',lat:49.0097,lng:2.5479,icon:'✈️'},
@@ -1003,115 +1091,185 @@ const DAYS = {
   ]},
 };
 
-let leafletMap=null, curLayers=[], curMarkers=[];
+let leafletMap = null;
+let curLayers = [];
+let curMarkers = [];
 
 function initLeafletMap() {
   if (leafletMap) return;
+
   leafletMap = L.map('leaflet-map', { scrollWheelZoom:false, tap:true })
-    .setView([48.8566,2.3522], 13);
+    .setView([48.8566, 2.3522], 13);
+
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution:'© OpenStreetMap © CARTO', maxZoom:19
+    attribution:'© OpenStreetMap © CARTO',
+    maxZoom:19
   }).addTo(leafletMap);
+
   leafletMap.on('touchstart', e => {
     if (e.originalEvent.touches.length < 2) leafletMap.dragging.disable();
     else leafletMap.dragging.enable();
   });
   leafletMap.on('touchend', () => leafletMap.dragging.enable());
+
   showDay(1, document.querySelector('.map-day-btn'));
 }
 
 function showDay(dayNum, btn) {
   if (!leafletMap) return;
+
   curLayers.forEach(l => leafletMap.removeLayer(l));
-  curLayers=[]; curMarkers=[];
+  curLayers = [];
+  curMarkers = [];
+
   document.querySelectorAll('.map-day-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const day=DAYS[dayNum], color=DAY_COLORS[dayNum], spots=day.spots;
-  const line = L.polyline(spots.map(s=>[s.lat,s.lng]),{color,weight:3.5,opacity:0.85,dashArray:'8,5'}).addTo(leafletMap);
+  if (btn) btn.classList.add('active');
+
+  const day = DAYS[dayNum];
+  const color = DAY_COLORS[dayNum];
+  const spots = day.spots;
+
+  const line = L.polyline(
+    spots.map(s => [s.lat, s.lng]),
+    { color, weight:3.5, opacity:0.85, dashArray:'8,5' }
+  ).addTo(leafletMap);
+
   curLayers.push(line);
-  spots.forEach((spot,i) => {
-    const isFirst=i===0, isLast=i===spots.length-1, sz=isFirst||isLast?32:26;
+
+  spots.forEach((spot, i) => {
+    const isFirst = i === 0;
+    const isLast = i === spots.length - 1;
+    const sz = isFirst || isLast ? 32 : 26;
+
     const icon = L.divIcon({
-      html:`<div style="width:${sz}px;height:${sz}px;background:${isLast?'#fff':color};border:2.5px solid ${isFirst?'#fff':isLast?color:'rgba(255,255,255,0.45)'};border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);">${isFirst?'<span style="font-size:12px">🟢</span>':isLast?'<span style="font-size:12px">🔴</span>':`<span style="color:#111;font-weight:700;font-size:10px">${i+1}</span>`}</div>`,
-      className:'', iconSize:[sz,sz], iconAnchor:[sz/2,sz/2]
+      html: `<div style="width:${sz}px;height:${sz}px;background:${isLast ? '#fff' : color};border:2.5px solid ${isFirst ? '#fff' : isLast ? color : 'rgba(255,255,255,0.45)'};border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);">${isFirst ? '<span style="font-size:12px">🟢</span>' : isLast ? '<span style="font-size:12px">🔴</span>' : `<span style="color:#111;font-weight:700;font-size:10px">${i+1}</span>`}</div>`,
+      className:'',
+      iconSize:[sz, sz],
+      iconAnchor:[sz/2, sz/2]
     });
-    const m = L.marker([spot.lat,spot.lng],{icon}).addTo(leafletMap)
-      .bindPopup(`<b style="color:#c9a84c">${spot.icon} ${spot.name}</b><br><span style="color:#999;font-size:0.72rem">${i+1}번째 · Day ${dayNum}</span>`,{className:'dark-popup'});
-    curLayers.push(m); curMarkers.push(m);
+
+    const m = L.marker([spot.lat, spot.lng], { icon }).addTo(leafletMap)
+      .bindPopup(
+        `<b style="color:#c9a84c">${spot.icon} ${spot.name}</b><br><span style="color:#999;font-size:0.72rem">${i+1}번째 · Day ${dayNum}</span>`,
+        { className:'dark-popup' }
+      );
+
+    curLayers.push(m);
+    curMarkers.push(m);
   });
-  if (DAY_FOCUS[dayNum]) leafletMap.fitBounds(DAY_FOCUS[dayNum],{padding:[20,20]});
-  else leafletMap.fitBounds(line.getBounds(),{padding:[30,30]});
-  document.getElementById('map-day-title').textContent = day.title;
-  document.getElementById('map-day-spots').innerHTML = spots
-    .map((s,i)=>`<span class="spot-pill" onclick="flyTo(${i})">${s.icon} ${s.name}</span>`).join('');
+
+  if (DAY_FOCUS[dayNum]) leafletMap.fitBounds(DAY_FOCUS[dayNum], { padding:[20,20] });
+  else leafletMap.fitBounds(line.getBounds(), { padding:[30,30] });
+
+  const titleEl = document.getElementById('map-day-title');
+  const spotsEl = document.getElementById('map-day-spots');
+
+  if (titleEl) titleEl.textContent = day.title;
+  if (spotsEl) {
+    spotsEl.innerHTML = spots
+      .map((s, i) => `<span class="spot-pill" onclick="flyTo(${i})">${s.icon} ${s.name}</span>`)
+      .join('');
+  }
 }
 
 function flyTo(idx) {
-  if (!curMarkers[idx]) return;
-  leafletMap.flyTo(curMarkers[idx].getLatLng(), 16, {duration:0.8});
-  setTimeout(()=>curMarkers[idx].openPopup(), 900);
+  if (!curMarkers[idx] || !leafletMap) return;
+  leafletMap.flyTo(curMarkers[idx].getLatLng(), 16, { duration:0.8 });
+  setTimeout(() => curMarkers[idx].openPopup(), 900);
 }
 
 // ── DAY SWITCH ──
 function switchDay(num, btn) {
-  document.querySelectorAll('.day-content').forEach(d=>d.classList.remove('active'));
-  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('day-'+num).classList.add('active');
-  btn.classList.add('active');
+  document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+
+  const target = document.getElementById('day-' + num);
+  if (target) target.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 
 // ── BUDGET ──
-// ── BUDGET ──
-const EX_RATE = 1700; // 1유로 = 1,700원 고정 환율
-let expenses = JSON.parse(localStorage.getItem('fr_expenses')||'[]');
-function saveExp(){ try{localStorage.setItem('fr_expenses',JSON.stringify(expenses));}catch(e){} }
+const EX_RATE = 1700;
+let expenses = JSON.parse(localStorage.getItem('fr_expenses') || '[]');
 
-function addExpense(){
+function saveExp() {
+  try {
+    localStorage.setItem('fr_expenses', JSON.stringify(expenses));
+  } catch (e) {}
+}
+
+function addExpense() {
   const name = document.getElementById('ex-name').value.trim();
   let amount = parseFloat(document.getElementById('ex-amount').value);
   const cat = document.getElementById('ex-cat').value;
   const currency = document.getElementById('ex-currency').value;
-  
-  if(!name || isNaN(amount) || amount <= 0) return;
-  
-  // 내부적으로는 모두 유로(EUR) 기준으로 통일해서 저장
-  let amountEur = currency === 'KRW' ? amount / EX_RATE : amount;
-  
-  expenses.push({name, amount: amountEur, cat, id:Date.now()});
-  saveExp(); renderExp();
-  
+
+  if (!name || isNaN(amount) || amount <= 0) return;
+
+  const amountEur = currency === 'KRW' ? amount / EX_RATE : amount;
+
+  expenses.push({
+    name,
+    amount: amountEur,
+    cat,
+    id: Date.now()
+  });
+
+  saveExp();
+  renderExp();
+
   document.getElementById('ex-name').value = '';
   document.getElementById('ex-amount').value = '';
 }
 
-function deleteExpense(id){ expenses = expenses.filter(e=>e.id!==id); saveExp(); renderExp(); }
+function deleteExpense(id) {
+  expenses = expenses.filter(e => e.id !== id);
+  saveExp();
+  renderExp();
+}
 
-function renderExp(){
+function renderExp() {
   const list = document.getElementById('expense-list');
-  const cats = {transport:0,food:0,hotel:0,sightseeing:0,shopping:0,etc:0};
+  if (!list) return;
+
+  const cats = {transport:0, food:0, hotel:0, sightseeing:0, shopping:0, etc:0};
   let totalEur = 0;
-  
-  expenses.forEach(e=>{ 
-    totalEur += e.amount; 
-    if(cats[e.cat] !== undefined) cats[e.cat] += e.amount; 
+
+  expenses.forEach(e => {
+    totalEur += e.amount;
+    if (cats[e.cat] !== undefined) cats[e.cat] += e.amount;
   });
-  
-  // 💰 총액: 유로 & 원화 동시 표기
+
   const totalKrw = Math.round(totalEur * EX_RATE);
-  document.getElementById('total-amount').innerHTML = `€ ${totalEur.toFixed(2)}<div style="font-size:1.1rem; color:var(--gold-light); margin-top:5px; font-family:'Noto Sans KR',sans-serif;">₩ ${totalKrw.toLocaleString()}</div>`;
-  
-  Object.keys(cats).forEach(k=>{ const el=document.getElementById('cat-'+k); if(el) el.textContent='€'+cats[k].toFixed(2); });
-  
-  if(!expenses.length){ list.innerHTML='<div class="empty-state"><span class="big">💶</span>아직 지출 내역이 없어요</div>'; return; }
-  
-  const cn = {transport:'✈️ 교통',food:'🍽 식사',hotel:'🏨 숙박',sightseeing:'🎨 관광',shopping:'🛍 쇼핑',etc:'☕ 기타'};
-  
-  // 💰 리스트 내역: 유로 & 원화 동시 표기
-  list.innerHTML = [...expenses].reverse().map(e=>{
+  const totalEl = document.getElementById('total-amount');
+  if (totalEl) {
+    totalEl.innerHTML = `€ ${totalEur.toFixed(2)}<div style="font-size:1.1rem; color:var(--gold-light); margin-top:5px; font-family:'Noto Sans KR',sans-serif;">₩ ${totalKrw.toLocaleString()}</div>`;
+  }
+
+  Object.keys(cats).forEach(k => {
+    const el = document.getElementById('cat-' + k);
+    if (el) el.textContent = '€' + cats[k].toFixed(2);
+  });
+
+  if (!expenses.length) {
+    list.innerHTML = '<div class="empty-state"><span class="big">💶</span>아직 지출 내역이 없어요</div>';
+    return;
+  }
+
+  const cn = {
+    transport:'✈️ 교통',
+    food:'🍽 식사',
+    hotel:'🏨 숙박',
+    sightseeing:'🎨 관광',
+    shopping:'🛍 쇼핑',
+    etc:'☕ 기타'
+  };
+
+  list.innerHTML = [...expenses].reverse().map(e => {
     const krw = Math.round(e.amount * EX_RATE);
     return `<div class="expense-item">
       <div class="ex-left">
-        <div class="ex-cat">${cn[e.cat]||e.cat}</div>
+        <div class="ex-cat">${cn[e.cat] || e.cat}</div>
         <div class="ex-name">${e.name}</div>
       </div>
       <div class="ex-amt" style="text-align:right;">
@@ -1163,87 +1321,109 @@ const checkData = {
     {id:'b6',text:'오랑주리 미술관',note:'Day 3 · 15:30 온라인 예약'},
     {id:'b7',text:'Breizh Café Montorgueil',note:'Day 2 · 저녁 · 공홈 예약'},
     {id:'b8',text:'Bouillon République',note:'Day 3 · 저녁 · 공홈 온라인 예약'},
-    {id:"b9",text:"L'Atypic",note:'Day 4 · 저녁 · 공홈/TheFork'},
+    {id:'b9',text:"L'Atypic",note:'Day 4 · 저녁 · 공홈/TheFork'},
     {id:'b10',text:'Winstub Le Zehnerglock',note:'Day 5 · 점심 13:00 · zehnerglock.fr'},
     {id:'b11',text:'WISTUB BRENNER (콜마르)',note:'Day 6 · 점심 12:00 · wistub-brenner.fr'},
     {id:'b12',text:'Maison Kammerzell',note:'Day 6 · 저녁 18:15 · maison-kammerzell.com'},
     {id:'b13',text:'Le Tire-Bouchon',note:'Day 7 · 저녁 19:30 · 공홈 예약'},
   ]
 };
-let checkState = JSON.parse(localStorage.getItem('fr_checks')||'{}');
-CONFIRMED.forEach(id=>{ checkState[id]=true; });
 
-function saveChecks(){
-  try{ localStorage.setItem('fr_checks',JSON.stringify(checkState)); }catch(e){}
-  const t=document.getElementById('save-toast');
-  t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
-  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; }, 2000);
+let checkState = JSON.parse(localStorage.getItem('fr_checks') || '{}');
+CONFIRMED.forEach(id => { checkState[id] = true; });
+
+function saveChecks() {
+  try {
+    localStorage.setItem('fr_checks', JSON.stringify(checkState));
+  } catch (e) {}
+
+  const t = document.getElementById('save-toast');
+  if (!t) return;
+
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(-50%) translateY(20px)';
+  }, 2000);
 }
 
-function renderChecklist(){
-  Object.keys(checkData).forEach(sec=>{
-    const el=document.getElementById('list-'+sec); if(!el) return;
-    const items=checkData[sec];
-    const done=items.filter(i=>checkState[i.id]).length;
-    const prog=document.getElementById('prog-'+sec);
-    if(prog) prog.style.width=(items.length?(done/items.length*100):0)+'%';
-    el.innerHTML=items.map(item=>{
-      const isDone=checkState[item.id], isLocked=item.locked;
-      // ✓ 기호 중복 오류 해결 (CSS만 작동하게 수정)
-      return `<label class="check-item ${isDone||isLocked?'done':''} ${isLocked?'locked':''}" onclick="${isLocked?'':` toggleCheck('${item.id}','${sec}')`}">
+function renderChecklist() {
+  Object.keys(checkData).forEach(sec => {
+    const el = document.getElementById('list-' + sec);
+    if (!el) return;
+
+    const items = checkData[sec];
+    const done = items.filter(i => checkState[i.id]).length;
+
+    const prog = document.getElementById('prog-' + sec);
+    if (prog) prog.style.width = (items.length ? (done / items.length * 100) : 0) + '%';
+
+    el.innerHTML = items.map(item => {
+      const isDone = checkState[item.id];
+      const isLocked = item.locked;
+
+      return `<label class="check-item ${isDone || isLocked ? 'done' : ''} ${isLocked ? 'locked' : ''}" onclick="${isLocked ? '' : `toggleCheck('${item.id}')`}">
         <div class="check-box"></div>
         <div>
-          <div class="check-label">${item.text}${isLocked?' <span style="font-size:0.58rem;color:var(--gold);font-family:DM Mono,monospace">CONFIRMED</span>':''}</div>
-          ${item.note?`<div class="check-note">${item.note}</div>`:''}
+          <div class="check-label">${item.text}${isLocked ? ' <span style="font-size:0.58rem;color:var(--gold);font-family:DM Mono,monospace">CONFIRMED</span>' : ''}</div>
+          ${item.note ? `<div class="check-note">${item.note}</div>` : ''}
         </div>
       </label>`;
     }).join('');
   });
 }
-function toggleCheck(id,sec){
-  if(CONFIRMED.includes(id)) return;
-  checkState[id]=!checkState[id];
+
+function toggleCheck(id) {
+  if (CONFIRMED.includes(id)) return;
+  checkState[id] = !checkState[id];
   renderChecklist();
 }
 renderChecklist();
 
 // ── ACCORDION ──
-function toggleAcc(header){
-  const body=header.nextElementSibling;
-  const open=body.classList.contains('open');
-  body.classList.toggle('open',!open);
-  header.classList.toggle('open',!open);
+function toggleAcc(header) {
+  const body = header.nextElementSibling;
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  header.classList.toggle('open', !open);
 }
 
 // ── MEMO ──
-const memoEl=document.getElementById('free-memo');
-memoEl.addEventListener('input',function(){ try{localStorage.setItem('fr_memo',this.value);}catch(e){} });
-const sm=localStorage.getItem('fr_memo');
-if(sm) memoEl.value=sm;
+const memoEl = document.getElementById('free-memo');
+if (memoEl) {
+  memoEl.addEventListener('input', function() {
+    try {
+      localStorage.setItem('fr_memo', this.value);
+    } catch (e) {}
+  });
+
+  const sm = localStorage.getItem('fr_memo');
+  if (sm) memoEl.value = sm;
+}
 
 // ── DUAL CLOCK ──
 function updateClocks() {
   const now = new Date();
-  
-  // 한국 시간 (KST)
-  const krOpt = { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', hour12: false };
+
+  const krOpt = { timeZone:'Asia/Seoul', hour:'2-digit', minute:'2-digit', hour12:false };
+  const frOpt = { timeZone:'Europe/Paris', hour:'2-digit', minute:'2-digit', hour12:false };
+
   const krTime = now.toLocaleTimeString('en-US', krOpt);
-  
-  // 파리 시간 (CET/CEST)
-  const frOpt = { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hour12: false };
   const frTime = now.toLocaleTimeString('en-US', frOpt);
-  
+
   const krEl = document.getElementById('time-kr');
   const frEl = document.getElementById('time-fr');
-  
-  if(krEl) krEl.textContent = krTime;
-  if(frEl) frEl.textContent = frTime;
+
+  if (krEl) krEl.textContent = krTime;
+  if (frEl) frEl.textContent = frTime;
 }
 setInterval(updateClocks, 1000);
-updateClocks(); // 페이지 켜자마자 즉시 실행
-  
+updateClocks();
+
 // ── INIT ──
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
   // 지도는 탭할 때만 로딩
 });
 </script>
