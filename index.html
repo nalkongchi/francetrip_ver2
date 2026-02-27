@@ -279,7 +279,15 @@ body {
 .eiffel-light:nth-child(3n) { animation-duration: 0.9s; animation-delay: 0.5s; }
 .eiffel-light:nth-child(4n) { animation-duration: 1.4s; animation-delay: 0.1s; }
 .eiffel-light:nth-child(5n) { animation-duration: 0.8s; animation-delay: 0.7s; }
-
+  
+/* ── 듀얼 시계 위젯 스타일 ── */
+.clock-row { display:flex; gap:10px; margin-top:14px; width:100%; max-width:300px; }
+.c-card {
+  flex:1; background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:12px 8px; text-align:center;
+}
+.c-lbl { font-size:0.6rem; color:var(--muted); font-family:'Noto Sans KR',sans-serif; letter-spacing:0.1em; margin-bottom:5px; }
+.c-time { font-family:'DM Mono',monospace; font-size:1.4rem; color:var(--gold-light); font-weight:500; letter-spacing: 0.05em; }
 ::-webkit-scrollbar { width:3px; height:3px; }
 ::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:2px; }
 </style>
@@ -335,7 +343,7 @@ body {
     </svg>
   </div>
 
-  <div class="home-content">
+<div class="home-content">
     <div class="flag-row">
       <span style="background:#002395"></span>
       <span style="background:#f5f0e8"></span>
@@ -343,6 +351,8 @@ body {
     </div>
     <h1 class="home-title">Paris &<br>Strasbourg</h1>
     <div class="home-sub">우리의 프랑스 여행 일지</div>
+
+    <div class="date-badge" style="margin-top:20px; margin-bottom:-10px;">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
 
     <div class="dday-card">
       <div class="dday-lbl" id="dday-label">D-DAY</div>
@@ -364,6 +374,18 @@ body {
         <div class="w-desc" id="ws-desc">로딩 중</div>
       </div>
     </div>
+
+    <div class="clock-row">
+      <div class="c-card">
+        <div class="c-lbl">한국 🇰🇷</div>
+        <div id="time-kr" class="c-time">--:--</div>
+      </div>
+      <div class="c-card">
+        <div class="c-lbl">파리 🇫🇷</div>
+        <div id="time-fr" class="c-time">--:--</div>
+      </div>
+    </div>
+  </div>
 
     <div class="date-badge">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
 
@@ -1199,6 +1221,27 @@ memoEl.addEventListener('input',function(){ try{localStorage.setItem('fr_memo',t
 const sm=localStorage.getItem('fr_memo');
 if(sm) memoEl.value=sm;
 
+// ── DUAL CLOCK ──
+function updateClocks() {
+  const now = new Date();
+  
+  // 한국 시간 (KST)
+  const krOpt = { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', hour12: false };
+  const krTime = now.toLocaleTimeString('en-US', krOpt);
+  
+  // 파리 시간 (CET/CEST)
+  const frOpt = { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hour12: false };
+  const frTime = now.toLocaleTimeString('en-US', frOpt);
+  
+  const krEl = document.getElementById('time-kr');
+  const frEl = document.getElementById('time-fr');
+  
+  if(krEl) krEl.textContent = krTime;
+  if(frEl) frEl.textContent = frTime;
+}
+setInterval(updateClocks, 1000);
+updateClocks(); // 페이지 켜자마자 즉시 실행
+  
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', ()=>{
   // 지도는 탭할 때만 로딩
