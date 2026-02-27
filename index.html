@@ -643,7 +643,7 @@ body {
   <div class="budget-wrap">
     <div class="budget-total">
       <div class="bl">TOTAL SPENT</div>
-      <div class="ba" id="total-amount">€ 0</div>
+      <div class="ba" id="total-amount">€ 0.00<span class="ba-sub"> / ₩ 0</span></div>
       <div style="font-size:0.73rem;color:rgba(245,240,232,0.38)">지출을 추가하면 자동 합산돼요</div>
     </div>
 
@@ -1302,7 +1302,7 @@ function renderExp() {
   const totalKrw = Math.round(totalEur * EX_RATE);
   const totalEl = document.getElementById('total-amount');
   if (totalEl) {
-    totalEl.innerHTML = `€ ${totalEur.toFixed(2)}<div class="ba-sub">₩ ${totalKrw.toLocaleString()}</div>`;
+  totalEl.innerHTML = `€ ${totalEur.toFixed(2)}<span class="ba-sub"> / ₩ ${totalKrw.toLocaleString()}</span>`;
   }
 
   Object.keys(cats).forEach(k => {
