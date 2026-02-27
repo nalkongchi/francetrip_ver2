@@ -592,9 +592,6 @@ body {
     <div class="progress-bar"><div class="progress-fill" id="prog-book"></div></div>
     <div id="list-book"></div>
   </div>
-  <div style="display:flex;justify-content:center;margin:20px 0 32px;">
-    <button class="save-btn" onclick="saveChecks()">💾 저장완료</button>
-  </div>
 </div>
 <div id="save-toast">✅ 저장완료!</div>
 </div>
@@ -643,21 +640,75 @@ body {
       <div class="acc-inner">
         <div class="phrase-group">
           <div class="phrase-group-title">자리 / 입장</div>
-          <div class="phrase-item"><span class="phrase-kr">두 명이요</span><span class="phrase-fr">Pour deux, s'il vous plaît.</span></div>
-          <div class="phrase-item"><span class="phrase-kr">예약했어요</span><span class="phrase-fr">J'ai une réservation.</span></div>
-          <div class="phrase-item"><span class="phrase-kr">메뉴 주세요</span><span class="phrase-fr">La carte, s'il vous plaît.</span></div>
+          <div class="phrase-item">
+            <span class="phrase-kr">두 명이요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Pour deux, s'il vous plaît.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(뿌흐 두, 씰 부 쁠레)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">예약했어요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">J'ai une réservation.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(줴 윈 헤제흐바씨옹)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">메뉴 주세요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">La carte, s'il vous plaît.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(라 꺄흐뜨, 씰 부 쁠레)</div>
+            </div>
+          </div>
         </div>
         <div class="phrase-group">
           <div class="phrase-group-title">주문</div>
-          <div class="phrase-item"><span class="phrase-kr">이걸로 할게요</span><span class="phrase-fr">Je vais prendre ça.</span></div>
-          <div class="phrase-item"><span class="phrase-kr">추천해주세요</span><span class="phrase-fr">Qu'est-ce que vous recommandez ?</span></div>
-          <div class="phrase-item"><span class="phrase-kr">물 주세요</span><span class="phrase-fr">De l'eau, s'il vous plaît.</span></div>
-          <div class="phrase-item"><span class="phrase-kr">맛있어요!</span><span class="phrase-fr">C'est délicieux !</span></div>
+          <div class="phrase-item">
+            <span class="phrase-kr">이걸로 할게요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Je vais prendre ça.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(쥬 베 프헝드흐 싸)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">추천해주세요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Qu'est-ce que vous recommandez ?</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(께쓰 끄 부 헤꼬멍데?)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">물 주세요(무료 수돗물)</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Une carafe d'eau, s'il vous plaît.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(윈 꺄하프 도, 씰 부 쁠레)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">맛있어요!</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">C'est délicieux !</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(쎄 델리씨유!)</div>
+            </div>
+          </div>
         </div>
         <div class="phrase-group">
           <div class="phrase-group-title">계산</div>
-          <div class="phrase-item"><span class="phrase-kr">계산서 주세요</span><span class="phrase-fr">L'addition, s'il vous plaît.</span></div>
-          <div class="phrase-item"><span class="phrase-kr">카드 되나요?</span><span class="phrase-fr">Vous acceptez la carte ?</span></div>
+          <div class="phrase-item">
+            <span class="phrase-kr">계산서 주세요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">L'addition, s'il vous plaît.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(라디씨옹, 씰 부 쁠레)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">카드 되나요?</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Vous acceptez la carte ?</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(부 작쎕떼 라 꺄흐뜨?)</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -670,10 +721,34 @@ body {
     <div class="acc-body">
       <div class="acc-inner">
         <div class="phrase-group">
-          <div class="phrase-item"><span class="phrase-kr">~어디에 있나요?</span><span class="phrase-fr">Où est ~ ?</span></div>
-          <div class="phrase-item"><span class="phrase-kr">지하철역</span><span class="phrase-fr">la station de métro</span></div>
-          <div class="phrase-item"><span class="phrase-kr">얼마나 걸려요?</span><span class="phrase-fr">C'est loin d'ici ?</span></div>
-          <div class="phrase-item"><span class="phrase-kr">여기로 가주세요 (택시)</span><span class="phrase-fr">Amenez-moi ici, s'il vous plaît.</span></div>
+          <div class="phrase-item">
+            <span class="phrase-kr">~어디에 있나요?</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Où est ~ ?</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(우 에 ~ ?)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">지하철역</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">la station de métro</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(라 쓰따씨옹 드 메트호)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">얼마나 걸려요?</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">C'est loin d'ici ?</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(쎄 루앙 디씨?)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">여기로 가주세요(택시)</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">À cette adresse, s'il vous plaît.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(아 쎄따드헤쓰, 씰 부 쁠레)</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -686,10 +761,34 @@ body {
     <div class="acc-body">
       <div class="acc-inner">
         <div class="phrase-group">
-          <div class="phrase-item"><span class="phrase-kr">얼마예요?</span><span class="phrase-fr">C'est combien ?</span></div>
-          <div class="phrase-item"><span class="phrase-kr">한국으로 엽서 보내고 싶어요</span><span class="phrase-fr">Je voudrais envoyer cette carte postale en Corée.</span></div>
-          <div class="phrase-item"><span class="phrase-kr">우표 주세요</span><span class="phrase-fr">Un timbre, s'il vous plaît.</span></div>
-          <div class="phrase-item"><span class="phrase-kr">봉지 필요 없어요</span><span class="phrase-fr">Pas de sac, merci.</span></div>
+          <div class="phrase-item">
+            <span class="phrase-kr">얼마예요?</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">C'est combien ?</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(쎄 꽁비앙?)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">한국으로 엽서 보낼게요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Pour envoyer en Corée du Sud.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(뿌흐 엉부아예 엉 꼬헤 뒤 쉬드)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">우표 주세요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Un timbre, s'il vous plaît.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(앙 땡브흐, 씰 부 쁠레)</div>
+            </div>
+          </div>
+          <div class="phrase-item">
+            <span class="phrase-kr">봉지 안주셔도 돼요</span>
+            <div style="text-align:right;">
+              <div class="phrase-fr">Pas de sac, merci.</div>
+              <div style="font-size:0.65rem; color:var(--muted);">(빠 드 싹, 메흐씨)</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1068,10 +1167,9 @@ function renderChecklist(){
     if(prog) prog.style.width=(items.length?(done/items.length*100):0)+'%';
     el.innerHTML=items.map(item=>{
       const isDone=checkState[item.id], isLocked=item.locked;
-      return `<label class="check-item ${isDone?'done':''} ${isLocked?'locked':''}" onclick="${isLocked?'':` toggleCheck('${item.id}','${sec}')`}">
-        <div class="check-box" style="${isLocked?'background:var(--gold);border-color:var(--gold);':''}">
-          ${isDone||isLocked?'<span style="color:#111;font-size:0.7rem;font-weight:700">✓</span>':''}
-        </div>
+      // ✓ 기호 중복 오류 해결 (CSS만 작동하게 수정)
+      return `<label class="check-item ${isDone||isLocked?'done':''} ${isLocked?'locked':''}" onclick="${isLocked?'':` toggleCheck('${item.id}','${sec}')`}">
+        <div class="check-box"></div>
         <div>
           <div class="check-label">${item.text}${isLocked?' <span style="font-size:0.58rem;color:var(--gold);font-family:DM Mono,monospace">CONFIRMED</span>':''}</div>
           ${item.note?`<div class="check-note">${item.note}</div>`:''}
