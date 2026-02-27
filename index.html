@@ -544,7 +544,11 @@ body {
   <div class="section-lbl">지출 추가</div>
   <div class="budget-input-row">
     <input type="text" id="ex-name" placeholder="항목 (예: 루브르 입장료)">
-    <input type="number" id="ex-amount" placeholder="금액 (€)" min="0" step="0.01">
+    <input type="number" id="ex-amount" placeholder="금액" min="0" step="0.01">
+    <select id="ex-currency" style="flex: 0.4; min-width: 65px;">
+      <option value="EUR">€ (유로)</option>
+      <option value="KRW">₩ (원화)</option>
+    </select>
   </div>
   <div class="budget-input-row">
     <select id="ex-cat">
@@ -936,29 +940,66 @@ function switchDay(num, btn) {
 }
 
 // ── BUDGET ──
+// ── BUDGET ──
+const EX_RATE = 1700; // 1유로 = 1,700원 고정 환율
 let expenses = JSON.parse(localStorage.getItem('fr_expenses')||'[]');
 function saveExp(){ try{localStorage.setItem('fr_expenses',JSON.stringify(expenses));}catch(e){} }
+
 function addExpense(){
-  const name=document.getElementById('ex-name').value.trim();
-  const amount=parseFloat(document.getElementById('ex-amount').value);
-  const cat=document.getElementById('ex-cat').value;
-  if(!name||isNaN(amount)||amount<=0) return;
-  expenses.push({name,amount,cat,id:Date.now()});
+  const name = document.getElementById('ex-name').value.trim();
+  let amount = parseFloat(document.getElementById('ex-amount').value);
+  const cat = document.getElementById('ex-cat').value;
+  const currency = document.getElementById('ex-currency').value;
+  
+  if(!name || isNaN(amount) || amount <= 0) return;
+  
+  // 내부적으로는 모두 유로(EUR) 기준으로 통일해서 저장
+  let amountEur = currency === 'KRW' ? amount / EX_RATE : amount;
+  
+  expenses.push({name, amount: amountEur, cat, id:Date.now()});
   saveExp(); renderExp();
-  document.getElementById('ex-name').value='';
-  document.getElementById('ex-amount').value='';
+  
+  document.getElementById('ex-name').value = '';
+  document.getElementById('ex-amount').value = '';
 }
-function deleteExpense(id){ expenses=expenses.filter(e=>e.id!==id); saveExp(); renderExp(); }
+
+function deleteExpense(id){ expenses = expenses.filter(e=>e.id!==id); saveExp(); renderExp(); }
+
 function renderExp(){
-  const list=document.getElementById('expense-list');
-  const cats={transport:0,food:0,hotel:0,sightseeing:0,shopping:0,etc:0};
-  let total=0;
-  expenses.forEach(e=>{ total+=e.amount; if(cats[e.cat]!==undefined) cats[e.cat]+=e.amount; });
-  document.getElementById('total-amount').textContent='€ '+total.toFixed(2);
+  const list = document.getElementById('expense-list');
+  const cats = {transport:0,food:0,hotel:0,sightseeing:0,shopping:0,etc:0};
+  let totalEur = 0;
+  
+  expenses.forEach(e=>{ 
+    totalEur += e.amount; 
+    if(cats[e.cat] !== undefined) cats[e.cat] += e.amount; 
+  });
+  
+  // 💰 총액: 유로 & 원화 동시 표기
+  const totalKrw = Math.round(totalEur * EX_RATE);
+  document.getElementById('total-amount').innerHTML = `€ ${totalEur.toFixed(2)}<div style="font-size:1.1rem; color:var(--gold-light); margin-top:5px; font-family:'Noto Sans KR',sans-serif;">₩ ${totalKrw.toLocaleString()}</div>`;
+  
   Object.keys(cats).forEach(k=>{ const el=document.getElementById('cat-'+k); if(el) el.textContent='€'+cats[k].toFixed(2); });
+  
   if(!expenses.length){ list.innerHTML='<div class="empty-state"><span class="big">💶</span>아직 지출 내역이 없어요</div>'; return; }
-  const cn={transport:'✈️ 교통',food:'🍽 식사',hotel:'🏨 숙박',sightseeing:'🎨 관광',shopping:'🛍 쇼핑',etc:'☕ 기타'};
-  list.innerHTML=[...expenses].reverse().map(e=>`<div class="expense-item"><div class="ex-left"><div class="ex-cat">${cn[e.cat]||e.cat}</div><div class="ex-name">${e.name}</div></div><div class="ex-amt">€${e.amount.toFixed(2)}</div><button class="ex-del" onclick="deleteExpense(${e.id})">✕</button></div>`).join('');
+  
+  const cn = {transport:'✈️ 교통',food:'🍽 식사',hotel:'🏨 숙박',sightseeing:'🎨 관광',shopping:'🛍 쇼핑',etc:'☕ 기타'};
+  
+  // 💰 리스트 내역: 유로 & 원화 동시 표기
+  list.innerHTML = [...expenses].reverse().map(e=>{
+    const krw = Math.round(e.amount * EX_RATE);
+    return `<div class="expense-item">
+      <div class="ex-left">
+        <div class="ex-cat">${cn[e.cat]||e.cat}</div>
+        <div class="ex-name">${e.name}</div>
+      </div>
+      <div class="ex-amt" style="text-align:right;">
+        <div>€${e.amount.toFixed(2)}</div>
+        <div style="font-size:0.65rem; color:var(--muted); margin-top:2px;">₩${krw.toLocaleString()}</div>
+      </div>
+      <button class="ex-del" onclick="deleteExpense(${e.id})">✕</button>
+    </div>`;
+  }).join('');
 }
 renderExp();
 
