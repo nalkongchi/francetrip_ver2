@@ -410,6 +410,28 @@ body {
 
 ::-webkit-scrollbar { width:3px; height:3px; }
 ::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:2px; }
+
+/* 여기 아래에 추가 */
+@media (min-width: 768px) {
+  #page-map {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  .map-day-btns {
+    padding: 14px 0 0;
+  }
+
+  .map-strip {
+    padding: 12px 0;
+  }
+
+  #leaflet-map {
+    width: 100%;
+  }
+}
+  
 </style>
 </head>
 <body>
