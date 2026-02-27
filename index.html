@@ -267,11 +267,32 @@ body {
 .budget-wrap { padding:16px; max-width:600px; margin:0 auto; }
 .budget-total { background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.04)); border:1px solid rgba(201,168,76,0.3); border-radius:16px; padding:20px; text-align:center; margin-bottom:14px; }
 .budget-total .bl { font-size:0.68rem; color:var(--muted); letter-spacing:0.1em; }
-.budget-total .ba { font-family:'Playfair Display',serif; font-size:2.4rem; color:var(--gold); margin:5px 0; }
+.budget-total .ba {
+  font-family:'Playfair Display',serif;
+  font-size:2.4rem;
+  color:var(--gold);
+  margin:5px 0;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:baseline;
+  gap:0.05em 0.18em;
+  line-height:1.1;
+}
+.budget-total .ba-eur,
 .budget-total .ba-sub {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  color: var(--gold-light);
+  white-space: nowrap;
+}
+.budget-total .ba-sub {
+  font-family:'Playfair Display',serif;
+  font-size:2.4rem;
+  color:var(--gold-light);
+}
+@media (max-width: 420px) {
+  .budget-total .ba,
+  .budget-total .ba-sub {
+    font-size: clamp(2rem, 10vw, 2.4rem);
+  }
 }
 .cat-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:14px; }
 .cat-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 6px; text-align:center; }
@@ -288,18 +309,44 @@ body {
 .budget-input-row input::placeholder { color:rgba(245,240,232,0.22); }
 .budget-input-row input:focus, .budget-input-row select:focus { outline:none; border-color:var(--gold); }
 .budget-input-row select option { background:var(--navy2); }
+.budget-action-row { flex-wrap:nowrap; }
 .btn-add {
   background:var(--gold); color:var(--navy); border:none;
   border-radius:8px; padding:10px 16px; font-weight:700;
   cursor:pointer; font-size:0.85rem; font-family:'Noto Sans KR',sans-serif;
-  flex:1 1 100%;
+  flex:1;
 }
-.expense-item { display:flex; align-items:center; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:10px; margin-bottom:7px; }
-.ex-left { flex:1; }
+.btn-cancel-edit {
+  display:none;
+  background:transparent;
+  color:var(--gold-light);
+  border:1px solid rgba(201,168,76,0.35);
+  border-radius:8px;
+  padding:10px 14px;
+  font-weight:500;
+  cursor:pointer;
+  font-size:0.82rem;
+  font-family:'Noto Sans KR',sans-serif;
+  flex:0 0 auto;
+}
+.editing-hint {
+  display:none;
+  margin-bottom:10px;
+  font-size:0.74rem;
+  color:var(--gold-light);
+}
+.expense-item { display:flex; align-items:center; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:10px; margin-bottom:7px; gap:8px; }
+.ex-left { flex:1; min-width:0; }
 .ex-cat { font-size:0.6rem; color:var(--muted); font-family:'DM Mono',monospace; }
-.ex-name { font-size:0.86rem; margin-top:1px; }
-.ex-amt { font-family:'DM Mono',monospace; font-size:0.92rem; color:var(--gold); }
-.ex-del { background:none; border:none; color:rgba(245,240,232,0.2); cursor:pointer; padding:4px 8px; }
+.ex-name { font-size:0.86rem; margin-top:1px; word-break:keep-all; }
+.ex-amt { font-family:'DM Mono',monospace; font-size:0.92rem; color:var(--gold); text-align:right; }
+.ex-actions { display:flex; align-items:center; gap:2px; }
+.ex-edit, .ex-del {
+  background:none; border:none; cursor:pointer;
+  padding:4px 6px; font-size:0.95rem;
+}
+.ex-edit { color:var(--gold-light); }
+.ex-del { color:rgba(245,240,232,0.22); }
 .section-lbl { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
 .divider { height:1px; background:var(--border); margin:14px 0; }
 .empty-state { text-align:center; padding:30px 20px; color:var(--muted); font-size:0.84rem; }
@@ -411,7 +458,36 @@ body {
   border-radius:14px; padding:12px 8px; text-align:center;
 }
 .c-lbl { font-size:0.6rem; color:var(--muted); font-family:'Noto Sans KR',sans-serif; letter-spacing:0.1em; margin-bottom:5px; }
-.c-time { font-family:'DM Mono',monospace; font-size:1.4rem; color:var(--gold-light); font-weight:500; letter-spacing:0.05em; }
+.c-time {
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem;
+  color:var(--gold-light);
+  font-weight:700;
+  letter-spacing:0.03em;
+}
+
+/* BGM */
+.bgm-btn {
+  position: fixed;
+  right: 14px;
+  bottom: calc(var(--bottom-h) + 14px);
+  z-index: 1200;
+  background: rgba(10,14,30,0.94);
+  color: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.28);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  font-family: 'DM Mono', monospace;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+.bgm-btn.playing {
+  background: rgba(201,168,76,0.14);
+  border-color: rgba(201,168,76,0.45);
+  color: var(--gold);
+}
 
 /* PC map spacing */
 @media (min-width: 768px) {
@@ -686,7 +762,10 @@ body {
   <div class="budget-wrap">
     <div class="budget-total">
       <div class="bl">TOTAL SPENT</div>
-      <div class="ba" id="total-amount">€ 0.00<span class="ba-sub"> / ₩ 0</span></div>
+      <div class="ba" id="total-amount">
+        <span class="ba-eur">€ 0.00</span>
+        <span class="ba-sub">/ ₩ 0</span>
+      </div>
       <div style="font-size:0.73rem;color:rgba(245,240,232,0.38)">지출을 추가하면 자동 합산돼요</div>
     </div>
 
@@ -700,6 +779,8 @@ body {
     </div>
 
     <div class="section-lbl">지출 추가</div>
+    <div id="editing-hint" class="editing-hint">✏️ 수정 중 — 값을 바꾸고 “수정 저장”을 눌러줘</div>
+
     <div class="budget-input-row">
       <input type="text" id="ex-name" placeholder="항목 (예: 루브르 입장료)">
       <input type="number" id="ex-amount" placeholder="금액" min="0" step="0.01">
@@ -708,6 +789,7 @@ body {
         <option value="KRW">₩ (원화)</option>
       </select>
     </div>
+
     <div class="budget-input-row">
       <select id="ex-cat">
         <option value="transport">✈️ 교통</option>
@@ -717,7 +799,11 @@ body {
         <option value="shopping">🛍 쇼핑</option>
         <option value="etc">☕ 기타</option>
       </select>
-      <button class="btn-add" onclick="addExpense()">+ 추가</button>
+    </div>
+
+    <div class="budget-input-row budget-action-row">
+      <button class="btn-add" id="btn-add-expense" onclick="addExpense()">+ 추가</button>
+      <button class="btn-cancel-edit" id="btn-cancel-edit" type="button" onclick="cancelEdit()">취소</button>
     </div>
 
     <div class="divider"></div>
@@ -971,9 +1057,14 @@ body {
   </div>
 </div>
 
+<audio id="bgm" loop preload="metadata">
+  <source src="./bgm.mp3" type="audio/mpeg">
+</audio>
+<button id="bgm-toggle" class="bgm-btn" type="button">🎵 BGM</button>
+
 <nav class="bottom-nav">
   <button class="bnav-btn active" onclick="switchPage('home',this)"><span class="bi">🏠</span><span class="bl">홈</span></button>
-  <button class="bnav-btn" onclick="switchPage('map',this)"><span class="bi">🗺</span><span class="bl">지도</span></button>
+  <button class="bnav-btn" onclick="switchPage('map',this)"><span class="bi">🗺️</span><span class="bl">지도</span></button>
   <button class="bnav-btn" onclick="switchPage('schedule',this)"><span class="bi">📅</span><span class="bl">일정</span></button>
   <button class="bnav-btn" onclick="switchPage('budget',this)"><span class="bi">💶</span><span class="bl">가계부</span></button>
   <button class="bnav-btn" onclick="switchPage('checklist',this)"><span class="bi">🎒</span><span class="bl">준비물</span></button>
@@ -1294,38 +1385,118 @@ function switchDay(num, btn) {
 
 // ── BUDGET ──
 const EX_RATE = 1700;
+let editingId = null;
 let expenses = JSON.parse(localStorage.getItem('fr_expenses') || '[]');
+
+expenses = expenses.map(e => ({
+  ...e,
+  currency: e.currency || 'EUR',
+  originalAmount: typeof e.originalAmount === 'number'
+    ? e.originalAmount
+    : Number((e.amount || 0).toFixed(2))
+}));
 
 function saveExp() {
   try { localStorage.setItem('fr_expenses', JSON.stringify(expenses)); } catch (e) {}
 }
 
+function getAmountInEur(amount, currency) {
+  return currency === 'KRW' ? amount / EX_RATE : amount;
+}
+
+function resetExpenseForm() {
+  document.getElementById('ex-name').value = '';
+  document.getElementById('ex-amount').value = '';
+  document.getElementById('ex-cat').value = 'transport';
+  document.getElementById('ex-currency').value = 'EUR';
+}
+
+function updateExpenseFormUI() {
+  const addBtn = document.getElementById('btn-add-expense');
+  const cancelBtn = document.getElementById('btn-cancel-edit');
+  const hint = document.getElementById('editing-hint');
+
+  if (!addBtn || !cancelBtn || !hint) return;
+
+  if (editingId) {
+    addBtn.textContent = '✓ 수정 저장';
+    cancelBtn.style.display = 'inline-block';
+    hint.style.display = 'block';
+  } else {
+    addBtn.textContent = '+ 추가';
+    cancelBtn.style.display = 'none';
+    hint.style.display = 'none';
+  }
+}
+
+function cancelEdit() {
+  editingId = null;
+  resetExpenseForm();
+  updateExpenseFormUI();
+}
+
 function addExpense() {
   const name = document.getElementById('ex-name').value.trim();
-  let amount = parseFloat(document.getElementById('ex-amount').value);
+  const amountInput = parseFloat(document.getElementById('ex-amount').value);
   const cat = document.getElementById('ex-cat').value;
   const currency = document.getElementById('ex-currency').value;
 
-  if (!name || isNaN(amount) || amount <= 0) return;
+  if (!name || isNaN(amountInput) || amountInput <= 0) return;
 
-  const amountEur = currency === 'KRW' ? amount / EX_RATE : amount;
+  const amountEur = getAmountInEur(amountInput, currency);
 
-  expenses.push({
-    name,
-    amount: amountEur,
-    cat,
-    id: Date.now()
-  });
+  if (editingId) {
+    expenses = expenses.map(e => e.id === editingId ? {
+      ...e,
+      name,
+      cat,
+      currency,
+      originalAmount: amountInput,
+      amount: amountEur
+    } : e);
+    editingId = null;
+  } else {
+    expenses.push({
+      name,
+      amount: amountEur,
+      originalAmount: amountInput,
+      currency,
+      cat,
+      id: Date.now()
+    });
+  }
 
   saveExp();
   renderExp();
+  resetExpenseForm();
+  updateExpenseFormUI();
+}
 
-  document.getElementById('ex-name').value = '';
-  document.getElementById('ex-amount').value = '';
+function editExpense(id) {
+  const item = expenses.find(e => e.id === id);
+  if (!item) return;
+
+  document.getElementById('ex-name').value = item.name;
+  document.getElementById('ex-amount').value = item.originalAmount;
+  document.getElementById('ex-cat').value = item.cat;
+  document.getElementById('ex-currency').value = item.currency || 'EUR';
+
+  editingId = id;
+  updateExpenseFormUI();
+
+  const budgetPage = document.getElementById('page-budget');
+  if (budgetPage && budgetPage.classList.contains('active')) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 
 function deleteExpense(id) {
   expenses = expenses.filter(e => e.id !== id);
+  if (editingId === id) {
+    editingId = null;
+    resetExpenseForm();
+    updateExpenseFormUI();
+  }
   saveExp();
   renderExp();
 }
@@ -1345,7 +1516,7 @@ function renderExp() {
   const totalKrw = Math.round(totalEur * EX_RATE);
   const totalEl = document.getElementById('total-amount');
   if (totalEl) {
-    totalEl.innerHTML = `€ ${totalEur.toFixed(2)}<span class="ba-sub"> / ₩ ${totalKrw.toLocaleString()}</span>`;
+    totalEl.innerHTML = `<span class="ba-eur">€ ${totalEur.toFixed(2)}</span><span class="ba-sub">/ ₩ ${totalKrw.toLocaleString()}</span>`;
   }
 
   Object.keys(cats).forEach(k => {
@@ -1374,15 +1545,19 @@ function renderExp() {
         <div class="ex-cat">${cn[e.cat] || e.cat}</div>
         <div class="ex-name">${e.name}</div>
       </div>
-      <div class="ex-amt" style="text-align:right;">
+      <div class="ex-amt">
         <div>€${e.amount.toFixed(2)}</div>
         <div style="font-size:0.65rem; color:var(--muted); margin-top:2px;">₩${krw.toLocaleString()}</div>
       </div>
-      <button class="ex-del" onclick="deleteExpense(${e.id})">✕</button>
+      <div class="ex-actions">
+        <button class="ex-edit" type="button" onclick="editExpense(${e.id})" aria-label="수정">✎</button>
+        <button class="ex-del" type="button" onclick="deleteExpense(${e.id})" aria-label="삭제">✕</button>
+      </div>
     </div>`;
   }).join('');
 }
 renderExp();
+updateExpenseFormUI();
 
 // ── CHECKLIST ──
 const CONFIRMED = ['b1','b2','b3','b4'];
@@ -1519,6 +1694,36 @@ function updateClocks() {
 }
 setInterval(updateClocks, 1000);
 updateClocks();
+
+// ── BGM ──
+const bgm = document.getElementById('bgm');
+const bgmToggle = document.getElementById('bgm-toggle');
+
+if (bgm) {
+  bgm.volume = 0.35;
+}
+
+async function toggleBgm() {
+  if (!bgm || !bgmToggle) return;
+
+  if (bgm.paused) {
+    try {
+      await bgm.play();
+      bgmToggle.textContent = '⏸ BGM';
+      bgmToggle.classList.add('playing');
+    } catch (e) {
+      alert('브라우저 정책 때문에 자동 재생이 막혔어요. 버튼을 다시 한 번 눌러 재생해줘.');
+    }
+  } else {
+    bgm.pause();
+    bgmToggle.textContent = '🎵 BGM';
+    bgmToggle.classList.remove('playing');
+  }
+}
+
+if (bgmToggle) {
+  bgmToggle.addEventListener('click', toggleBgm);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const subHeader = document.getElementById('subpage-header');
