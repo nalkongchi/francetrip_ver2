@@ -1130,7 +1130,7 @@ body {
 
     <div class="memo-card">
       <h4>📝 자유 메모</h4>
-      <textarea class="memo-area" id="free-memo" placeholder="여행 중 메모, 환율, 긴급연락처 등 자유롭게...">환율 참고: €1 ≈ 약 1,500원
+      <textarea class="memo-area" id="free-memo" placeholder="여행 중 메모, 환율, 긴급연락처 등 자유롭게...">환율 참고: €1 ≈ 약 1,700원
 긴급전화: 112 (경찰), 15 (의료), 18 (소방)
 한국 영사관: +33-1-47-53-01-01</textarea>
     </div>
@@ -1170,6 +1170,8 @@ function switchPage(id, btn) {
       }
     });
   }
+
+  window.scrollTo({ top: 0, behavior: 'auto' });
 
   const subHeader = document.getElementById('subpage-header');
   if (subHeader) {
@@ -1252,25 +1254,56 @@ function switchPage(id, btn) {
 
 // ── WEATHER ──
 async function fetchWeather(lat, lon, iconId, tempId, descId) {
+  const iconEl = document.getElementById(iconId);
+  const tempEl = document.getElementById(tempId);
+  const descEl = document.getElementById(descId);
+
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&timezone=Europe/Paris`;
-    const data = await (await fetch(url)).json();
-    const temp = Math.round(data.current.temperature_2m);
-    const code = data.current.weathercode;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=Europe/Paris`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-    const IC = {0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',61:'🌧',71:'🌨',80:'🌦',95:'⛈'};
-    const DC = {0:'맑음',1:'대체로 맑음',2:'구름 조금',3:'흐림',45:'안개',48:'안개',51:'이슬비',61:'비',71:'눈',80:'소나기',95:'뇌우'};
-    const k = IC[code] ? code : Math.floor(code / 10) * 10;
+    const temp = Math.round(data?.current?.temperature_2m);
+    const code = data?.current?.weather_code ?? data?.current?.weathercode;
 
-    const iconEl = document.getElementById(iconId);
-    const tempEl = document.getElementById(tempId);
-    const descEl = document.getElementById(descId);
+    const WEATHER_MAP = {
+      0:  { icon: '☀️', text: '맑음' },
+      1:  { icon: '🌤', text: '대체로 맑음' },
+      2:  { icon: '⛅', text: '구름 조금' },
+      3:  { icon: '☁️', text: '흐림' },
+      45: { icon: '🌫', text: '안개' },
+      48: { icon: '🌫', text: '서리 안개' },
+      51: { icon: '🌦', text: '약한 이슬비' },
+      53: { icon: '🌦', text: '이슬비' },
+      55: { icon: '🌧', text: '강한 이슬비' },
+      56: { icon: '🌧', text: '어는 이슬비' },
+      57: { icon: '🌧', text: '강한 어는 이슬비' },
+      61: { icon: '🌧', text: '약한 비' },
+      63: { icon: '🌧', text: '비' },
+      65: { icon: '🌧', text: '강한 비' },
+      66: { icon: '🌧', text: '어는 비' },
+      67: { icon: '🌧', text: '강한 어는 비' },
+      71: { icon: '🌨', text: '약한 눈' },
+      73: { icon: '🌨', text: '눈' },
+      75: { icon: '❄️', text: '강한 눈' },
+      77: { icon: '🌨', text: '싸락눈' },
+      80: { icon: '🌦', text: '약한 소나기' },
+      81: { icon: '🌦', text: '소나기' },
+      82: { icon: '⛈', text: '강한 소나기' },
+      85: { icon: '🌨', text: '약한 눈 소나기' },
+      86: { icon: '❄️', text: '강한 눈 소나기' },
+      95: { icon: '⛈', text: '뇌우' },
+      96: { icon: '⛈', text: '우박 뇌우' },
+      99: { icon: '⛈', text: '강한 우박 뇌우' }
+    };
 
-    if (iconEl) iconEl.textContent = IC[k] || '🌡';
-    if (tempEl) tempEl.textContent = temp + '°C';
-    if (descEl) descEl.textContent = DC[k] || '';
+    const weather = WEATHER_MAP[code] || { icon: '🌡', text: '날씨 확인' };
+
+    if (iconEl) iconEl.textContent = weather.icon;
+    if (tempEl) tempEl.textContent = Number.isFinite(temp) ? `${temp}°C` : '—°C';
+    if (descEl) descEl.textContent = weather.text;
   } catch (e) {
-    const descEl = document.getElementById(descId);
+    if (tempEl) tempEl.textContent = '—°C';
     if (descEl) descEl.textContent = '—';
   }
 }
@@ -1284,138 +1317,110 @@ const DAY_FOCUS = {
   6:[[48.068,7.346],[48.086,7.374]]
 };
 const DAYS = {
-  1: {
-    title: 'Day 1 — 3/7 (토) · 인천 → 파리',
-    spots: [
-      { name: '샤를드골 국제공항 (CDG)', lat: 49.0097, lng: 2.5479, icon: '✈️' },
-      { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨' },
-      { name: 'Intermarché EXPRESS', lat: 48.8674, lng: 2.3622, icon: '🛒' }
+  1:{title:'Day 1 — 3/7 (토) · 인천 → 파리',spots:[
+    {name:'샤를드골 국제공항 (CDG)',lat:49.0097,lng:2.5479,icon:'✈️'},
+    {name:'Intermarché EXPRESS',lat:48.8674,lng:2.3622,icon:'🛒'},
+    {name:'디스트릭트 레퓌블리크 (숙소)',lat:48.8673,lng:2.3629,icon:'🏨'},
+  ]},
+  2:{title:'Day 2 — 3/8 (일) · 마레 & 노트르담',spots:[
+    {name:'디스트릭트 레퓌블리크',lat:48.8673,lng:2.3629,icon:'🏨'},
+    {name:'Carette (보쥬 광장)',lat:48.8551,lng:2.3625,icon:'☕'},
+    {name:'보쥬 광장',lat:48.8553,lng:2.3625,icon:'🌿'},
+    {name:"L'As du Fallafel",lat:48.8571,lng:2.3561,icon:'🥙'},
+    {name:'Mariage Frères Marais',lat:48.8572,lng:2.3536,icon:'🍵'},
+    {name:'오텔 드 빌 (시청사)',lat:48.8566,lng:2.3522,icon:'🏛'},
+    {name:'노트르담 대성당',lat:48.8530,lng:2.3499,icon:'⛪'},
+    {name:'퐁생루이 다리',lat:48.8519,lng:2.3538,icon:'🌉'},
+    {name:'생루이섬',lat:48.8515,lng:2.3561,icon:'🏝'},
+    {name:'루브르 야경',lat:48.8606,lng:2.3376,icon:'🏛'},
+    {name:'Breizh Café Montorgueil',lat:48.8631,lng:2.3468,icon:'🥞'},
+  ]},
+  3:{title:'Day 3 — 3/9 (월) · 루브르 & 오랑주리',spots:[
+    {name:'오텔 드 빌',lat:48.8566,lng:2.3522,icon:'📸'},
+    {name:'BO&MIE',lat:48.8600,lng:2.3445,icon:'🥐'},
+    {name:'루브르 박물관',lat:48.8606,lng:2.3376,icon:'🏛'},
+    {name:'Palais-Royal',lat:48.8638,lng:2.3370,icon:'🌿'},
+    {name:'Galerie Vivienne',lat:48.8648,lng:2.3386,icon:'🛍'},
+    {name:'Pont des Arts',lat:48.8583,lng:2.3373,icon:'🌉'},
+    {name:'Bistrot Victoires',lat:48.8625,lng:2.3425,icon:'🦆'},
+    {name:'갤러리 라파예트',lat:48.8736,lng:2.3323,icon:'🛍'},
+    {name:'튈르리 정원',lat:48.8638,lng:2.3274,icon:'🌿'},
+    {name:'오랑주리 미술관',lat:48.8638,lng:2.3225,icon:'🎨'},
+    {name:'콩코르드 광장',lat:48.8656,lng:2.3211,icon:'🏛'},
+    {name:'샹젤리제 & 개선문',lat:48.8738,lng:2.2950,icon:'🌅'},
+    {name:'Bouillon République',lat:48.8671,lng:2.3631,icon:'🐌'},
+  ]},
+  4:{title:'Day 4 — 3/10 (화) · 에펠탑 & 바토 파리지앵',spots:[
+    {name:'Mamiche 베이커리',lat:48.8710,lng:2.3573,icon:'🥐'},
+    {name:'생마르탱 운하',lat:48.8698,lng:2.3637,icon:'🛶'},
+    {name:'유토피아 베이커리',lat:48.8625,lng:2.3520,icon:'🍰'},
+    {name:'La Poste (우체국)',lat:48.8614,lng:2.3534,icon:'💌'},
+    {name:'트로카데로 광장',lat:48.8638,lng:2.2888,icon:'📸'},
+    {name:'에펠탑',lat:48.8584,lng:2.2945,icon:'🗼'},
+    {name:'끌레흐 가 (Rue Cler)',lat:48.8564,lng:2.3053,icon:'☕'},
+    {name:'마르스 광장',lat:48.8556,lng:2.2988,icon:'🌿'},
+    {name:'비라켐 다리',lat:48.8517,lng:2.2880,icon:'🌉'},
+    {name:"L'Atypic",lat:48.8527,lng:2.2965,icon:'🥩'},
+    {name:'바토 파리지앵 선착장',lat:48.8601,lng:2.2958,icon:'🚢'},
+  ]},
+  5:{title:'Day 5 — 3/11 (수) · 파리 → 스트라스부르',segments:[
+    [
+      {name:'디스트릭트 레퓌블리크 (파리 숙소)',lat:48.8673,lng:2.3629,icon:'🏨'},
+      {name:'파리 동역 (Gare de l’Est)',lat:48.8767,lng:2.3590,icon:'🚄'},
+    ],
+    [
+      {name:'스트라스부르 역',lat:48.5851,lng:7.7341,icon:'🚄'},
+      {name:'시티 레지던스 스트라스부르 센터',lat:48.5865,lng:7.7396,icon:'🏨'},
+      {name:'Winstub Le Zehnerglock',lat:48.5804,lng:7.7468,icon:'🍽'},
+      {name:'스트라스부르 대성당',lat:48.5818,lng:7.7507,icon:'⛩'},
+      {name:'구텐베르크 광장',lat:48.5809,lng:7.7476,icon:'🏛'},
+      {name:'강변 산책 / 구시가지',lat:48.5799,lng:7.7445,icon:'🌊'},
+      {name:'La Fignette',lat:48.5798,lng:7.7460,icon:'🔥'},
+      {name:'대성당 야경 포인트',lat:48.5818,lng:7.7507,icon:'🌙'},
     ]
-  },
-
-  2: {
-    title: 'Day 2 — 3/8 (일) · 마레 & 시테섬 & 생루이섬',
-    spots: [
-      { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨' },
-      { name: 'Carette (보쥬 광장 점)', lat: 48.8551, lng: 2.3625, icon: '🥐' },
-      { name: '보쥬 광장', lat: 48.8553, lng: 2.3625, icon: '🌿' },
-      { name: '빅토르 위고 하우스', lat: 48.8554, lng: 2.3619, icon: '🏠' },
-      { name: '카르나발레 박물관', lat: 48.8576, lng: 2.3622, icon: '🏛' },
-      { name: '피카소 미술관 (외관)', lat: 48.8599, lng: 2.3622, icon: '🎨' },
-      { name: "L'As du Fallafel", lat: 48.8571, lng: 2.3561, icon: '🥙' },
-      { name: 'Mariage Frères Marais', lat: 48.8572, lng: 2.3536, icon: '🍵' },
-      { name: '오텔 드 빌 (시청사)', lat: 48.8566, lng: 2.3522, icon: '🏛' },
-      { name: '퐁뇌프 / 시테섬', lat: 48.8572, lng: 2.3417, icon: '🌉' },
-      { name: '노트르담 대성당', lat: 48.8530, lng: 2.3499, icon: '⛪' },
-      { name: '퐁생루이 다리', lat: 48.8519, lng: 2.3538, icon: '🌉' },
-      { name: '생루이섬', lat: 48.8515, lng: 2.3561, icon: '🏝' },
-      { name: '루브르 박물관 야경', lat: 48.8606, lng: 2.3376, icon: '🌇' },
-      { name: 'Breizh Café Montorgueil', lat: 48.8631, lng: 2.3468, icon: '🥞' }
+  ]},
+  6:{title:'Day 6 — 3/12 (목) · 콜마르 당일치기 & 스트라스부르',segments:[
+    [
+      {name:'콜마르 역',lat:48.0764,lng:7.3584,icon:'🚂'},
+      {name:'콜마르 구시가지',lat:48.0785,lng:7.3580,icon:'🏘'},
+      {name:'쁘띠 베니스',lat:48.0771,lng:7.3564,icon:'🌊'},
+      {name:'WISTUB BRENNER',lat:48.0782,lng:7.3568,icon:'🍷'},
+      {name:'Pâtisserie Gilg',lat:48.0791,lng:7.3567,icon:'🍰'},
+      {name:'Maison des Têtes',lat:48.0806,lng:7.3579,icon:'🏛'},
+      {name:'운터린덴 미술관 (외관)',lat:48.0806,lng:7.3562,icon:'🎨'},
+      {name:'콜마르 역',lat:48.0764,lng:7.3584,icon:'🚂'},
+    ],
+    [
+      {name:'스트라스부르 역',lat:48.5851,lng:7.7341,icon:'🚂'},
+      {name:'Maison Kammerzell',lat:48.5819,lng:7.7507,icon:'🐟'},
+      {name:'쿠베르교 & 보방 댐',lat:48.5795,lng:7.7387,icon:'🌉'},
+      {name:'쁘띠 프랑스',lat:48.5793,lng:7.7410,icon:'🌙'},
+      {name:'시티 레지던스 스트라스부르 센터',lat:48.5865,lng:7.7396,icon:'🏨'},
     ]
-  },
-
-  3: {
-    title: 'Day 3 — 3/9 (월) · 루브르 & 오랑주리 & 샹젤리제',
-    spots: [
-      { name: '오텔 드 빌 (시청사)', lat: 48.8566, lng: 2.3522, icon: '📸' },
-      { name: '루브르 박물관', lat: 48.8606, lng: 2.3376, icon: '🏛' },
-      { name: '퐁데자르', lat: 48.8583, lng: 2.3373, icon: '🌉' },
-      { name: 'Palais-Royal', lat: 48.8638, lng: 2.3370, icon: '🌿' },
-      { name: 'Galerie Vivienne', lat: 48.8648, lng: 2.3386, icon: '🛍' },
-      { name: 'Bistrot Victoires', lat: 48.8625, lng: 2.3425, icon: '🦆' },
-      { name: '갤러리 라파예트 오스만', lat: 48.8736, lng: 2.3323, icon: '🛍' },
-      { name: '방돔 광장', lat: 48.8675, lng: 2.3294, icon: '💎' },
-      { name: '튈르리 정원', lat: 48.8638, lng: 2.3274, icon: '🌿' },
-      { name: '오랑주리 미술관', lat: 48.8638, lng: 2.3225, icon: '🎨' },
-      { name: '콩코르드 광장', lat: 48.8656, lng: 2.3211, icon: '🏛' },
-      { name: '샹젤리제 거리', lat: 48.8698, lng: 2.3078, icon: '🛍' },
-      { name: '개선문', lat: 48.8738, lng: 2.2950, icon: '🌄' },
-      { name: 'Bouillon République', lat: 48.8671, lng: 2.3631, icon: '🐌' }
+  ]},
+  7:{title:'Day 7 — 3/13 (금) · 독일 켈 & 쇼핑',spots:[
+    {name:'Ancienne Synagogue 트램역',lat:48.5805,lng:7.7481,icon:'🚋'},
+    {name:'두 히브 가든',lat:48.5745,lng:7.8050,icon:'🌿'},
+    {name:'Passerelle des Deux Rives',lat:48.5749,lng:7.7967,icon:'🌉'},
+    {name:'Café Backhaus Dreher',lat:48.5793,lng:7.8102,icon:'🥨'},
+    {name:'City Center Kehl (DM)',lat:48.5734,lng:7.8156,icon:'🛒'},
+    {name:'Place des Halles / Auchan',lat:48.5805,lng:7.7481,icon:'🛍'},
+    {name:'Le Tire-Bouchon',lat:48.5814,lng:7.7492,icon:'🍷'},
+  ]},
+  8:{title:'Day 8 — 3/14 (토) · 귀국',segments:[
+    [
+      {name:'시티 레지던스 스트라스부르 센터',lat:48.5865,lng:7.7396,icon:'🏨'},
+      {name:'스트라스부르 역 (TGV 출발)',lat:48.5851,lng:7.7341,icon:'🚄'},
+    ],
+    [
+      {name:'Paris CDG Terminal 2',lat:49.0097,lng:2.5479,icon:'🚄'},
+      {name:'CDG Terminal 1',lat:49.0062,lng:2.5725,icon:'✈️'},
+      {name:'맥도날드 (CDG T1)',lat:49.0065,lng:2.5732,icon:'🍔'},
+      {name:'아시아나 카운터 (T1 Hall 1)',lat:49.0062,lng:2.5725,icon:'🛄'},
+      {name:'Bistrot Benoît (면세구역)',lat:49.0066,lng:2.5740,icon:'🍽'},
+      {name:'탑승 게이트 OZ0502',lat:49.0070,lng:2.5745,icon:'✈️'},
     ]
-  },
-
-  4: {
-    title: 'Day 4 — 3/10 (화) · 생마르탱 운하 & 에펠탑',
-    spots: [
-      { name: 'Le Pain des Copains', lat: 48.8684, lng: 2.3594, icon: '🥐' },
-      { name: '생마르탱 운하', lat: 48.8698, lng: 2.3637, icon: '🛶' },
-      { name: '유토피아 베이커리', lat: 48.8625, lng: 2.3520, icon: '🥖' },
-      { name: 'Square Jules Ferry', lat: 48.8679, lng: 2.3648, icon: '🌳' },
-      { name: 'La Poste (160 Rue du Temple)', lat: 48.8618, lng: 2.3548, icon: '💌' },
-      { name: '레퓌블리크 광장', lat: 48.8674, lng: 2.3630, icon: '🗽' },
-      { name: '트로카데로 광장', lat: 48.8638, lng: 2.2888, icon: '📸' },
-      { name: '에펠탑', lat: 48.8584, lng: 2.2945, icon: '🗼' },
-      { name: '마르스 광장', lat: 48.8556, lng: 2.2988, icon: '🌿' },
-      { name: 'Rue Cler', lat: 48.8564, lng: 2.3053, icon: '☕' },
-      { name: "Rue de l'Université / Rue Saint-Dominique", lat: 48.8591, lng: 2.3008, icon: '🏙' },
-      { name: 'Sunflower Café', lat: 48.8550, lng: 2.2978, icon: '☕' },
-      { name: '비라켐 다리', lat: 48.8517, lng: 2.2880, icon: '🌉' },
-      { name: "L'Atypic", lat: 48.8527, lng: 2.2965, icon: '🥩' },
-      { name: '바토 파리지앵 선착장', lat: 48.8601, lng: 2.2958, icon: '🚢' }
-    ]
-  },
-
-  5: {
-    title: 'Day 5 — 3/11 (수) · 파리 → 스트라스부르',
-    spots: [
-      { name: '디스트릭트 레퓌블리크 (파리 숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨' },
-      { name: '파리 동역 (Gare de l’Est)', lat: 48.8767, lng: 2.3590, icon: '🚄' },
-      { name: '스트라스부르 역', lat: 48.5851, lng: 7.7341, icon: '🚄' },
-      { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨' },
-      { name: 'Winstub Le Zehnerglock', lat: 48.5804, lng: 7.7468, icon: '🍽' },
-      { name: '스트라스부르 대성당', lat: 48.5818, lng: 7.7507, icon: '⛩' },
-      { name: '구텐베르크 광장', lat: 48.5809, lng: 7.7476, icon: '🏛' },
-      { name: 'La Fignette', lat: 48.5798, lng: 7.7460, icon: '🔥' },
-      { name: '대성당 야경 포인트', lat: 48.5818, lng: 7.7507, icon: '🌙' }
-    ]
-  },
-
-  6: {
-    title: 'Day 6 — 3/12 (목) · 콜마르 당일치기 & 스트라스부르',
-    spots: [
-      { name: '스트라스부르 역', lat: 48.5851, lng: 7.7341, icon: '🚂' },
-      { name: '콜마르 역', lat: 48.0764, lng: 7.3584, icon: '🚂' },
-      { name: '콜마르 구시가지', lat: 48.0785, lng: 7.3580, icon: '🏘' },
-      { name: '쁘띠 베니스', lat: 48.0771, lng: 7.3564, icon: '🌊' },
-      { name: 'WISTUB BRENNER', lat: 48.0782, lng: 7.3568, icon: '🍷' },
-      { name: 'Pâtisserie Gilg', lat: 48.0791, lng: 7.3567, icon: '🍰' },
-      { name: 'Maison des Têtes', lat: 48.0806, lng: 7.3579, icon: '🏛' },
-      { name: '운터린덴 미술관 (외관)', lat: 48.0806, lng: 7.3562, icon: '🎨' },
-      { name: 'Maison Kammerzell', lat: 48.5819, lng: 7.7507, icon: '🐟' },
-      { name: '쿠베르교 & 보방 댐', lat: 48.5795, lng: 7.7387, icon: '🌉' },
-      { name: '쁘띠 프랑스', lat: 48.5793, lng: 7.7410, icon: '🌙' }
-    ]
-  },
-
-  7: {
-    title: 'Day 7 — 3/13 (금) · 독일 켈 & 스트라스부르 쇼핑',
-    spots: [
-      { name: 'Ancienne Synagogue / Les Halles', lat: 48.5805, lng: 7.7481, icon: '🚋' },
-      { name: 'Port du Rhin', lat: 48.5746, lng: 7.7768, icon: '🚋' },
-      { name: '두 히브 가든', lat: 48.5745, lng: 7.8050, icon: '🌿' },
-      { name: 'Passerelle des Deux Rives', lat: 48.5749, lng: 7.7967, icon: '🌉' },
-      { name: '라인강변 산책 포인트', lat: 48.5758, lng: 7.8038, icon: '🌊' },
-      { name: 'Café Backhaus Dreher', lat: 48.5793, lng: 7.8102, icon: '🥨' },
-      { name: 'City Center Kehl (DM)', lat: 48.5734, lng: 7.8156, icon: '🛒' },
-      { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨' },
-      { name: 'Place des Halles / Auchan', lat: 48.5855, lng: 7.7418, icon: '🛍' },
-      { name: 'Le Tire-Bouchon', lat: 48.5814, lng: 7.7492, icon: '🍷' }
-    ]
-  },
-
-  8: {
-    title: 'Day 8 — 3/14 (토) · 스트라스부르 → CDG 출국',
-    spots: [
-      { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨' },
-      { name: '스트라스부르 역 (TGV 출발)', lat: 48.5851, lng: 7.7341, icon: '🚄' },
-      { name: 'Paris CDG Terminal 2 (Gare TGV)', lat: 49.0097, lng: 2.5479, icon: '🚄' },
-      { name: 'CDG Terminal 1', lat: 49.0062, lng: 2.5725, icon: '✈️' },
-      { name: '맥도날드 (CDG T1)', lat: 49.0065, lng: 2.5732, icon: '🍔' },
-      { name: '아시아나 카운터 (T1 Hall 1)', lat: 49.0062, lng: 2.5725, icon: '🛄' },
-      { name: 'Bistrot Benoît', lat: 49.0066, lng: 2.5740, icon: '🍽' },
-      { name: '탑승 게이트 OZ0502', lat: 49.0070, lng: 2.5745, icon: '✈️' }
-    ]
-  }
+  ]},
 };
 
 const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
@@ -1454,18 +1459,23 @@ function showDay(dayNum, btn) {
 
   const day = DAYS[dayNum];
   const color = DAY_COLORS[dayNum];
-  const spots = day.spots;
+  const groups = day.segments || [day.spots || []];
+  const flatSpots = groups.flat().filter(Boolean);
 
-  const line = L.polyline(
-    spots.map(s => [s.lat, s.lng]),
-    { color, weight:3.5, opacity:0.85, dashArray:'8,5' }
-  ).addTo(leafletMap);
+  groups.forEach(group => {
+    if (!group || group.length < 2) return;
 
-  curLayers.push(line);
+    const line = L.polyline(
+      group.map(s => [s.lat, s.lng]),
+      { color, weight:3.5, opacity:0.85, dashArray:'8,5' }
+    ).addTo(leafletMap);
 
-  spots.forEach((spot, i) => {
+    curLayers.push(line);
+  });
+
+  flatSpots.forEach((spot, i) => {
     const isFirst = i === 0;
-    const isLast = i === spots.length - 1;
+    const isLast = i === flatSpots.length - 1;
     const sz = isFirst || isLast ? 32 : 26;
 
     const icon = L.divIcon({
@@ -1485,15 +1495,28 @@ function showDay(dayNum, btn) {
     curMarkers.push(m);
   });
 
-  if (DAY_FOCUS[dayNum]) leafletMap.fitBounds(DAY_FOCUS[dayNum], { padding:[20,20] });
-  else leafletMap.fitBounds(line.getBounds(), { padding:[30,30] });
+  if (day.segments && groups[0] && groups[0].length) {
+    if (groups[0].length > 1) {
+      const firstBounds = L.latLngBounds(groups[0].map(s => [s.lat, s.lng]));
+      leafletMap.fitBounds(firstBounds, { padding:[30,30] });
+    } else {
+      leafletMap.setView([groups[0][0].lat, groups[0][0].lng], 15);
+    }
+  } else if (DAY_FOCUS[dayNum]) {
+    leafletMap.fitBounds(DAY_FOCUS[dayNum], { padding:[20,20] });
+  } else if (flatSpots.length > 1) {
+    const bounds = L.latLngBounds(flatSpots.map(s => [s.lat, s.lng]));
+    leafletMap.fitBounds(bounds, { padding:[30,30] });
+  } else if (flatSpots.length === 1) {
+    leafletMap.setView([flatSpots[0].lat, flatSpots[0].lng], 15);
+  }
 
   const titleEl = document.getElementById('map-day-title');
   const spotsEl = document.getElementById('map-day-spots');
 
   if (titleEl) titleEl.textContent = day.title;
   if (spotsEl) {
-    spotsEl.innerHTML = spots
+    spotsEl.innerHTML = flatSpots
       .map((s, i) => `<span class="spot-pill" onclick="flyTo(${i})">${s.icon} ${s.name}</span>`)
       .join('');
   }
@@ -1857,9 +1880,33 @@ if (bgmToggle) {
   bgmToggle.addEventListener('click', toggleBgm);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const subHeader = document.getElementById('subpage-header');
   if (subHeader) subHeader.classList.remove('show');
+
+  if (bgm && bgmToggle) {
+    try {
+      await bgm.play();
+      bgmToggle.textContent = '⏸ BGM';
+      bgmToggle.classList.add('playing');
+    } catch (e) {
+      const resumeOnFirstTouch = async () => {
+        try {
+          await bgm.play();
+          bgmToggle.textContent = '⏸ BGM';
+          bgmToggle.classList.add('playing');
+        } catch (err) {}
+
+        document.removeEventListener('pointerdown', resumeOnFirstTouch);
+        document.removeEventListener('touchstart', resumeOnFirstTouch);
+        document.removeEventListener('keydown', resumeOnFirstTouch);
+      };
+
+      document.addEventListener('pointerdown', resumeOnFirstTouch, { passive: true });
+      document.addEventListener('touchstart', resumeOnFirstTouch, { passive: true });
+      document.addEventListener('keydown', resumeOnFirstTouch);
+    }
+  }
 });
 </script>
 </body>
