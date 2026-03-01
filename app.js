@@ -551,7 +551,48 @@ function toggleCheck(id) {
 
 renderChecklist();
 
-// ── ACCORDION ──
+// ── SOUVENIR ──
+let souvenirState = JSON.parse(localStorage.getItem('fr_souvenirs') || '{}');
+
+function saveSouvenirs() {
+  try { localStorage.setItem('fr_souvenirs', JSON.stringify(souvenirState)); } catch(e) {}
+}
+
+function toggleSouvenir(id) {
+  souvenirState[id] = !souvenirState[id];
+  saveSouvenirs();
+  renderSouvenirs();
+}
+
+function renderSouvenirs() {
+  const container = document.getElementById('souvenir-list');
+  if (!container || !window.SOUVENIR_DATA) return;
+
+  container.innerHTML = SOUVENIR_DATA.map(sec => {
+    const items = sec.items.map(item => {
+      const isDone = !!souvenirState[item.id];
+      return `<div class="souvenir-item ${isDone ? 'done' : ''}" onclick="toggleSouvenir('${item.id}')">
+        <div class="souvenir-check-box"></div>
+        <div style="flex:1;min-width:0;">
+          <div class="souvenir-label">${item.text}</div>
+          <div class="souvenir-meta">
+            <span class="souvenir-tag where">📍 ${item.where}</span>
+            <span class="souvenir-tag forWhom">👤 ${item.forWhom}</span>
+            <span class="souvenir-tag">🗓 ${item.day}</span>
+          </div>
+          ${item.warn ? `<div class="souvenir-warn">${item.warn}</div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="souvenir-section">
+      <div class="souvenir-section-title">${sec.section}</div>
+      ${items}
+    </div>`;
+  }).join('');
+}
+
+renderSouvenirs();
 function toggleAcc(header) {
   const body = header.nextElementSibling;
   const open = body.classList.contains('open');

@@ -180,6 +180,81 @@ window.TRIP_DAYS = {
   }
 };
 
+window.SOUVENIR_DATA = [
+  {
+    section: '🏬 백화점 & 전문 부티크',
+    items: [
+      { id: 's01', text: '구딸(Goutal) 향수', where: '마레 지구 부티크 or 갤러리 라파예트 본관', forWhom: '나', day: 'Day 2–3' },
+      { id: 's02', text: '마리아주 프레르 — 마르코 폴로 등 홍차', where: '마레 지구 전용 매장 (Day 2)', forWhom: '나/선물', day: 'Day 2' },
+      { id: 's03', text: '로네펠트(Ronnefeldt) 홍차', where: '갤러리 라파예트 식품관 or 티 전문점', forWhom: '선물', day: 'Day 3' },
+      { id: 's04', text: '르 보르디에 버터 (유자·천일염 맛)', where: '갤러리 라파예트 고메 식품관', forWhom: '나', day: 'Day 3', warn: '⚠️ 출국 직전 보냉백+얼음 필수! (Day 8 구매 권장)' },
+      { id: 's05', text: '라 꽁비에트 버터 (개별 포장)', where: '갤러리 라파예트 고메 식품관', forWhom: '나/선물', day: 'Day 3', warn: '⚠️ 출국 직전 보냉백+얼음 필수! (Day 8 구매 권장)' },
+    ]
+  },
+  {
+    section: '🛒 프랑스 대형 마트',
+    items: [
+      { id: 's06', text: '크렘 드 마롱 — 클레망 포지에 밤잼', where: 'Auchan 스트라스부르 or Monoprix 파리', forWhom: '나/선물', day: 'Day 5–7' },
+      { id: 's07', text: '게랑드 소금 (Fleur de Sel)', where: '프랑스 대형 마트', forWhom: '나', day: 'Day 5–7' },
+      { id: 's08', text: '마이유(Maille) 트러플 머스터드', where: '프랑스 대형 마트', forWhom: '나/선물', day: 'Day 5–7' },
+      { id: 's09', text: '트러플 오일 / 트러플 소금', where: '프랑스 대형 마트', forWhom: '나', day: 'Day 5–7' },
+      { id: 's10', text: '본마망 타르트 과자 (레몬·라즈베리 등)', where: 'Auchan 스트라스부르 빵 코너', forWhom: '선물', day: 'Day 7' },
+      { id: 's11', text: '본마망 봉지형 마들렌 (사과·라즈베리)', where: 'Auchan 스트라스부르', forWhom: '선물', day: 'Day 7' },
+      { id: 's12', text: '본마망 한정 맛 잼', where: 'Auchan 스트라스부르', forWhom: '선물', day: 'Day 7' },
+      { id: 's13', text: 'LU 쁘띠 에콜리에 (다크·헤이즐넛)', where: '프랑스 대형 마트', forWhom: '선물', day: 'Day 5–7' },
+      { id: 's14', text: 'LU 르 베리타블 쁘띠 뵈르 버터 비스킷', where: '프랑스 대형 마트', forWhom: '선물', day: 'Day 5–7' },
+      { id: 's15', text: '가보트(Gavottes) 크레페 과자', where: '프랑스 대형 마트 (틴케이스 or 종이팩)', forWhom: '선물', day: 'Day 5–7' },
+      { id: 's16', text: '쿠스미 티 — BB Detox, Prince Vladimir', where: '대형 마트 (틴케이스)', forWhom: '나/선물', day: 'Day 5–7' },
+      { id: 's17', text: '엘레팡 허브티 — Nuit Tranquille 숙면차', where: '프랑스 대형 마트', forWhom: '나', day: 'Day 5–7' },
+      { id: 's18', text: '르 쁘띠 마르세이에 과일향 바디워시', where: '프랑스 대형 마트', forWhom: '선물', day: 'Day 5–7' },
+    ]
+  },
+  {
+    section: '💊 프랑스 약국 (Pharmacie)',
+    items: [
+      { id: 's19', text: '눅스(Nuxe) 미니 세트 — 립밤·핸드크림·미스트', where: '파리 약국 (초록 십자가 간판)', forWhom: '선물', day: 'Day 2–4' },
+      { id: 's20', text: '꼬달리(Caudalie) 미니 세트', where: '파리 약국 or 시티파르마', forWhom: '선물', day: 'Day 2–4' },
+    ]
+  },
+  {
+    section: '🇩🇪 독일 DM 드럭스토어 (Day 7 켈)',
+    items: [
+      { id: 's21', text: '발레아(Balea) 고농축 앰플 — 파란색(수분)·노란색(Q10)', where: 'DM 독일 켈', forWhom: '나/선물', day: 'Day 7' },
+      { id: 's22', text: '카밀(Kamill) 핸드크림 — 클래식·미니 묶음', where: 'DM 독일 켈', forWhom: '선물', day: 'Day 7' },
+      { id: 's23', text: '허바신(Herbacin) 승무원 핸드크림 틴케이스', where: 'DM 독일 켈', forWhom: '선물', day: 'Day 7' },
+      { id: 's24', text: '디아더마(Diaderma) 당근 오일', where: 'DM 독일 켈', forWhom: '나', day: 'Day 7' },
+      { id: 's25', text: 'dm 여행용 미니 세트 (샴푸·바디워시·크림)', where: 'DM 독일 켈', forWhom: '나/선물', day: 'Day 7' },
+      { id: 's26', text: '아조나(Ajona) 고농축 치약 미니 (빨간색)', where: 'DM 독일 켈', forWhom: '나/선물', day: 'Day 7' },
+      { id: 's27', text: '엘멕스(Elmex) 아침용/밤용 치약', where: 'DM 독일 켈', forWhom: '나/선물', day: 'Day 7' },
+      { id: 's28', text: 'dm 기능성 기침·기관지 차 (Husten- und Bronchialtee)', where: 'DM 독일 켈', forWhom: '나', day: 'Day 7' },
+      { id: 's29', text: 'dm 숙면 차 (Schlaf- und Nerventee)', where: 'DM 독일 켈', forWhom: '나', day: 'Day 7' },
+      { id: 's30', text: '발레아 발포 비타민 (주황·파랑)', where: 'DM 독일 켈', forWhom: '나/선물', day: 'Day 7' },
+    ]
+  },
+  {
+    section: '🇩🇪 독일 대형 마트 (Day 7 켈)',
+    items: [
+      { id: 's31', text: '티카네(Teekanne) 스페니쉬 오렌지 과일차', where: '독일 마트 (Edeka/Rewe/Auchan 켈)', forWhom: '나/선물', day: 'Day 7' },
+      { id: 's32', text: '티카네 크리스마스 티·시즌 과일차', where: '독일 마트 켈', forWhom: '선물', day: 'Day 7' },
+      { id: 's33', text: '메스머(Messmer) 가성비 티', where: '독일 마트 켈', forWhom: '선물', day: 'Day 7' },
+      { id: 's34', text: '하리보(Haribo) 한국에 없는 맛 — 박스 단위', where: '독일 마트 켈', forWhom: '선물', day: 'Day 7' },
+      { id: 's35', text: '리터 스포트 시즌 한정판 초콜릿', where: '독일 마트 켈', forWhom: '선물', day: 'Day 7' },
+      { id: 's36', text: '킨더 해피 히포 (Happy Hippo)', where: '독일 마트 켈', forWhom: '선물', day: 'Day 7' },
+      { id: 's37', text: '크노퍼스(Knoppers) 악마의 웨하스', where: '독일 마트 켈', forWhom: '선물', day: 'Day 7' },
+      { id: 's38', text: '독일 짭짤이 프레첼 스낵류', where: '독일 마트 켈', forWhom: '선물', day: 'Day 7' },
+    ]
+  },
+  {
+    section: '💌 추억 & 소장품',
+    items: [
+      { id: 's39', text: '파리 감성 일러스트 엽서', where: '마레 지구 편집숍 or 센강변 부키니스트', forWhom: '나', day: 'Day 2–4' },
+      { id: 's40', text: '파리 메트로 노선도 컨셉 굿즈 (자석·엽서)', where: '마레 지구 기념품 숍', forWhom: '나/선물', day: 'Day 2–4' },
+      { id: 's41', text: '에펠탑 마그넷', where: '파리 관광지 기념품점', forWhom: '선물', day: 'Day 2–4' },
+      { id: 's42', text: '알자스 전통 문양 기념품', where: '콜마르·스트라스부르 기념품 숍', forWhom: '선물', day: 'Day 5–7' },
+    ]
+  }
+];
+
 window.CHECKLIST_DATA = {
   docs: [
     { id: 'd1', text: '여권 유효기간 확인 (6개월 이상)', note: '' },

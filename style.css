@@ -38,9 +38,62 @@ body {
   cursor: pointer; transition: color 0.2s; padding: 8px 0;
   font-family: 'Noto Sans KR', sans-serif;
 }
-.bnav-btn .bi { font-size: 1.25rem; line-height: 1; }
-.bnav-btn .bl { font-size: 0.58rem; }
+.bnav-btn .bi { font-size: 1.1rem; line-height: 1; }
+.bnav-btn .bl { font-size: 0.52rem; }
 .bnav-btn.active { color: var(--gold); }
+
+/* ══ SOUVENIR ══ */
+.souvenir-wrap { padding: 16px; max-width: 600px; margin: 0 auto; }
+.souvenir-section { margin-bottom: 22px; }
+.souvenir-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem; color: var(--gold);
+  margin-bottom: 8px; padding-bottom: 6px;
+  border-bottom: 1px solid rgba(201,168,76,0.18);
+}
+.souvenir-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 8px; border-radius: 8px;
+  cursor: pointer; transition: background 0.15s; margin-bottom: 1px;
+}
+.souvenir-item:hover { background: rgba(255,255,255,0.04); }
+.souvenir-check-box {
+  width: 20px; height: 20px;
+  border: 2px solid rgba(201,168,76,0.35);
+  border-radius: 5px; flex-shrink: 0; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.souvenir-item.done .souvenir-check-box {
+  background: var(--gold); border-color: var(--gold);
+}
+.souvenir-item.done .souvenir-check-box::after {
+  content: '✓'; color: var(--navy); font-size: 0.7rem; font-weight: 700;
+}
+.souvenir-item.done .souvenir-label { text-decoration: line-through; color: var(--muted); }
+.souvenir-item.done .souvenir-meta { opacity: 0.4; }
+.souvenir-label { font-size: 0.85rem; line-height: 1.5; color: var(--cream); }
+.souvenir-meta {
+  display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px;
+}
+.souvenir-tag {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 0.62rem; font-family: 'DM Mono', monospace;
+  padding: 2px 7px; border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: rgba(245,240,232,0.5);
+}
+.souvenir-tag.where { border-color: rgba(201,168,76,0.2); color: var(--gold-light); }
+.souvenir-tag.forWhom { border-color: rgba(72,219,251,0.2); color: rgba(72,219,251,0.7); }
+.souvenir-warn {
+  font-size: 0.7rem; color: #ffb347;
+  background: rgba(255,179,71,0.08);
+  border-left: 2px solid rgba(255,179,71,0.5);
+  border-radius: 0 6px 6px 0;
+  padding: 4px 8px; margin-top: 5px;
+  line-height: 1.5;
+}
 
 /* ══ HOME ══ */
 #page-home {
