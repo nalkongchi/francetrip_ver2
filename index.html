@@ -2,13 +2,604 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trip</title>
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🇫🇷 파리 & 스트라스부르 여행 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<div id="app"></div>
-<script src="data.js"></script>
-<script src="app.js"></script>
+
+<div id="page-home" class="page active">
+  <canvas id="stars-canvas"></canvas>
+
+  <div class="eiffel-bg">
+    <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+      <g fill="var(--cream)" opacity="0.15">
+        <rect x="98" y="0" width="4" height="40" rx="1" />
+        <path d="M92,40 L108,40 L105,70 L95,70 Z" />
+        <rect x="85" y="70" width="30" height="6" rx="2" />
+        <path d="M92,76 L108,76 L125,180 L75,180 Z" />
+        <rect x="65" y="180" width="70" height="10" rx="2" />
+        <path d="M68,190 L132,190 L160,320 L40,320 Z" />
+        <rect x="30" y="320" width="140" height="14" rx="3" />
+        <path d="M34,334 L166,334 L185,400 L145,400 L135,360 C120,340 80,340 65,360 L55,400 L15,400 Z" />
+      </g>
+
+      <g class="eiffel-lights">
+        <circle cx="100" cy="20" r="1.3" class="eiffel-light"/>
+        <circle cx="100" cy="55" r="1.3" class="eiffel-light"/>
+        <circle cx="90" cy="80" r="1.3" class="eiffel-light"/>
+        <circle cx="110" cy="80" r="1.3" class="eiffel-light"/>
+        <circle cx="100" cy="120" r="1.3" class="eiffel-light"/>
+        <circle cx="85" cy="150" r="1.3" class="eiffel-light"/>
+        <circle cx="115" cy="150" r="1.3" class="eiffel-light"/>
+        <circle cx="70" cy="185" r="1.3" class="eiffel-light"/>
+        <circle cx="130" cy="185" r="1.3" class="eiffel-light"/>
+        <circle cx="100" cy="220" r="1.3" class="eiffel-light"/>
+        <circle cx="75" cy="260" r="1.3" class="eiffel-light"/>
+        <circle cx="125" cy="260" r="1.3" class="eiffel-light"/>
+        <circle cx="55" cy="300" r="1.3" class="eiffel-light"/>
+        <circle cx="145" cy="300" r="1.3" class="eiffel-light"/>
+        <circle cx="35" cy="327" r="1.3" class="eiffel-light"/>
+        <circle cx="165" cy="327" r="1.3" class="eiffel-light"/>
+        <circle cx="45" cy="360" r="1.3" class="eiffel-light"/>
+        <circle cx="155" cy="360" r="1.3" class="eiffel-light"/>
+        <circle cx="25" cy="390" r="1.3" class="eiffel-light"/>
+        <circle cx="175" cy="390" r="1.3" class="eiffel-light"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="home-content">
+    <div class="flag-row">
+      <span style="background:#002395"></span>
+      <span style="background:#f5f0e8"></span>
+      <span style="background:#ed2939"></span>
+    </div>
+
+    <h1 class="home-title">Paris &<br>Strasbourg</h1>
+    <div class="home-sub">우리의 프랑스 여행 일지</div>
+
+    <div class="date-badge" style="margin-top:20px;">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
+
+    <div class="dday-card">
+      <div class="dday-lbl" id="dday-label">TRIP COUNTDOWN</div>
+      <div class="dday-num" id="dday-number">D-8</div>
+      <div class="dday-desc" id="dday-desc">계산 중...</div>
+    </div>
+
+    <div class="weather-row">
+      <div class="w-card">
+        <div class="w-city">PARIS</div>
+        <span class="w-icon" id="wp-icon">🌤</span>
+        <div class="w-temp" id="wp-temp">—°C</div>
+        <div class="w-desc" id="wp-desc">로딩 중</div>
+      </div>
+      <div class="w-card">
+        <div class="w-city">STRASBOURG</div>
+        <span class="w-icon" id="ws-icon">🌥</span>
+        <div class="w-temp" id="ws-temp">—°C</div>
+        <div class="w-desc" id="ws-desc">로딩 중</div>
+      </div>
+    </div>
+
+    <div class="clock-row">
+      <div class="c-card">
+        <div class="c-lbl">한국 🇰🇷</div>
+        <div id="time-kr" class="c-time">--:--</div>
+      </div>
+      <div class="c-card">
+        <div class="c-lbl">파리 🇫🇷</div>
+        <div id="time-fr" class="c-time">--:--</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="subpage-header" class="subpage-header">
+  <div class="subpage-header-inner">
+    <div class="subpage-title">Paris &amp; Strasbourg</div>
+    <div class="subpage-sub">우리의 프랑스 여행 일지</div>
+    <div class="subpage-date">✈ 2026년 3월 7일 — 3월 14일 · 8일간</div>
+  </div>
+</div>
+
+<div id="page-map" class="page">
+  <div class="map-day-btns">
+    <div class="map-day-lbl">DAY 선택 → 경로 표시</div>
+    <div class="map-day-grid">
+      <button class="map-day-btn active" onclick="showDay(1,this)"><span class="day-num">1</span><span class="day-label">3/7</span></button>
+      <button class="map-day-btn" onclick="showDay(2,this)"><span class="day-num">2</span><span class="day-label">3/8</span></button>
+      <button class="map-day-btn" onclick="showDay(3,this)"><span class="day-num">3</span><span class="day-label">3/9</span></button>
+      <button class="map-day-btn" onclick="showDay(4,this)"><span class="day-num">4</span><span class="day-label">3/10</span></button>
+      <button class="map-day-btn" onclick="showDay(5,this)"><span class="day-num">5</span><span class="day-label">3/11</span></button>
+      <button class="map-day-btn" onclick="showDay(6,this)"><span class="day-num">6</span><span class="day-label">3/12</span></button>
+      <button class="map-day-btn" onclick="showDay(7,this)"><span class="day-num">7</span><span class="day-label">3/13</span></button>
+      <button class="map-day-btn" onclick="showDay(8,this)"><span class="day-num">8</span><span class="day-label">3/14</span></button>
+    </div>
+  </div>
+  <div id="leaflet-map"></div>
+  <div class="map-strip">
+    <div class="map-strip-title" id="map-day-title"></div>
+    <div class="spot-pills" id="map-day-spots"></div>
+  </div>
+</div>
+
+<div id="page-schedule" class="page">
+  <div class="schedule-wrap">
+    <div class="day-grid">
+      <div class="day-btn active" onclick="switchDay(1,this)"><span class="day-num">1</span><span class="day-label">3/7 토</span></div>
+      <div class="day-btn" onclick="switchDay(2,this)"><span class="day-num">2</span><span class="day-label">3/8 일</span></div>
+      <div class="day-btn" onclick="switchDay(3,this)"><span class="day-num">3</span><span class="day-label">3/9 월</span></div>
+      <div class="day-btn" onclick="switchDay(4,this)"><span class="day-num">4</span><span class="day-label">3/10 화</span></div>
+      <div class="day-btn" onclick="switchDay(5,this)"><span class="day-num">5</span><span class="day-label">3/11 수</span></div>
+      <div class="day-btn" onclick="switchDay(6,this)"><span class="day-num">6</span><span class="day-label">3/12 목</span></div>
+      <div class="day-btn" onclick="switchDay(7,this)"><span class="day-num">7</span><span class="day-label">3/13 금</span></div>
+      <div class="day-btn" onclick="switchDay(8,this)"><span class="day-num">8</span><span class="day-label">3/14 토</span></div>
+    </div>
+
+    <div id="day-1" class="day-content active">
+      <div class="day-header"><div class="day-icon">✈️</div><div><h2>인천공항 → 파리</h2><p>출발일 · 긴 여정의 시작</p></div></div>
+      <div class="timeline">
+        <div class="event transport"><div class="event-card"><div class="event-time">04:30–07:30</div><div class="event-title">🚌 시외우등버스 탑승</div><div class="event-detail">아산(온양) → 인천공항(제2터미널)</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">10:05–16:25</div><div class="event-title">✈️ 아시아나 OZ0501</div><div class="event-detail">서울(ICN) 출발 → 파리(CDG) 도착</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">16:25–18:30</div><div class="event-title">🛂 샤를 드 골 공항</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">18:30–19:30</div><div class="event-title">🚕 공항 → 숙소 이동</div><div class="event-detail">우버 or 볼트 이용</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">19:30–20:00</div><div class="event-title">🏨 숙소(디스트릭트 레퓌블리크) 체크인</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">20:00</div><div class="event-title">🛏 숙소 휴식</div><div class="event-note">Intermarché EXPRESS 슈퍼 · 배고프면 저녁 사먹기</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-2" class="day-content">
+      <div class="day-header"><div class="day-icon">🏛</div><div><h2>파리 — 마레지구 & 시테섬 & 생루이섬</h2><p>보쥬 광장 · 노트르담 · 루브르 야경</p></div></div>
+      <div class="timeline">
+        <div class="event food"><div class="event-card"><div class="event-time">08:30–09:40</div><div class="event-title">🥐 아침: Carette (보쥬 광장 점)</div><div class="event-detail">크루아상, 뺑 오 쇼콜라, 쇼송 오 뽐므, 핫초코, 오렌지 주스</div><details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">아침 세트(Petit Déjeuner CARETTE): 21.0€<br>세트 구성: 핫초코 + 오렌지 주스 + 크루아상 + 식빵 토스트 1조각과 유기농 잼<br>쇼콜라 까레뜨로 업그레이드(샹티이 추가), 뺑 오 쇼콜라 및 쇼송 오 뽐므 단품 추가</div></details></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:40–10:20</div><div class="event-title">🌿 보쥬 광장 (Place des Vosges)</div><div class="event-detail">회랑 아치 아래 한 바퀴 → 중앙 잔디광장 산책 → 분수/벤치에서 5~10분 쉬기</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">10:20–11:00</div><div class="event-title">🏠 빅토르 위고 하우스</div><div class="event-detail">외관 구경, 시간 되면 내부 관람(무료)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">11:00–11:30</div><div class="event-title">🏛 카르나발레 박물관</div><div class="event-detail">외관 구경</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">11:30–12:00</div><div class="event-title">🎨 피카소 미술관</div><div class="event-detail">외관 구경</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">12:00–13:00</div><div class="event-title">🥙 점심: L'As du Fallafel <span class="tag tag-openrun">🚶오픈런</span></div><div class="event-detail">Falafel sandwich, Shawarma pita</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">13:00–15:00</div><div class="event-title">🍵 카페/티타임: Mariage Frères Marais</div><div class="event-detail">애프터눈 티 세트 'SWEET DREAM' : JOYFUL HORSE 선택, UME CHA 2026 단품 추가</div><details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">마라톤 코스가 Rue de Rivoli(리볼리 거리) 및 시청사 인근을 통과하므로, 오후 2시 이전에는 남쪽(센강 방향)으로 무리하게 이동하지 말 것.</div></details></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:00–15:30</div><div class="event-title">🏛 오텔 드 빌(시청사) 광장</div><div class="event-detail">외관 촬영</div><details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">마라톤 현장 통제 상황 확인. 통제 중이면 제끼기.</div></details></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30–16:30</div><div class="event-title">🌉 퐁뇌프 다리, 시테섬</div><div class="event-detail">센강변 따라 산책하며 다리 건너기<br>법원, 꽃시장, 프랑스 전국도로 기준점 등 시테섬 산책</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">16:30–17:30</div><div class="event-title">⛪ 노트르담 대성당</div><div class="event-detail">정면 파사드 → 측면/후면으로 한 바퀴 → 내부 입장 및 관람 → 광장 포토스팟</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">17:30–18:00</div><div class="event-title">🌉 퐁생루이 다리</div><div class="event-detail">다리 중앙에서 센강/노을 사진</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">18:00–18:30</div><div class="event-title">🏝 생루이섬</div><div class="event-detail">베르티용 아이스크림, 생루이 앙 리섬 성당</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">18:30–18:50</div><div class="event-title">🚇 지하철로 루브르 이동</div><div class="event-note">✅ 탑승 루트: 7호선 Pont Marie 역 → Palais Royal - Musée du Louvre 역 하차</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">20:00–21:30</div><div class="event-title">🥞 저녁: Breizh Café Montorgueil <span class="tag tag-confirm">⏰ 20:00</span></div><div class="event-detail">La Complète 갈레트(햄, 치즈, 계란), 특선 갈레트(Galette de spécialité), Cidre Brut(시드르 브뤼)</div><details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">메인: La Complète 갈레트(햄, 치즈, 계란) 1개 + 해산물이나 버섯이 들어간 특선 갈레트(Galette de spécialité) 1개<br>주류: 드라이한 사과주 Cidre Brut(시드르 브뤼)를 피셰(단지)로 주문해서 나눠 먹기<br>디저트: 식후에 달콤한 Caramel au beurre salé (수제 솔티드 카라멜 크레페) 하나를 추가(선택)</div></details></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">22:00</div><div class="event-title">🛏 숙소 휴식</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-3" class="day-content">
+      <div class="day-header"><div class="day-icon">🎨</div><div><h2>파리 — 루브르 & 오랑주리 & 샹젤리제</h2><p>시청사 보완 · 라파예트 · 개선문 노을</p></div></div>
+      <div class="timeline">
+        <div class="event transport"><div class="event-card"><div class="event-time">08:00–08:25</div><div class="event-title">🚇 오텔 드 빌(시청사) 이동</div><div class="event-note">✅ 탑승 루트: 숙소 앞 République(레퓌블리크) 역 진입 → 11호선(Châtelet 방향) 탑승 → Hôtel de Ville 역 하차</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">08:25–08:40</div><div class="event-title">📸 시청사 광장 사진</div><div class="event-detail">Day 2에 시청사 통제없이 방문했다면 생략</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">08:40–09:00</div><div class="event-title">🚶 도보 이동</div><div class="event-detail">리볼리 직진</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00–10:00</div><div class="event-title">🏛 루브르 박물관</div><div class="event-detail">외관 감상, 피라미드 → 카루젤 → 측면</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">10:00–10:20</div><div class="event-title">🌉 퐁데자르 다리</div><div class="event-detail">루브르 방향/센강 방향 사진</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">10:20–11:00</div><div class="event-title">🌿 Palais-Royal</div><div class="event-detail">기둥 사진 + 정원 산책</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">11:00–11:30</div><div class="event-title">🛍 Galerie Vivienne</div><div class="event-detail">아케이드 산책 + 바닥 모자이크 촬영<br>엽서 구매</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">11:30–13:00</div><div class="event-title">🦆 점심: Bistrot Victoires <span class="tag tag-openrun">🚶오픈런</span></div><div class="event-detail">Confit de canard 오리 콩피</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">13:00–13:20</div><div class="event-title">🚶 라파예트 백화점 이동</div><div class="event-detail">도보</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">13:20–14:40</div><div class="event-title">🛍 갤러리 라파예트 백화점(오스만)</div><div class="event-detail">8층 옥상 테라스 에펠탑 뷰 감상 → 본관 1층 라뒤레 마카롱 → 고메관 0층 피에르 에르메 이스파한 테이크아웃</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">14:40–15:00</div><div class="event-title">💎 방돔 광장 거쳐 튈르리 정원 이동</div><div class="event-detail">파리에서 가장 럭셔리하고 우아한 내리막길 산책</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:00–15:20</div><div class="event-title">🌿 튈르리 정원 휴식</div><div class="event-detail">입구 → 중앙 연못 주변 의자 앉기 → 정원 축 따라 짧게 산책</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:20–17:00</div><div class="event-title">🎨 오랑주리 미술관 <span class="tag tag-confirm">⏰ 15:30</span></div><div class="event-detail">모네 '수련' 관람</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">17:00–17:30</div><div class="event-title">🏛 콩코르드 광장</div><div class="event-detail">오벨리스크 중심으로 한 바퀴 → 분수/광장 스케일 감상</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">17:30–18:30</div><div class="event-title">🛍 샹젤리제 거리 걷기</div><div class="event-detail">샹젤리제 거리 구경<br>시간 남으면 Le Café Lacoste Paris 카페 방문</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">18:30–19:00</div><div class="event-title">🏛 개선문 광장 <span class="tag tag-sunset">🌄 18:47</span></div><div class="event-detail">개선문 노을 감상</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">19:00–19:30</div><div class="event-title">🚇 레퓌블리크 이동</div><div class="event-note">✅ 지하철 탑승 루트: Charles de Gaulle - Étoile 역 → 1호선(Château de Vincennes 방향) → Châtelet 하차 후 11호선(Mairie des Lilas 방향) 환승 → République 하차 (약 20~25분)</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">19:30–21:00</div><div class="event-title">🐌 저녁: Bouillon République <span class="tag tag-confirm">⏰ 19:30</span></div><div class="event-detail">Escargots (6개), Soupe à l’oignon, Bœuf bourguignon</div><details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">전채(Entrée): Escargots 6개 + Soupe à l’oignon 쉐어<br>메인(Plat): Bœuf bourguignon 쉐어<br>주류: 피노 누아(Pinot Noir) 계열의 레드 와인 하프 보틀</div></details></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">21:00</div><div class="event-title">🛏 숙소 휴식</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-4" class="day-content">
+      <div class="day-header"><div class="day-icon">🗼</div><div><h2>파리 — 생마르탱 운하 & 에펠탑</h2><p>운하 산책 · 트로카데로 · 비라켐 · 유람선</p></div></div>
+      <div class="timeline">
+        <div class="event food"><div class="event-card"><div class="event-time">07:30–08:30</div><div class="event-title">🥐 아침: Le Pain des Copains</div><div class="event-detail">산딸기 크루아상, 피스타치오 크루아상, 플랑</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">08:30–10:30</div><div class="event-title">🛶 생마르탱 운하 산책</div><div class="event-detail">Écluse des Récollets(Hôtel du Nord 주변) → Passerelle des Douanes<br>운하 따라 걷기 → 다리/수문 포인트에서 사진</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">10:30–11:00</div><div class="event-title">🥖 점심: 유토피아 베이커리</div><div class="event-detail">흑임자 éclair, baguette, 카페 알롱제(Café allongé)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">11:00–11:30</div><div class="event-title">🌳 Square Jules Ferry (쥘 페리 광장)</div><div class="event-detail">빵 먹기!</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">11:30–12:00</div><div class="event-title">💌 우체국: La Poste</div><div class="event-detail">160 Rue du Temple, 75003 Paris, 프랑스<br>집으로 엽서 보내기</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">12:00–13:00</div><div class="event-title">🚇 우체국 → 레퓌블리크 광장 → 에펠탑(트로카데로) 이동</div><div class="event-detail">레퓌블리크 광장에서 마리안(Marianne) 동상 인증샷</div><div class="event-note">✅ 탑승 루트: République 역 → 9호선(Pont de Sèvres 방향) → Trocadéro 하차 (환승 없이 약 20분)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">13:00–14:00</div><div class="event-title">📸 트로카데로 광장</div><div class="event-detail">정면 에펠탑 포토스팟 → 계단 다 내려가기 전 위쪽 테라스 중앙 라인 대칭 샷</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">14:00–14:30</div><div class="event-title">🗼 에펠탑</div><div class="event-detail">퐁 데나 다리를 건너 에펠탑 하단 철제 구조물을 통과하며 이동</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">14:30–15:00</div><div class="event-title">🌿 마르스 광장</div><div class="event-detail">탁 트인 잔디밭 정면</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:00–15:30</div><div class="event-title">☕ 끌레흐 가(Rue Cler)</div><div class="event-detail">보행자 골목 구경</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30–16:30</div><div class="event-title">🏙 Rue de l'Université & Rue Saint-Dominique</div><div class="event-detail">붉은 어닝 'Le Recrutement' 카페 코너샷 및 로컬 느낌의 덜 붐비는 거리샷</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">16:30–17:00</div><div class="event-title">🚶 이동 (도보)</div><div class="event-detail">Rue de l'Université / Rue Saint-Dominique → Sunflower Café 쪽 이동</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">17:00–18:00</div><div class="event-title">☕ Sunflower Café</div><div class="event-detail">커피, 아보카도 샌드위치</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">18:00–19:00</div><div class="event-title">🌉 비라켐 다리</div><div class="event-detail">영화 인셉션 구조물 아래, 약간 측면 각도의 에펠탑 감상, 주경 & 노을 & 첫 점등<br>19:00 에펠탑 반짝이는 거 감상</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">19:00–19:15</div><div class="event-title">🚶 식당으로 이동</div><div class="event-detail">도보 약 15분</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">19:15–21:00</div><div class="event-title">🥩 저녁: L'Atypic <span class="tag tag-confirm">⏰ 19:15</span></div><div class="event-detail">푸아그라, 타르타르, 스테이크</div><details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">전채(Entrée): 푸아그라(Foie gras)<br>푸아그라는 빵에 발라 먹으면 되며, 이때 셰프에게 추천받아 달콤한 화이트 와인(예: 소테른 Sauternes) 1잔을 곁들여 푸아그라의 풍미를 극대화<br>메인(Plat): 타르타르(프랑스식 육회) + 스테이크(Steak)</div></details></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">21:00–21:30</div><div class="event-title">🚶 선착장으로 이동</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">21:30–22:30</div><div class="event-title">🚢 바토 파리지앵 탑승 <span class="tag tag-confirm">⏰ 21:30</span></div><div class="event-detail">에펠탑과 센강의 완전한 밤 풍경 감상</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">22:30–23:00</div><div class="event-title">🚇 유람선 선착장 → 숙소</div><div class="event-note">✅ Alma-Marceau 역 → 9호선(Mairie de Montreuil 방향) → République 역 하차 (환승 없이 복귀)</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">23:00</div><div class="event-title">🛏 숙소 휴식</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-5" class="day-content">
+      <div class="day-header"><div class="day-icon">🚄</div><div><h2>파리 → 스트라스부르</h2><p>기차 이동 · 알자스 첫날</p></div></div>
+      <div class="timeline">
+        <div class="event hotel"><div class="event-card"><div class="event-time">08:00–09:30</div><div class="event-title">🧳 체크아웃 및 파리 동역(Gare de l'Est) 이동</div><div class="event-detail">파리 동역까지는 걸어서 15분(1km) 소요. 짐이 무겁거나 힘들 경우 우버(Uber) 이용</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">09:30–12:00</div><div class="event-title">🚄 TGV → 스트라스부르 이동</div><div class="event-detail">10:08 Paris Gare de l’Est 출발 → 11:54 Strasbourg 도착</div><div class="event-note">✅ 기차 OUIGO Grande Vitesse 7691 - 좌석: Voiture 8 / 803–804</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">12:00–12:30</div><div class="event-title">🏨 숙소(시티 레지던스 스트라스부르 센터) 짐 보관</div><div class="event-detail">역에서 도보로 숙소 이동, 짐 보관만</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">12:30–13:00</div><div class="event-title">🚶 숙소 → Winstub Le Zehnerglock 식당 이동</div><div class="event-detail">도보</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">13:00–14:30</div><div class="event-title">🍽 점심: Winstub Le Zehnerglock <span class="tag tag-confirm">⏰ 13:00</span></div><div class="event-detail">Choucroute Garnie(슈쿠르트), Baeckeoffe(베크오프), 알자스산 화이트 와인(Riesling 리슬링)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">14:30–16:00</div><div class="event-title">⛩ 스트라스부르 대성당</div><div class="event-detail">외부 파사드 감상 → 내부 입장 → 천문시계</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">16:00–16:30</div><div class="event-title">🏛 구텐베르크 광장</div><div class="event-detail">광장 동상/분수 주변 한 바퀴</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">16:30–18:30</div><div class="event-title">🌊 강변 산책, 구시가지 골목 산책</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">18:30–20:00</div><div class="event-title">🔥 저녁: La Fignette <span class="tag tag-openrun">🚶오픈런</span></div><div class="event-detail">플람퀴슈(Tarte Flambée Traditionnelle, Gratinée)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">20:00–21:00</div><div class="event-title">🌙 대성당 야경 감상</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">21:00–21:30</div><div class="event-title">🚶 도보 이동</div><div class="event-detail">체크인/키 수령(필요 시)</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">21:30</div><div class="event-title">🛏 숙소 휴식</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-6" class="day-content">
+      <div class="day-header"><div class="day-icon">🌸</div><div><h2>콜마르 & 스트라스부르</h2><p>TER 당일치기 · 운하 · 알자스 디너</p></div></div>
+      <div class="timeline">
+        <div class="event transport"><div class="event-card"><div class="event-time">08:00–09:00</div><div class="event-title">🚂 스트라스부르 → 콜마르 (TER 기차)</div><div class="event-note">✅ 탑승 루트: 1. 스트라스부르 중앙역(Gare de Strasbourg) 이동 → 2. 전광판에서 'Colmar' 또는 'Mulhouse / Basel'행 플랫폼 번호(Voie) 확인 → 3. 기차 겉면 '2' (2등석) 칸에 자유롭게 착석 (소요 시간 약 30분)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00–10:30</div><div class="event-title">🏘 콜마르 구시가지 초입 워킹</div><div class="event-detail">역 → 중심가 진입 → 알록달록 골목 사진</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">10:30–12:00</div><div class="event-title">🌊 쁘띠 베니스 중심 산책</div><div class="event-detail">운하 라인 따라 걷기 → 다리 포토스팟 2~3곳</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">12:00–13:30</div><div class="event-title">🍷 점심: WISTUB BRENNER <span class="tag tag-confirm">⏰ 12:00</span></div><div class="event-detail">Onion tart, Braised pork knuckle/Pinot, Cordon Bleu</div><details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">전채: 양파 타르트 (Tarte à l'oignon de Papi Lucien) 쉐어<br>메인: 돼지 무릎 찜 (Jarret de Porc braisé) + Cordon Bleu (코르동 블루 - 치즈를 품은 닭/송아지 고기 튀김) 추천.</div></details></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">13:30–14:30</div><div class="event-title">🍰 카페: Pâtisserie Gilg</div><div class="event-detail">초코에끌레어, 구겔호프, 밀푀유</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">14:30–15:30</div><div class="event-title">🛍 산책 & 쇼핑</div><div class="event-detail">Rue des Clefs 탐방 → 북쪽으로 걸으며 Rue des Têtes 진입 → Maison des Têtes(하우스 오브 헤드) 구경 + 소품샵/기념품 구매</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">15:30–16:30</div><div class="event-title">🎨 운터린덴 미술관</div><div class="event-detail">13세기 수도원 건물 외관 + 고즈넉한 안뜰(중정)만 가볍게 산책</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">16:30–16:50</div><div class="event-title">🚶 콜마르역 도보 이동</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">16:50–17:30</div><div class="event-title">🚂 콜마르 → 스트라스부르 복귀</div><div class="event-note">✅ 탑승 루트: 1) 전광판에서 'Strasbourg'행 플랫폼 확인 → 2) 자유석 착석 (약 30분) → 3. 스트라스부르 중앙역(Gare de Strasbourg)</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">17:30–18:00</div><div class="event-title">🚶 도보 이동</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">18:00–20:00</div><div class="event-title">🐟 저녁: Maison Kammerzell <span class="tag tag-confirm">⏰ 18:15</span></div><div class="event-detail">Choucroute aux Poissons(생선 슈쿠르트), Coq au Riesling(리슬링 와인에 졸인 닭고기), 잔 와인: Riesling(화이트)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">20:00–20:30</div><div class="event-title">🌉 쿠베르교 & 보방 댐 주변 야경</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">20:30–21:00</div><div class="event-title">🌙 쁘띠 프랑스 야경 산책</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">21:00–21:30</div><div class="event-title">🚶 숙소 복귀</div><div class="event-note">✅ 도보: 쁘띠 프랑스 → 꺄를슈트라우 공원 방향 → 숙소 (약 20분)</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">21:30</div><div class="event-title">🛏 숙소 휴식</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-7" class="day-content">
+      <div class="day-header"><div class="day-icon">🇩🇪</div><div><h2>독일 켈 & 스트라스부르</h2><p>라인강 · 켈 쇼핑 · 마지막 저녁</p></div></div>
+      <div class="timeline">
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">09:00–10:00</div><div class="event-title">🌿 두 히브 가든</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">10:00–11:00</div><div class="event-title">🌉 Passerelle des Deux Rives 다리</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">11:00–12:00</div><div class="event-title">🌊 라인강변 산책</div><div class="event-detail">은전나무 전망대(Weißtannenturm) → St. Johannes Nepomuk</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">12:00–13:30</div><div class="event-title">🥨 점심(카페): Café Backhaus Dreher</div><div class="event-detail">프레첼(Brezel), 버터 프레첼(Butterbrezel), 아우프슈니트 (Aufschnitt), 밀히카피(Milchkaffee), 카페 크레마(Café Crème)</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">13:30–16:00</div><div class="event-title">🛒 City Center Kehl(쇼핑몰)</div><div class="event-detail">DM 등 마트 쇼핑</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">16:30–19:00</div><div class="event-title">🛍 Place des Halles(쇼핑몰)</div><div class="event-detail">Auchan 쇼핑</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">19:00–19:30</div><div class="event-title">🚶 숙소에 마트 짐 내려놓고 도보 이동</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">19:30–21:00</div><div class="event-title">🍷 저녁: Le Tire-Bouchon <span class="tag tag-confirm">⏰ 19:30</span></div><div class="event-detail">Joues de porc au pinot noir (피노 누아에 졸인 돼지 뽈살) & spaetzle(알자스식 수제비), Munster coiffé(뮌스터 쿠아페)</div><details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">MENU DORETTE MULLER (32.50€) 세트 주문<br>전채: Soupe à l'oignon gratinée (양파 수프)<br>메인: Joues de porc au Pinot Noir, spaetzle<br>디저트: Strudel aux pommes<br>단품 추가: Munster coiffé<br>잔 와인: Pinot Noir(레드), Gewürztraminer(화이트)</div></details></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">21:00–21:30</div><div class="event-title">🚶 숙소 복귀</div><div class="event-note">✅ 도보: 식당 → 대성당 대광장 → 숙소까지 도보 15분</div></div></div>
+        <div class="event hotel"><div class="event-card"><div class="event-time">21:30</div><div class="event-title">🧳 숙소 휴식 및 캐리어 짐 싸기</div></div></div>
+      </div>
+    </div>
+
+    <div id="day-8" class="day-content">
+      <div class="day-header"><div class="day-icon">🏠</div><div><h2>스트라스부르 → 공항 (출국)</h2><p>귀국일 · TGV · CDG · 아시아나</p></div></div>
+      <div class="timeline">
+        <div class="event hotel"><div class="event-card"><div class="event-time">06:00–07:00</div><div class="event-title">🧳 체크아웃</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">07:00–10:00</div><div class="event-title">🚄 TGV 이동 스트라스부르 → 샤를드골공항(터미널2E)</div><div class="event-detail">출발: 07:31 Strasbourg<br>도착: 09:29 Paris Aéroport Roissy CDG 2 (Gare TGV)</div><div class="event-note">✅ 기차 TGV INOUI no.5470 - 좌석: Voiture 6 / 638–639</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">09:30–10:00</div><div class="event-title">🚋 CDGVAL(무료 셔틀 열차) 탑승하여 제1터미널(Terminal 1)로 이동</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">10:00–11:00</div><div class="event-title">🍔 아점: 맥도날드</div><div class="event-detail">280™ Original(Bœuf Blanc), McWrap 등</div></div></div>
+        <div class="event note"><div class="event-card"><div class="event-time">11:00–15:25</div><div class="event-title">⏳ 택스리펀 처리 및 대기</div><div class="event-detail">PABLO 기계로 택스리펀 바코드 스캔 완료, 카운터가 열릴 때까지 휴식</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">15:25–16:15</div><div class="event-title">🛄 아시아나 카운터 오픈 (Terminal 1, Hall 1) 및 수하물 위탁</div><div class="event-detail">오픈 시간에 맞춰 1등으로 줄 서서 짐 부치기</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">16:15–16:40</div><div class="event-title">🛂 보안 검색(Security) 및 출국 심사(Passport Control) 통과</div></div></div>
+        <div class="event food"><div class="event-card"><div class="event-time">16:40–17:40</div><div class="event-title">🍽 저녁: Bistrot Benoît</div><div class="event-detail">제1터미널 면세 구역 Level 5</div></div></div>
+        <div class="event sightseeing"><div class="event-card"><div class="event-time">17:40–18:25</div><div class="event-title">🛍 구경 및 휴식, 탑승 게이트로 이동</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">18:25–14:40 (3/15)</div><div class="event-title">✈️ 출국 아시아나 OZ0502</div><div class="event-detail">파리(CDG) 출발 → 서울(ICN) 도착</div></div></div>
+        <div class="event transport"><div class="event-card"><div class="event-time">(3/15) 18:05–21:35</div><div class="event-title">🚌 시외우등버스 탑승</div><div class="event-detail">인천공항(제2터미널) → 아산(온양)</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-budget" class="page">
+  <div class="budget-wrap">
+    <div class="budget-total">
+      <div class="bl">TOTAL SPENT</div>
+      <div class="ba" id="total-amount">
+        <span class="ba-eur">€ 0.00</span>
+        <span class="ba-sub">/ ₩ 0</span>
+      </div>
+      <div style="font-size:0.73rem;color:rgba(245,240,232,0.38)">지출을 추가하면 자동 합산돼요</div>
+    </div>
+
+    <div class="cat-summary">
+      <div class="cat-card"><div class="ci">✈️</div><div class="cn">교통</div><div class="ca" id="cat-transport">€0</div></div>
+      <div class="cat-card"><div class="ci">🍽</div><div class="cn">식사</div><div class="ca" id="cat-food">€0</div></div>
+      <div class="cat-card"><div class="ci">🏨</div><div class="cn">숙박</div><div class="ca" id="cat-hotel">€0</div></div>
+      <div class="cat-card"><div class="ci">🎨</div><div class="cn">관광</div><div class="ca" id="cat-sightseeing">€0</div></div>
+      <div class="cat-card"><div class="ci">🛍</div><div class="cn">쇼핑</div><div class="ca" id="cat-shopping">€0</div></div>
+      <div class="cat-card"><div class="ci">☕</div><div class="cn">기타</div><div class="ca" id="cat-etc">€0</div></div>
+    </div>
+
+    <div class="section-lbl">지출 추가</div>
+    <div id="editing-hint" class="editing-hint">✏️ 수정 중 — 값을 바꾸고 “수정 저장”을 눌러줘</div>
+
+    <div class="budget-input-row">
+      <input type="text" id="ex-name" placeholder="항목 (예: 루브르 입장료)">
+      <input type="number" id="ex-amount" placeholder="금액" min="0" step="0.01">
+      <select id="ex-currency" style="flex: 0.4; min-width: 65px;">
+        <option value="EUR">€ (유로)</option>
+        <option value="KRW">₩ (원화)</option>
+      </select>
+    </div>
+
+    <div class="budget-input-row">
+      <select id="ex-cat">
+        <option value="transport">✈️ 교통</option>
+        <option value="food">🍽 식사</option>
+        <option value="hotel">🏨 숙박</option>
+        <option value="sightseeing">🎨 관광</option>
+        <option value="shopping">🛍 쇼핑</option>
+        <option value="etc">☕ 기타</option>
+      </select>
+    </div>
+
+    <div class="budget-input-row budget-action-row">
+      <button class="btn-add" id="btn-add-expense" onclick="addExpense()">+ 추가</button>
+      <button class="btn-cancel-edit" id="btn-cancel-edit" type="button" onclick="cancelEdit()">취소</button>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-lbl">지출 내역</div>
+    <div id="expense-list"><div class="empty-state"><span class="big">💶</span>아직 지출 내역이 없어요</div></div>
+  </div>
+</div>
+
+<div id="page-checklist" class="page">
+  <div class="checklist-wrap">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
+      <button class="save-btn" onclick="saveChecks()" style="padding:9px 20px;font-size:0.8rem;">💾 저장하기</button>
+    </div>
+
+    <div class="check-section">
+      <h3>📄 서류 & 준비</h3>
+      <div class="progress-bar"><div class="progress-fill" id="prog-docs"></div></div>
+      <div id="list-docs"></div>
+    </div>
+
+    <div class="check-section">
+      <h3>🧳 짐 싸기</h3>
+      <div class="progress-bar"><div class="progress-fill" id="prog-pack"></div></div>
+      <div id="list-pack"></div>
+    </div>
+  </div>
+  <div id="save-toast">✅ 저장완료!</div>
+</div>
+
+<div id="page-memo" class="page">
+  <div class="memo-wrap">
+    <div class="memo-card">
+      <h4>✈️ 항공편</h4>
+      <div class="info-grid">
+        <div><div class="info-label">가는 편</div><div class="info-val">OZ0501 · 3/7 10:05 ICN→CDG</div></div>
+        <div><div class="info-label">오는 편</div><div class="info-val">OZ0502 · 3/14 18:25 CDG→ICN</div></div>
+      </div>
+    </div>
+
+    <div class="memo-card">
+      <h4>🚄 기차</h4>
+      <div class="info-grid">
+        <div><div class="info-label">파리→스트라스부르</div><div class="info-val">OUIGO 7691 · 10:08→11:54</div></div>
+        <div><div class="info-label">좌석</div><div class="info-val">Voiture 8 / 803–804</div></div>
+        <div><div class="info-label">스트라스부르→CDG</div><div class="info-val">TGV 5470 · 07:31→09:29</div></div>
+        <div><div class="info-label">좌석</div><div class="info-val">Voiture 6 / 638–639</div></div>
+      </div>
+    </div>
+
+    <div class="memo-card">
+      <h4>🏨 숙소</h4>
+      <div class="info-grid">
+        <div><div class="info-label">파리 (Day 1–5)</div><div class="info-val">디스트릭트 레퓌블리크</div></div>
+        <div><div class="info-label">스트라스부르 (Day 5–8)</div><div class="info-val">시티 레지던스 스트라스부르</div></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <h4>🇫🇷 식당 주문 표현</h4><span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <div class="phrase-group">
+            <div class="phrase-group-title">자리 / 입장</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">두 명이요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Pour deux, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(뿌흐 두, 씰 부 쁠레)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">예약했어요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">J'ai une réservation.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(줴 윈 헤제흐바씨옹)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">메뉴 주세요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">La carte, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(라 꺄흐뜨, 씰 부 쁠레)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-group">
+            <div class="phrase-group-title">주문</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">이걸로 할게요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Je vais prendre ça.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(쥬 베 프헝드흐 싸)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">추천해주세요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Qu'est-ce que vous recommandez ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(께쓰 끄 부 헤꼬멍데?)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">물 주세요(무료 수돗물)</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Une carafe d'eau, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(윈 꺄하프 도, 씰 부 쁠레)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">맛있어요!</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">C'est délicieux !</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(쎄 델리씨유!)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-group">
+            <div class="phrase-group-title">계산</div>
+            <div class="phrase-item">
+              <span class="phrase-kr">계산서 주세요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">L'addition, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(라디씨옹, 씰 부 쁠레)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">카드 되나요?</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Vous acceptez la carte ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(부 작쎕떼 라 꺄흐뜨?)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <h4>🚇 교통 & 길찾기</h4><span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <div class="phrase-group">
+            <div class="phrase-item">
+              <span class="phrase-kr">~어디에 있나요?</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Où est ~ ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(우 에 ~ ?)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">지하철역</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">la station de métro</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(라 쓰따씨옹 드 메트호)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">얼마나 걸려요?</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">C'est loin d'ici ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(쎄 루앙 디씨?)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">여기로 가주세요(택시)</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">À cette adresse, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(아 쎄따드헤쓰, 씰 부 쁠레)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <h4>🛒 쇼핑 & 우체국</h4><span class="acc-arrow">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <div class="phrase-group">
+            <div class="phrase-item">
+              <span class="phrase-kr">얼마예요?</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">C'est combien ?</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(쎄 꽁비앙?)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">한국으로 엽서 보낼게요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Pour envoyer en Corée du Sud.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(뿌흐 엉부아예 엉 꼬헤 뒤 쉬드)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">우표 주세요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Un timbre, s'il vous plaît.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(앙 땡브흐, 씰 부 쁠레)</div>
+              </div>
+            </div>
+            <div class="phrase-item">
+              <span class="phrase-kr">봉지 안주셔도 돼요</span>
+              <div style="text-align:right;">
+                <div class="phrase-fr">Pas de sac, merci.</div>
+                <div style="font-size:0.65rem; color:var(--muted);">(빠 드 싹, 메흐씨)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="memo-card">
+      <h4>📝 자유 메모</h4>
+      <textarea class="memo-area" id="free-memo" placeholder="여행 중 메모, 환율, 긴급연락처 등 자유롭게..."></textarea>
+    </div>
+  </div>
+</div>
+
+<audio id="bgm" loop preload="metadata">
+
+  <source src="./bgm.mp3" type="audio/mpeg">
+</audio>
+<button id="bgm-toggle" class="bgm-btn" type="button">🎵 BGM</button>
+
+<nav class="bottom-nav">
+  <button class="bnav-btn active" onclick="switchPage('home',this)"><span class="bi">🏠</span><span class="bl">홈</span></button>
+  <button class="bnav-btn" onclick="switchPage('map',this)"><span class="bi">🗺️</span><span class="bl">지도</span></button>
+  <button class="bnav-btn" onclick="switchPage('schedule',this)"><span class="bi">📅</span><span class="bl">일정</span></button>
+  <button class="bnav-btn" onclick="switchPage('budget',this)"><span class="bi">💶</span><span class="bl">가계부</span></button>
+  <button class="bnav-btn" onclick="switchPage('checklist',this)"><span class="bi">🎒</span><span class="bl">준비물</span></button>
+  <button class="bnav-btn" onclick="switchPage('memo',this)"><span class="bi">📋</span><span class="bl">정보</span></button>
+</nav>
+
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+<!-- Language Bottom Sheet -->
+<div id="langSheet" class="sheet-backdrop hidden" role="dialog" aria-modal="true">
+  <div class="sheet" aria-label="Language helper">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title" id="langSheetTitle">프랑스어</div>
+      <button class="icon-btn" id="langSheetClose" aria-label="Close">✕</button>
+    </div>
+    <div class="sheet-body" id="langSheetBody"></div>
+  </div>
+</div>
+
 </body>
 </html>
