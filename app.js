@@ -780,23 +780,32 @@ function wireLangSheetGestures(){
   let currentY = 0;
   let dragging = false;
 
-  sheet.addEventListener("touchstart", (e)=>{
+  // Drag-to-close only from handle (so scrolling inside doesn't move the sheet)
+  const sheetHandle = sheet.querySelector(".sheet-handle");
+  const dragTarget = sheetHandle || sheet;
+
+  dragTarget.addEventListener("touchstart", (e)=>{
     if (!e.touches?.length) return;
     dragging = true;
     startY = e.touches[0].clientY;
     currentY = startY;
   }, {passive:true});
 
-  sheet.addEventListener("touchmove", (e)=>{
+  dragTarget.addEventListener("touchmove", (e)=>{
     if (!dragging || !e.touches?.length) return;
     currentY = e.touches[0].clientY;
     const dy = Math.max(0, currentY - startY);
+    // feel: only start moving after a tiny threshold
     sheet.style.transform = `translateY(${dy}px)`;
   }, {passive:true});
 
-  sheet.addEventListener("touchend", ()=>{
+  dragTarget.addEventListener("touchend", ()=>{
     if (!dragging) return;
+    dragging = false;
     const dy = Math.max(0, currentY - startY);
+    sheet.style.transform = "";
+    if (dy > 90) closeLangSheet();
+  });
     sheet.style.transform = "";
     dragging = false;
     if (dy > 110) closeLangSheet();
