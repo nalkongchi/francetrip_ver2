@@ -734,16 +734,19 @@ function openLangSheet(venue){
     frWrap.appendChild(frText);
     frWrap.appendChild(speak);
 
-    const pronKor = document.createElement("div");
-    pronKor.innerHTML = `<div><b>한글 발음</b></div><div>${line.pron_ko || ""}</div>`;
+    const pronText = (line.pron || line.pron_ko || "").trim();
 
-    const meta = document.createElement("div");
-    meta.className = "lang-meta";
-    meta.innerHTML = `<b>뜻</b> · ${line.ko || ""}`;
+    const pronKor = document.createElement("div");
+    pronKor.className = "lang-pron";
+    if (pronText) pronKor.textContent = `(${pronText})`;
+
+    const ko = document.createElement("div");
+    ko.className = "lang-ko";
+    ko.textContent = (line.ko || "").trim();
 
     row.appendChild(frWrap);
-    row.appendChild(pronKor);
-    row.appendChild(meta);
+    if (pronText) row.appendChild(pronKor);
+    row.appendChild(ko);
 
     card.appendChild(row);
   });
@@ -828,7 +831,7 @@ function enhanceScheduleLinks(){
 
     const mapBtn = document.createElement("button");
     mapBtn.className = "icon-btn";
-    mapBtn.textContent = "🗺️";
+    mapBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l-6 2V6l6-2 6 2 6-2v14l-6 2-6-2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
     mapBtn.title = "Google Maps";
     mapBtn.addEventListener("click", ()=>{
       window.open(mapsUrlForQuery(venue.maps_query), "_blank", "noopener,noreferrer");

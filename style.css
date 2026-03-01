@@ -591,3 +591,70 @@ body {
   .lang-line{grid-template-columns: 1.2fr 1fr; column-gap:14px;}
   .lang-meta{grid-column:1 / -1;}
 }
+/* --- Icon mini buttons (gold outline) --- */
+.mini-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:6px;
+  padding:6px 10px;
+  border:1px solid rgba(191,162,94,.95);
+  border-radius:999px;
+  background:transparent;
+  color:var(--gold);
+  font-weight:700;
+  line-height:1;
+  cursor:pointer;
+}
+.mini-btn svg{ width:16px; height:16px; display:block; }
+.mini-btn:active{ background:rgba(191,162,94,.18); }
+.mini-btn.primary{ background:rgba(191,162,94,.10); }
+.schedule-actions{ display:flex; gap:8px; justify-content:flex-end; align-items:center; }
+
+/* --- Language bottom sheet: menu-like double border --- */
+.sheet{
+  background:#f7f3ea;
+  color:var(--navy);
+  border:1px solid rgba(191,162,94,.85);
+  position:relative;
+}
+.sheet:before{
+  content:"";
+  position:absolute; inset:10px;
+  border:1px solid rgba(191,162,94,.45);
+  border-radius:18px;
+  pointer-events:none;
+}
+.sheet:after{
+  content:"";
+  position:absolute; left:0; right:0; top:0;
+  height:10px;
+  border-top-left-radius:22px;
+  border-top-right-radius:22px;
+  background:linear-gradient(to bottom, rgba(191,162,94,.18), rgba(191,162,94,0));
+  pointer-events:none;
+}
+.sheet-header{ border-bottom:1px solid rgba(17,26,44,.10); }
+.sheet-title{ color:var(--navy); }
+
+.lang-card{
+  background:transparent;
+  border:1px dashed rgba(191,162,94,.35);
+}
+.lang-fr{ color:var(--navy); font-weight:800; }
+.lang-pron{ color:rgba(17,26,44,.70); font-weight:600; margin-top:4px; }
+.lang-ko{ color:rgba(17,26,44,.95); margin-top:6px; }
+
+.speak-btn{
+  border:1px solid rgba(191,162,94,.85);
+  background:rgba(191,162,94,.08);
+  color:var(--gold);
+}
+.speak-btn:active{ background:rgba(191,162,94,.18); }
+
+
+.icon-btn{
+  border:1px solid rgba(191,162,94,.95);
+  background:rgba(191,162,94,.10);
+  color:var(--gold);
+}
+.icon-btn svg{ width:18px; height:18px; display:block; }
+.icon-btn:active{ background:rgba(191,162,94,.18); }
