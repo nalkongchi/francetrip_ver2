@@ -657,19 +657,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 // === Map + Language buttons in schedule (auto-detect venue name) ===
-function normalizeText(s){ return (s||"").toLowerCase(); }
+function normalizeText(s){ return (s || '').toLowerCase(); }
 
 function buildVenueIndex(){
   const data = window.LANGUAGE_DATA;
   const venues = [];
   if (!data || !data.categories) return venues;
   for (const cat of data.categories){
-    for (const v of (cat.venues||[])){
-      const key = (v.name||"").split("(")[0].trim();
+    for (const v of (cat.venues || [])){
+      const key = (v.name || '').split('(')[0].trim();
       venues.push({
+        id: v.id || '',
         key,
         name: v.name,
-        maps_query: v.maps_query || v.name,
+        maps_query: v.maps_query || '',
         lines: v.lines || [],
         catLabel: cat.label || cat.id
       });
@@ -679,11 +680,15 @@ function buildVenueIndex(){
 }
 
 const __VENUES = buildVenueIndex();
+const __VENUE_BY_ID = Object.fromEntries(__VENUES.filter(v => v.id).map(v => [v.id, v]));
+
+function getVenueById(id){
+  return __VENUE_BY_ID[id] || null;
+}
 
 function findVenueForTitle(titleText){
   const t = normalizeText(titleText);
-  // prefer longer keys first to avoid partial overlaps
-  const sorted = [...__VENUES].sort((a,b)=> (b.key||"").length - (a.key||"").length);
+  const sorted = [...__VENUES].sort((a, b) => (b.key || '').length - (a.key || '').length);
   for (const v of sorted){
     const k = normalizeText(v.key);
     if (k && t.includes(k)) return v;
@@ -697,172 +702,245 @@ function mapsUrlForQuery(q){
 }
 
 function openLangSheet(venue){
-  const backdrop = document.getElementById("langSheet");
-  const titleEl = document.getElementById("langSheetTitle");
-  const bodyEl = document.getElementById("langSheetBody");
+  const backdrop = document.getElementById('langSheet');
+  const titleEl = document.getElementById('langSheetTitle');
+  const bodyEl = document.getElementById('langSheetBody');
   if (!backdrop || !titleEl || !bodyEl) return;
 
   titleEl.textContent = `${venue.name} · ${venue.catLabel}`;
-  bodyEl.innerHTML = "";
+  bodyEl.innerHTML = '';
 
-  const card = document.createElement("div");
-  card.className = "lang-card";
+  const card = document.createElement('div');
+  card.className = 'lang-card';
 
-  (venue.lines||[]).forEach((line)=>{
-    const row = document.createElement("div");
-    row.className = "lang-line";
+  (venue.lines || []).forEach((line) => {
+    const row = document.createElement('div');
+    row.className = 'lang-line';
 
-    const frWrap = document.createElement("div");
-    frWrap.className = "lang-fr";
+    const frWrap = document.createElement('div');
+    frWrap.className = 'lang-fr';
 
-    const frText = document.createElement("div");
-    frText.textContent = line.fr || "";
+    const frText = document.createElement('div');
+    frText.textContent = line.fr || '';
 
-    const speak = document.createElement("button");
-    speak.className = "icon-btn speak-btn";
-    speak.textContent = "🔊";
-    speak.setAttribute("aria-label","Speak");
-    speak.addEventListener("click", ()=>{
-      try{
-        const u = new SpeechSynthesisUtterance(line.fr || "");
-        u.lang = "fr-FR";
+    const speak = document.createElement('button');
+    speak.className = 'icon-btn speak-btn';
+    speak.textContent = '🔊';
+    speak.setAttribute('aria-label', 'Speak');
+    speak.addEventListener('click', () => {
+      try {
+        const u = new SpeechSynthesisUtterance(line.fr || '');
+        u.lang = 'fr-FR';
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(u);
-      }catch(e){}
+      } catch (e) {}
     });
 
     frWrap.appendChild(frText);
     frWrap.appendChild(speak);
 
-    const pronText = (line.pron || line.pron_ko || "").trim();
+    const pronText = (line.pron || line.pron_ko || '').trim();
 
-    const pronKor = document.createElement("div");
-    pronKor.className = "lang-pron";
+    const pronKor = document.createElement('div');
+    pronKor.className = 'lang-pron';
     if (pronText) pronKor.textContent = `(${pronText})`;
 
-    const ko = document.createElement("div");
-    ko.className = "lang-ko";
-    ko.textContent = (line.ko || "").trim();
+    const ko = document.createElement('div');
+    ko.className = 'lang-ko';
+    ko.textContent = (line.ko || '').trim();
 
     row.appendChild(frWrap);
     if (pronText) row.appendChild(pronKor);
     row.appendChild(ko);
-
     card.appendChild(row);
   });
 
   bodyEl.appendChild(card);
-
-  backdrop.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
+  backdrop.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeLangSheet(){
-  const backdrop = document.getElementById("langSheet");
+  const backdrop = document.getElementById('langSheet');
   if (!backdrop) return;
-  backdrop.classList.add("hidden");
-  document.body.style.overflow = "";
+  backdrop.classList.add('hidden');
+  document.body.style.overflow = '';
 }
 
 function wireLangSheetGestures(){
-  const backdrop = document.getElementById("langSheet");
-  const sheet = backdrop?.querySelector(".sheet");
-  const closeBtn = document.getElementById("langSheetClose");
+  const backdrop = document.getElementById('langSheet');
+  const sheet = backdrop?.querySelector('.sheet');
+  const closeBtn = document.getElementById('langSheetClose');
   if (!backdrop || !sheet) return;
 
-  backdrop.addEventListener("click", (e)=>{
+  backdrop.addEventListener('click', (e) => {
     if (e.target === backdrop) closeLangSheet();
   });
-  closeBtn?.addEventListener("click", closeLangSheet);
+  closeBtn?.addEventListener('click', closeLangSheet);
 
-  // swipe down to close
   let startY = 0;
   let currentY = 0;
   let dragging = false;
 
-  // Drag-to-close only from handle (so scrolling inside doesn't move the sheet)
-  const sheetHandle = sheet.querySelector(".sheet-handle");
+  const sheetHandle = sheet.querySelector('.sheet-handle');
   const dragTarget = sheetHandle || sheet;
 
-  dragTarget.addEventListener("touchstart", (e)=>{
+  dragTarget.addEventListener('touchstart', (e) => {
     if (!e.touches?.length) return;
     dragging = true;
     startY = e.touches[0].clientY;
     currentY = startY;
-  }, {passive:true});
+  }, { passive: true });
 
-  dragTarget.addEventListener("touchmove", (e)=>{
+  dragTarget.addEventListener('touchmove', (e) => {
     if (!dragging || !e.touches?.length) return;
     currentY = e.touches[0].clientY;
     const dy = Math.max(0, currentY - startY);
-    // feel: only start moving after a tiny threshold
     sheet.style.transform = `translateY(${dy}px)`;
-  }, {passive:true});
+  }, { passive: true });
 
-  dragTarget.addEventListener("touchend", ()=>{
+  dragTarget.addEventListener('touchend', () => {
     if (!dragging) return;
     dragging = false;
     const dy = Math.max(0, currentY - startY);
-    sheet.style.transform = "";
+    sheet.style.transform = '';
     if (dy > 90) closeLangSheet();
   });
 }
 
+function getEventType(card){
+  const eventEl = card.closest('.event');
+  if (!eventEl) return '';
+  if (eventEl.classList.contains('transport')) return 'transport';
+  if (eventEl.classList.contains('food')) return 'food';
+  if (eventEl.classList.contains('sightseeing')) return 'sightseeing';
+  if (eventEl.classList.contains('hotel')) return 'hotel';
+  if (eventEl.classList.contains('note')) return 'note';
+  return '';
+}
+
+function getTitleTextWithoutTags(titleEl){
+  const clone = titleEl.cloneNode(true);
+  clone.querySelectorAll('.tag').forEach((tag) => tag.remove());
+  return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+}
+
+function cleanMapQuery(raw, eventType){
+  let q = (raw || '').replace(/\s+/g, ' ').trim();
+  q = q.replace(/^[^\p{L}\p{N}\(]+/u, '').trim();
+  q = q.replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/u, '').trim();
+
+  if (eventType === 'hotel'){
+    const match = q.match(/\(([^)]+)\)/);
+    if (match) return match[1].trim();
+    if (/숙소\s*휴식/.test(q)) return '';
+  }
+
+  if (/^(도보 이동|이동)$/.test(q)) return '';
+  return q;
+}
+
+function getLanguageVenueForCard(card, titleText, specificVenue){
+  if (specificVenue) return specificVenue;
+
+  const type = getEventType(card);
+  if (type === 'food') return getVenueById('general_restaurant');
+
+  if (type === 'hotel' && /(숙소|체크인|체크아웃|짐 보관)/.test(titleText)) {
+    return getVenueById('general_hotel');
+  }
+
+  if (type === 'transport' && /(tgv|ter|기차|역|gare|train|탑승)/i.test(titleText)) {
+    return getVenueById('general_train');
+  }
+
+  return null;
+}
+
+function getMapQueryForCard(card, titleEl, specificVenue){
+  const type = getEventType(card);
+  if (type === 'transport' || type === 'note') return '';
+
+  if (specificVenue?.maps_query) return specificVenue.maps_query;
+
+  const titleText = getTitleTextWithoutTags(titleEl);
+  const cleaned = cleanMapQuery(titleText, type);
+  if (cleaned) return cleaned;
+
+  const detailText = (card.querySelector('.event-detail')?.textContent || '').replace(/\s+/g, ' ').trim();
+  if (detailText && (type === 'food' || type === 'sightseeing')) {
+    return detailText.split(/[·,\n]/)[0].trim();
+  }
+
+  return '';
+}
+
+function createEventActionButton(kind){
+  const btn = document.createElement('button');
+  btn.className = `event-action-btn event-action-btn-${kind}`;
+  btn.type = 'button';
+
+  if (kind === 'map') {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l-6 2V6l6-2 6 2 6-2v14l-6 2-6-2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+    btn.title = 'Google Maps';
+    btn.setAttribute('aria-label', 'Google Maps');
+  } else {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 6.5h10a3 3 0 0 1 3 3v4.8a3 3 0 0 1-3 3H12l-4 3v-3H7a3 3 0 0 1-3-3V9.5a3 3 0 0 1 3-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+    btn.title = '프랑스어 도움말';
+    btn.setAttribute('aria-label', '프랑스어 도움말');
+  }
+
+  return btn;
+}
+
 function enhanceScheduleLinks(){
-  // event cards exist in the current day schedule area
-  const cards = document.querySelectorAll(".event-card");
+  const cards = document.querySelectorAll('.event-card');
   if (!cards?.length) return;
 
-  cards.forEach((card)=>{
-    const titleEl = card.querySelector(".event-title");
+  cards.forEach((card) => {
+    if (card.dataset.quickEnhanced === '1') return;
+
+    const titleEl = card.querySelector('.event-title');
     if (!titleEl) return;
 
-    // Skip if already enhanced
-    if (titleEl.dataset.enhanced === "1") return;
+    const titleText = getTitleTextWithoutTags(titleEl);
+    const specificVenue = findVenueForTitle(titleText);
+    const langVenue = getLanguageVenueForCard(card, titleText, specificVenue);
+    const mapQuery = getMapQueryForCard(card, titleEl, specificVenue);
 
-    const titleText = titleEl.textContent || "";
-    const venue = findVenueForTitle(titleText);
-    if (!venue) return;
+    const shouldShowLang = !!langVenue;
+    const shouldShowMap = !!mapQuery;
 
-    // Build title row
-    const row = document.createElement("div");
-    row.className = "event-title-row";
+    if (!shouldShowLang && !shouldShowMap) {
+      card.dataset.quickEnhanced = '1';
+      return;
+    }
 
-    const left = document.createElement("div");
-    left.textContent = titleText;
+    const actions = document.createElement('div');
+    actions.className = 'card-actions-top';
 
-    const actions = document.createElement("div");
-    actions.className = "event-actions";
+    if (shouldShowLang) {
+      const langBtn = createEventActionButton('lang');
+      langBtn.addEventListener('click', () => openLangSheet(langVenue));
+      actions.appendChild(langBtn);
+    }
 
-    const mapBtn = document.createElement("button");
-    mapBtn.className = "icon-btn";
-    mapBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18l-6 2V6l6-2 6 2 6-2v14l-6 2-6-2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
-    mapBtn.title = "Google Maps";
-    mapBtn.addEventListener("click", ()=>{
-      window.open(mapsUrlForQuery(venue.maps_query), "_blank", "noopener,noreferrer");
-    });
+    if (shouldShowMap) {
+      const mapBtn = createEventActionButton('map');
+      mapBtn.addEventListener('click', () => {
+        window.open(mapsUrlForQuery(mapQuery), '_blank', 'noopener,noreferrer');
+      });
+      actions.appendChild(mapBtn);
+    }
 
-    const langBtn = document.createElement("button");
-    langBtn.className = "icon-btn";
-    langBtn.textContent = "🗣️";
-    langBtn.title = "프랑스어 도움말";
-    langBtn.addEventListener("click", ()=> openLangSheet(venue));
-
-    actions.appendChild(mapBtn);
-    actions.appendChild(langBtn);
-
-    row.appendChild(left);
-    row.appendChild(actions);
-
-    titleEl.textContent = "";
-    titleEl.appendChild(row);
-    titleEl.dataset.enhanced = "1";
+    card.classList.add('has-quick-actions');
+    card.appendChild(actions);
+    card.dataset.quickEnhanced = '1';
   });
 }
 
 // Call after initial load + whenever day is rendered
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener('DOMContentLoaded', () => {
   wireLangSheetGestures();
-  // Try enhance immediately (in case Day 1 is already rendered)
   setTimeout(enhanceScheduleLinks, 0);
 });
