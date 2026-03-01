@@ -806,10 +806,6 @@ function wireLangSheetGestures(){
     sheet.style.transform = "";
     if (dy > 90) closeLangSheet();
   });
-    sheet.style.transform = "";
-    dragging = false;
-    if (dy > 110) closeLangSheet();
-  });
 }
 
 function enhanceScheduleLinks(){
