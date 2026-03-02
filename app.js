@@ -505,36 +505,48 @@ updateExpenseFormUI();
 // ── CHECKLIST ──
 let checkState = JSON.parse(localStorage.getItem('fr_checks') || '{}');
 
+const CHECKLIST_SECTIONS = {
+  docs:        '📄 서류 & 결제',
+  bag:         '🧳 캐리어 & 가방',
+  eyes:        '👓 안경 & 렌즈',
+  skin:        '🧴 세면 & 스킨케어',
+  meds:        '💊 의약품',
+  clothes:     '👕 의류 & 신발',
+  electronics: '🔌 전자기기',
+  etc:         '✈️ 기내 & 기타'
+};
+
 function saveChecks() {
   try { localStorage.setItem('fr_checks', JSON.stringify(checkState)); } catch (e) {}
-
-  const t = document.getElementById('save-toast');
-  if (!t) return;
-
-  t.style.opacity = '1';
-  t.style.transform = 'translateX(-50%) translateY(0)';
-
-  setTimeout(() => {
-    t.style.opacity = '0';
-    t.style.transform = 'translateX(-50%) translateY(20px)';
-  }, 2000);
 }
 
 function renderChecklist() {
+  const wrap = document.querySelector('.checklist-wrap');
+  if (!wrap || !window.CHECKLIST_DATA) return;
+
+  // 섹션 div가 없으면 새로 생성
+  Object.entries(CHECKLIST_SECTIONS).forEach(([key, label]) => {
+    if (!document.getElementById('list-' + key)) {
+      const sec = document.createElement('div');
+      sec.className = 'check-section';
+      sec.innerHTML = `<h3>${label}</h3>
+        <div class="progress-bar"><div class="progress-fill" id="prog-${key}"></div></div>
+        <div id="list-${key}"></div>`;
+      wrap.appendChild(sec);
+    }
+  });
+
   Object.keys(CHECKLIST_DATA).forEach(sec => {
     const el = document.getElementById('list-' + sec);
     if (!el) return;
-
     const items = CHECKLIST_DATA[sec];
     const done = items.filter(item => checkState[item.id]).length;
-
     const prog = document.getElementById('prog-' + sec);
     if (prog) prog.style.width = (items.length ? (done / items.length * 100) : 0) + '%';
-
     el.innerHTML = items.map(item => {
       const isDone = !!checkState[item.id];
       return `<label class="check-item ${isDone ? 'done' : ''}" onclick="toggleCheck('${item.id}')">
-        <div class="check-box"></div>
+        <div class="check-box">${isDone ? '✓' : ''}</div>
         <div>
           <div class="check-label">${item.text}</div>
           ${item.note ? `<div class="check-note">${item.note}</div>` : ''}
@@ -546,10 +558,54 @@ function renderChecklist() {
 
 function toggleCheck(id) {
   checkState[id] = !checkState[id];
+  saveChecks();
   renderChecklist();
 }
 
 renderChecklist();
+
+// ── SOUVENIR ──
+let souvenirState = JSON.parse(localStorage.getItem('fr_souvenirs') || '{}');
+
+function saveSouvenirs() {
+  try { localStorage.setItem('fr_souvenirs', JSON.stringify(souvenirState)); } catch(e) {}
+}
+
+function toggleSouvenir(id) {
+  souvenirState[id] = !souvenirState[id];
+  saveSouvenirs();
+  renderSouvenirs();
+}
+
+function renderSouvenirs() {
+  const container = document.getElementById('souvenir-list');
+  if (!container || !window.SOUVENIR_DATA) return;
+
+  container.innerHTML = SOUVENIR_DATA.map(sec => {
+    const items = sec.items.map(item => {
+      const isDone = !!souvenirState[item.id];
+      return `<div class="souvenir-item ${isDone ? 'done' : ''}" onclick="toggleSouvenir('${item.id}')">
+        <div class="souvenir-check-box">${isDone ? '✓' : ''}</div>
+        <div style="flex:1;min-width:0;">
+          <div class="souvenir-label">${item.text}</div>
+          <div class="souvenir-meta">
+            <span class="souvenir-tag where">📍 ${item.where}</span>
+            <span class="souvenir-tag forWhom">👤 ${item.forWhom}</span>
+            <span class="souvenir-tag">🗓 ${item.day}</span>
+          </div>
+          ${item.warn ? `<div class="souvenir-warn">${item.warn}</div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="souvenir-section">
+      <div class="souvenir-section-title">${sec.section}</div>
+      ${items}
+    </div>`;
+  }).join('');
+}
+
+renderSouvenirs();
 
 // ── ACCORDION ──
 function toggleAcc(header) {

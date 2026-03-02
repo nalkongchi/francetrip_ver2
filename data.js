@@ -31,7 +31,7 @@ window.TRIP_DAYS = {
       { name: '빅토르 위고 하우스', lat: 48.8554, lng: 2.3619, icon: '🏠', maps_url: 'https://maps.app.goo.gl/KRC8g3DnkpM3Q53u6' },
       { name: '카르나발레 박물관', lat: 48.8576, lng: 2.3622, icon: '🏛', maps_url: 'https://maps.app.goo.gl/QRohyjjuG1Q18n6U6' },
       { name: '피카소 미술관 (외관)', lat: 48.8599, lng: 2.3622, icon: '🎨', maps_url: 'https://maps.app.goo.gl/Suk2GFpkWASJDWt88' },
-      { name: "L'As du Fallafel", lat: 48.8571, lng: 2.3561, icon: '🥙', maps_url: 'https://maps.app.goo.gl/iUi5xbPobLxwC7uZ9' },
+      { name: "L'As du Fallafel", lat: 48.8571, lng: 2.3561, icon: '🥙', maps_url: 'https://maps.app.goo.gl/iUi5xbPobLxwC7uZ9' , lang_id: 'las_du_fallafel' },
       { name: 'Mariage Frères Marais', lat: 48.8572, lng: 2.3536, icon: '🍵', maps_url: 'https://maps.app.goo.gl/n5vXL5dWWYv3UBPW6' , lang_id: 'mariage_freres'},
       { name: '오텔 드 빌 (시청사)', lat: 48.8566, lng: 2.3522, icon: '🏛', maps_url: 'https://maps.app.goo.gl/yz7zaPuWVHrUW5UGA' },
       { name: '퐁뇌프 / 시테섬', lat: 48.8572, lng: 2.3417, icon: '🌉', maps_url: 'https://maps.app.goo.gl/fQhvYhSZ96MSarzn7' },
@@ -259,21 +259,7 @@ window.LANGUAGE_DATA = {
   "version": "2026-03-01",
   "lang": "fr",
   "notes": "각 장소(카페/레스토랑/호텔/기차)에서 바로 써먹는 실전 문장 모음. fr=프랑스어, pron=한글발음(대략), ko=한국어 뜻.",
-  "categories": [
-    {
-      "id": "cafe",
-      "label": "카페 주문",
-      "venues": [
-        {
-          "id": "carette_place_des_vosges",
-          "name": "Carette (Place des Vosges)",
-          "maps_query": "Carette Place des Vosges",
-          "lines": [
-            {
-              "fr": "Bonjour ! Je voudrais un Petit Déjeuner Carette, s’il vous plaît.",
-              "pron": "봉쥬흐! 즈 부드헤 앙 쁘띠 데쥬네 까레뜨, 씰 부 쁠레.",
-              "ko": "안녕하세요! 까레뜨 조식 세트 하나 주세요."
-            },
+  "categories": [,
             {
               "fr": "Pour la boisson chaude, je voudrais le Chocolat Carette avec de la crème Chantilly.",
               "pron": "뿌흐 라 부아쏭 쇼드, 즈 부드헤 르 쇼꼴라 까레뜨 아벡 드 라 크헴 샹티이.",
@@ -399,17 +385,6 @@ window.LANGUAGE_DATA = {
         }
       ]
     },
-    {
-      "id": "restaurant",
-      "label": "레스토랑 주문",
-      "venues": [
-        {
-          "id": "las_du_fallafel",
-          "name": "L'As du Fallafel",
-          "catLabel": "레스토랑 주문",
-          "maps_query": "L'As du Fallafel Paris",
-          "lines": [
-            { "fr": "Bonjour, un fallafel spécial, s'il vous plaît.", "pron": "봉쥬흐, 앙 팔라펠 스뻬씨알, 씰 부 쁠레.", "ko": "안녕하세요, 스페셜 팔라펠 하나 주세요." },
             { "fr": "Avec tout, s'il vous plaît.", "pron": "아벡 뚜, 씰 부 쁠레.", "ko": "다 넣어주세요." },
             { "fr": "Sans aubergines, s'il vous plaît.", "pron": "쌍 오베흐진, 씰 부 쁠레.", "ko": "가지는 빼주세요." },
             { "fr": "À emporter, s'il vous plaît.", "pron": "아 앙뽀흐떼, 씰 부 쁠레.", "ko": "포장해주세요." },
@@ -645,20 +620,6 @@ window.LANGUAGE_DATA = {
         }
       ]
     },
-    {
-      "id": "hotel",
-      "label": "호텔 체크인/체크아웃",
-      "venues": [
-        {
-          "id": "general_hotel",
-          "name": "호텔 공통 (어디서나)",
-          "maps_query": "",
-          "lines": [
-            {
-              "fr": "Bonjour, j’ai une réservation au nom de (Nom).",
-              "pron": "봉쥬흐, 제 윈 헤제흐바씨옹 오 놈 드 (이름).",
-              "ko": "안녕하세요, (이름)으로 예약했어요."
-            },
             {
               "fr": "Je voudrais faire le check-in, s’il vous plaît.",
               "pron": "즈 부드헤 페흐 르 췌크-인, 씰 부 쁠레.",
@@ -703,20 +664,6 @@ window.LANGUAGE_DATA = {
         }
       ]
     },
-    {
-      "id": "train",
-      "label": "기차표/역/탑승",
-      "venues": [
-        {
-          "id": "general_train",
-          "name": "기차 공통 (SNCF/TER/TGV)",
-          "maps_query": "Gare SNCF",
-          "lines": [
-            {
-              "fr": "Bonjour, je cherche le quai pour le train vers (Destination).",
-              "pron": "봉쥬흐, 즈 쉐흐쉬 르 께 뿌흐 르 뜨헝 베흐 (목적지).",
-              "ko": "안녕하세요, (목적지)행 열차 플랫폼(승강장)이 어디인가요?"
-            },
             {
               "fr": "C’est quel quai, s’il vous plaît ?",
               "pron": "쎄 껠 께, 씰 부 쁠레?",
@@ -771,22 +718,81 @@ window.LANGUAGE_DATA = {
 
 window.CHECKLIST_DATA = {
   docs: [
-    { id: 'd1', text: '여권 유효기간 확인 (6개월 이상)', note: '' },
-    { id: 'd2', text: '항공권 출력 / 모바일 저장', note: 'OZ0501, OZ0502' },
-    { id: 'd3', text: '기차 티켓 출력 / 저장', note: 'OUIGO 7691, TGV 5470' },
-    { id: 'd4', text: '숙소 예약 확인서 출력', note: '디스트릭트 레퓌블리크 / 시티 레지던스' },
-    { id: 'd5', text: '여행자 보험 가입 확인', note: '' }
+    { id: 'c01', text: '여권', note: '사본 1장 + 사진 2장 + 사진파일 저장' },
+    { id: 'c02', text: '항공권 E-티켓 인쇄' },
+    { id: 'c03', text: '숙소 예약 확인서' },
+    { id: 'c04', text: '음식점 예약 확인서' },
+    { id: 'c05', text: '여행자 보험 증서' },
+    { id: 'c06', text: '카드 (네이버머니)' },
+    { id: 'c07', text: '카드 (토스카드)' },
+    { id: 'c08', text: '현금', note: '유로 소액 + 비상용 원화' },
+    { id: 'c09', text: '펜 1개', note: '입국서류 대비' }
   ],
-  pack: [
-    { id: 'p1', text: '여권 + 복사본', note: '' },
-    { id: 'p2', text: '유로 현금', note: '출국 전 환전' },
-    { id: 'p3', text: '신용카드 (해외 결제용)', note: '' },
-    { id: 'p4', text: '카메라 + 충전기', note: '' },
-    { id: 'p5', text: '유럽 여행용 어댑터', note: 'C타입 플러그' },
-    { id: 'p6', text: '상비약 (소화제, 두통약 등)', note: '' },
-    { id: 'p7', text: '편한 운동화', note: '매일 10km+ 도보 예정' },
-    { id: 'p8', text: '우산 / 경량 레인재킷', note: '3월은 비 올 수 있음' },
-    { id: 'p9', text: '보조배터리', note: '지도 앱 많이 써야 함' },
-    { id: 'p10', text: '목베개', note: '비행 12시간+' }
+  bag: [
+    { id: 'c10', text: '캐리어 네임택', note: '겉 1 + 안쪽 1' },
+    { id: 'c11', text: '캐리어 잠금장치' },
+    { id: 'c12', text: '소형 크로스백 (지퍼형)', note: '앞으로 메기 좋은 것 / 도난방지 스트랩' },
+    { id: 'c13', text: '까만가방 2개', note: '장보기 + 기념품용' },
+    { id: 'c14', text: '지퍼백 몇 장' }
+  ],
+  eyes: [
+    { id: 'c15', text: '안경' },
+    { id: 'c16', text: '일회용 렌즈', note: '여유분 +2~3개' },
+    { id: 'c17', text: '인공눈물' },
+    { id: 'c18', text: '안경 닦이 천 + 안경통' }
+  ],
+  skin: [
+    { id: 'c19', text: '칫솔 / 치약' },
+    { id: 'c20', text: '폼클렌저' },
+    { id: 'c21', text: '스킨 / 로션' },
+    { id: 'c22', text: '선크림' },
+    { id: 'c23', text: '립밤' },
+    { id: 'c24', text: '작은 수건' },
+    { id: 'c25', text: '마스크팩 1~2장' },
+    { id: 'c26', text: '고무줄 / 헤어핀' },
+    { id: 'c27', text: '데오드란트' },
+    { id: 'c28', text: '샴푸 / 린스 / 바디워시 미니', note: '비상용 1세트' },
+    { id: 'c29', text: '클렌징 리무버 + 화장솜' }
+  ],
+  meds: [
+    { id: 'c30', text: '진통제 (일반용)' },
+    { id: 'c31', text: '감기약' },
+    { id: 'c32', text: '소화제' },
+    { id: 'c33', text: '지사제' },
+    { id: 'c34', text: '밴드' },
+    { id: 'c35', text: '물집 방지 패드', note: '컴피드류' },
+    { id: 'c36', text: '발바닥 보호 패치/테이프' }
+  ],
+  clothes: [
+    { id: 'c37', text: '상의 7벌' },
+    { id: 'c38', text: '하의 2벌' },
+    { id: 'c39', text: '잠옷 1벌' },
+    { id: 'c40', text: '속옷 7세트' },
+    { id: 'c41', text: '양말 7켤레' },
+    { id: 'c42', text: '얇은 가디건 / 자켓' },
+    { id: 'c43', text: '히트텍' },
+    { id: 'c44', text: '머플러' },
+    { id: 'c45', text: '바깥 아우터 (코트)' },
+    { id: 'c46', text: '편한 운동화 1켤레' },
+    { id: 'c47', text: '슬리퍼 (숙소용)' },
+    { id: 'c48', text: '작은 우산 2개' }
+  ],
+  electronics: [
+    { id: 'c49', text: '휴대폰' },
+    { id: 'c50', text: '충전기' },
+    { id: 'c51', text: '멀티어댑터', note: 'EU C/F 타입' },
+    { id: 'c52', text: '보조배터리', note: '기내만 가능' },
+    { id: 'c53', text: '이어폰' },
+    { id: 'c54', text: '충전 케이블 여분 1개' },
+    { id: 'c55', text: '4구 멀티탭' }
+  ],
+  etc: [
+    { id: 'c56', text: '목베개' },
+    { id: 'c57', text: '안대' },
+    { id: 'c58', text: '귀마개' },
+    { id: 'c59', text: '빨래줄' },
+    { id: 'c60', text: '여행용 휴지' },
+    { id: 'c61', text: '여행용 물티슈' },
+    { id: 'c62', text: '손소독제 (작은 것)' }
   ]
 };
