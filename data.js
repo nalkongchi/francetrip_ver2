@@ -258,6 +258,13 @@ window.SOUVENIR_DATA = [
 window.LANGUAGE_DATA = {
   "version": "2026-03-01",
   "lang": "fr",
+  "categories": [
+    {
+      "label": "카페 주문",
+      "venues": [
+        {
+  "version": "2026-03-01",
+  "lang": "fr",
   "notes": "각 장소(카페/레스토랑/호텔/기차)에서 바로 써먹는 실전 문장 모음. fr=프랑스어, pron=한글발음(대략), ko=한국어 뜻.",
   "categories": [,
             {
@@ -330,7 +337,12 @@ window.LANGUAGE_DATA = {
             { "fr": "C'est combien ?", "pron": "쎄 꽁비앙?", "ko": "얼마예요?" },
             { "fr": "Je peux payer par carte ?", "pron": "즈 뿌 뻬예 빠흐 까흐뜨?", "ko": "카드로 결제할 수 있나요?" }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "기타",
+      "venues": [
         {
           "id": "breizh_cafe_montorgueil",
           "name": "Breizh Café Montorgueil",
@@ -382,9 +394,102 @@ window.LANGUAGE_DATA = {
               "ko": "감사합니다, 정말 맛있었어요."
             }
           ]
+        },
+        {
+          "id": "general_restaurant",
+          "name": "레스토랑 공통 (어디서나)",
+          "maps_query": "",
+          "lines": [
+            {
+              "fr": "Bonjour, une table pour deux, s’il vous plaît.",
+              "pron": "봉쥬흐, 윈 따블 뿌흐 두, 씰 부 쁠레.",
+              "ko": "안녕하세요, 2명 자리 부탁드려요."
+            },
+            {
+              "fr": "J’ai une réservation au nom de (Nom).",
+              "pron": "제 윈 헤제흐바씨옹 오 놈 드 (이름).",
+              "ko": "(이름)으로 예약했어요."
+            },
+            {
+              "fr": "Est-ce que vous avez une table disponible ?",
+              "pron": "에스끄 부 자베 윈 따블 디스뽀니블?",
+              "ko": "자리 남아 있나요?"
+            },
+            {
+              "fr": "Qu’est-ce que vous recommandez ?",
+              "pron": "께스끄 부 흐꼬망데?",
+              "ko": "추천 메뉴가 뭐예요?"
+            },
+            {
+              "fr": "Je voudrais (plat), s’il vous plaît.",
+              "pron": "즈 부드헤 (플라), 씰 부 쁠레.",
+              "ko": "(요리)로 주세요."
+            },
+            {
+              "fr": "Sans (ingrédient), s’il vous plaît.",
+              "pron": "쌍 (앵그헤디앙), 씰 부 쁠레.",
+              "ko": "(재료) 빼주세요."
+            },
+            {
+              "fr": "Une carafe d’eau, s’il vous plaît.",
+              "pron": "윈 까하프 도, 씰 부 쁠레.",
+              "ko": "수돗물(카라프) 부탁드려요."
+            },
+            {
+              "fr": "Un verre de vin rouge / blanc, s’il vous plaît.",
+              "pron": "앙 베흐 드 방 후쥬 / 블랑, 씰 부 쁠레.",
+              "ko": "레드/화이트 와인 한 잔 주세요."
+            },
+            {
+              "fr": "C’était parfait, merci.",
+              "pron": "쎄떼 빠흐페, 메흐씨.",
+              "ko": "완벽했어요, 감사합니다."
+            },
+            {
+              "fr": "L’addition, s’il vous plaît.",
+              "pron": "라디씨옹, 씰 부 쁠레.",
+              "ko": "계산서 주세요."
+            }
+          ]
+        },
+        {
+          "id": "winstub_alsace",
+          "name": "알자스 전통 레스토랑(윈스툽)용",
+          "maps_query": "winstub Strasbourg",
+          "lines": [
+            {
+              "fr": "Je voudrais une tarte à l’oignon, s’il vous plaît.",
+              "pron": "즈 부드헤 윈 따흐뜨 아 로뇽, 씰 부 쁠레.",
+              "ko": "양파 타르트 하나 주세요."
+            },
+            {
+              "fr": "Et un jarret de porc, s’il vous plaît.",
+              "pron": "에 앙 자헤 드 뽀흐, 씰 부 쁠레.",
+              "ko": "돼지 족발(자레) 하나 주세요."
+            },
+            {
+              "fr": "Une choucroute, s’il vous plaît.",
+              "pron": "윈 슈크후뜨, 씰 부 쁠레.",
+              "ko": "슈쿠르트 하나 주세요."
+            },
+            {
+              "fr": "Je peux avoir de la moutarde, s’il vous plaît ?",
+              "pron": "즈 뿌 아부와흐 드 라 무따흐드, 씰 부 쁠레?",
+              "ko": "머스타드 좀 주실 수 있나요?"
+            }
+          ]
         }
       ]
     },
+    {
+      "label": "레스토랑 주문",
+      "venues": [
+        {
+          "id": "las_du_fallafel",
+          "name": "L'As du Fallafel",
+          "catLabel": "레스토랑 주문",
+          "maps_query": "L'As du Fallafel Paris",
+          "lines": [
             { "fr": "Avec tout, s'il vous plaît.", "pron": "아벡 뚜, 씰 부 쁠레.", "ko": "다 넣어주세요." },
             { "fr": "Sans aubergines, s'il vous plaît.", "pron": "쌍 오베흐진, 씰 부 쁠레.", "ko": "가지는 빼주세요." },
             { "fr": "À emporter, s'il vous plaît.", "pron": "아 앙뽀흐떼, 씰 부 쁠레.", "ko": "포장해주세요." },
@@ -533,189 +638,11 @@ window.LANGUAGE_DATA = {
             { "fr": "La carte des vins, s'il vous plaît.", "pron": "라 까흐뜨 데 방, 씰 부 쁠레.", "ko": "와인 메뉴판 주세요." },
             { "fr": "L'addition, s'il vous plaît.", "pron": "라디씨옹, 씰 부 쁠레.", "ko": "계산서 주세요." }
           ]
-        },
-        {
-          "id": "general_restaurant",
-          "name": "레스토랑 공통 (어디서나)",
-          "maps_query": "",
-          "lines": [
-            {
-              "fr": "Bonjour, une table pour deux, s’il vous plaît.",
-              "pron": "봉쥬흐, 윈 따블 뿌흐 두, 씰 부 쁠레.",
-              "ko": "안녕하세요, 2명 자리 부탁드려요."
-            },
-            {
-              "fr": "J’ai une réservation au nom de (Nom).",
-              "pron": "제 윈 헤제흐바씨옹 오 놈 드 (이름).",
-              "ko": "(이름)으로 예약했어요."
-            },
-            {
-              "fr": "Est-ce que vous avez une table disponible ?",
-              "pron": "에스끄 부 자베 윈 따블 디스뽀니블?",
-              "ko": "자리 남아 있나요?"
-            },
-            {
-              "fr": "Qu’est-ce que vous recommandez ?",
-              "pron": "께스끄 부 흐꼬망데?",
-              "ko": "추천 메뉴가 뭐예요?"
-            },
-            {
-              "fr": "Je voudrais (plat), s’il vous plaît.",
-              "pron": "즈 부드헤 (플라), 씰 부 쁠레.",
-              "ko": "(요리)로 주세요."
-            },
-            {
-              "fr": "Sans (ingrédient), s’il vous plaît.",
-              "pron": "쌍 (앵그헤디앙), 씰 부 쁠레.",
-              "ko": "(재료) 빼주세요."
-            },
-            {
-              "fr": "Une carafe d’eau, s’il vous plaît.",
-              "pron": "윈 까하프 도, 씰 부 쁠레.",
-              "ko": "수돗물(카라프) 부탁드려요."
-            },
-            {
-              "fr": "Un verre de vin rouge / blanc, s’il vous plaît.",
-              "pron": "앙 베흐 드 방 후쥬 / 블랑, 씰 부 쁠레.",
-              "ko": "레드/화이트 와인 한 잔 주세요."
-            },
-            {
-              "fr": "C’était parfait, merci.",
-              "pron": "쎄떼 빠흐페, 메흐씨.",
-              "ko": "완벽했어요, 감사합니다."
-            },
-            {
-              "fr": "L’addition, s’il vous plaît.",
-              "pron": "라디씨옹, 씰 부 쁠레.",
-              "ko": "계산서 주세요."
-            }
-          ]
-        },
-        {
-          "id": "winstub_alsace",
-          "name": "알자스 전통 레스토랑(윈스툽)용",
-          "maps_query": "winstub Strasbourg",
-          "lines": [
-            {
-              "fr": "Je voudrais une tarte à l’oignon, s’il vous plaît.",
-              "pron": "즈 부드헤 윈 따흐뜨 아 로뇽, 씰 부 쁠레.",
-              "ko": "양파 타르트 하나 주세요."
-            },
-            {
-              "fr": "Et un jarret de porc, s’il vous plaît.",
-              "pron": "에 앙 자헤 드 뽀흐, 씰 부 쁠레.",
-              "ko": "돼지 족발(자레) 하나 주세요."
-            },
-            {
-              "fr": "Une choucroute, s’il vous plaît.",
-              "pron": "윈 슈크후뜨, 씰 부 쁠레.",
-              "ko": "슈쿠르트 하나 주세요."
-            },
-            {
-              "fr": "Je peux avoir de la moutarde, s’il vous plaît ?",
-              "pron": "즈 뿌 아부와흐 드 라 무따흐드, 씰 부 쁠레?",
-              "ko": "머스타드 좀 주실 수 있나요?"
-            }
-          ]
-        }
-      ]
-    },
-            {
-              "fr": "Je voudrais faire le check-in, s’il vous plaît.",
-              "pron": "즈 부드헤 페흐 르 췌크-인, 씰 부 쁠레.",
-              "ko": "체크인하고 싶어요."
-            },
-            {
-              "fr": "Voici mon passeport.",
-              "pron": "브와씨 몽 빠스뽀흐.",
-              "ko": "여권 여기 있습니다."
-            },
-            {
-              "fr": "À quelle heure est le petit-déjeuner ?",
-              "pron": "아 껠 으흐 에 르 쁘띠-데쥬네?",
-              "ko": "조식은 몇 시에 하나요?"
-            },
-            {
-              "fr": "Le Wi‑Fi : quel est le mot de passe ?",
-              "pron": "르 와이-파이: 껠 에 르 모 드 빠스?",
-              "ko": "와이파이 비밀번호가 뭐예요?"
-            },
-            {
-              "fr": "Est-ce qu’on peut laisser les bagages avant/après ?",
-              "pron": "에스끄 꽁 뿌 레쎄 레 바가쥬 아방/아프헤?",
-              "ko": "체크인 전/후에 짐 맡길 수 있나요?"
-            },
-            {
-              "fr": "Je voudrais faire le check-out, s’il vous plaît.",
-              "pron": "즈 부드헤 페흐 르 췌크-아웃, 씰 부 쁠레.",
-              "ko": "체크아웃할게요."
-            },
-            {
-              "fr": "Est-ce possible de partir un peu plus tard ? (late check-out)",
-              "pron": "에스 뽀씨블 드 빠흐띠 앙 쁘 외 따흐? (레이트 췌크-아웃)",
-              "ko": "조금 늦게 체크아웃 가능할까요?"
-            },
-            {
-              "fr": "Merci pour votre aide.",
-              "pron": "메흐씨 뿌흐 보뜨흐 에드.",
-              "ko": "도와주셔서 감사합니다."
-            }
-          ]
-        }
-      ]
-    },
-            {
-              "fr": "C’est quel quai, s’il vous plaît ?",
-              "pron": "쎄 껠 께, 씰 부 쁠레?",
-              "ko": "몇 번 승강장인가요?"
-            },
-            {
-              "fr": "À quelle heure part le train ?",
-              "pron": "아 껠 으흐 빠흐 르 뜨헝?",
-              "ko": "열차는 몇 시에 출발하나요?"
-            },
-            {
-              "fr": "Est-ce que ce train s’arrête à (Arrêt) ?",
-              "pron": "에스끄 쓰 뜨헝 싸헤뜨 아 (정차역)?",
-              "ko": "이 열차가 (정차역)에 서나요?"
-            },
-            {
-              "fr": "Je peux m’asseoir ici ?",
-              "pron": "즈 뿌 마쎄와흐 이씨?",
-              "ko": "여기 앉아도 될까요?"
-            },
-            {
-              "fr": "Je n’ai pas de place réservée. (TER)",
-              "pron": "즈 네 빠 드 쁠라스 헤제흐베. (떼에흐)",
-              "ko": "좌석 지정이 없어요(TER)."
-            },
-            {
-              "fr": "Excusez‑moi, où est la voiture numéro (X) ?",
-              "pron": "엑스퀴제-므와, 우 에 라 부아뛰흐 뉘메호 (엑스)?",
-              "ko": "실례합니다, (X)호차는 어디예요?"
-            },
-            {
-              "fr": "Mon billet est sur mon téléphone.",
-              "pron": "몽 비예 에 쓔흐 몽 뗄레퐁.",
-              "ko": "제 표는 휴대폰에 있어요."
-            },
-            {
-              "fr": "Pardon, je ne parle pas bien français.",
-              "pron": "빠흐동, 즈 느 빠흘 빠 비앙 프헝쎄.",
-              "ko": "죄송해요, 프랑스어를 잘 못해요."
-            },
-            {
-              "fr": "Merci, bonne journée !",
-              "pron": "메흐씨, 본 쥬흐네!",
-              "ko": "감사합니다, 좋은 하루 되세요!"
-            }
-          ]
         }
       ]
     }
   ]
 };
-
 window.CHECKLIST_DATA = {
   docs: [
     { id: 'c01', text: '여권', note: '사본 1장 + 사진 2장 + 사진파일 저장' },
