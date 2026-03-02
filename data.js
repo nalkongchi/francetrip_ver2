@@ -11,110 +11,110 @@ window.TRIP_CONFIG = {
 window.TRIP_DAYS = {
   1: {
     title: 'Day 1 — 3/7 (토) · 인천 → 파리',
-    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
-    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
+    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
+    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
     connectHotels: true,
     segments: [[
       { name: '샤를드골 국제공항 (CDG)', lat: 49.0097, lng: 2.5479, icon: '✈️' },
-      { name: 'Intermarché EXPRESS', lat: 48.8674, lng: 2.3622, icon: '🛒' }
+      { name: 'Intermarché EXPRESS', lat: 48.8659, lng: 2.36, icon: '🛒' }
     ]]
   },
 
   2: {
     title: 'Day 2 — 3/8 (일) · 마레 & 시테섬 & 생루이섬',
-    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
-    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
+    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
+    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
     connectHotels: true,
     segments: [[
-      { name: 'Carette (보쥬 광장 점)', lat: 48.8551, lng: 2.3625, icon: '🥐' },
+      { name: 'Carette (보쥬 광장 점)', lat: 48.8553, lng: 2.363, icon: '🥐' },
       { name: '보쥬 광장', lat: 48.8553, lng: 2.3625, icon: '🌿' },
-      { name: '빅토르 위고 하우스', lat: 48.8554, lng: 2.3619, icon: '🏠' },
-      { name: '카르나발레 박물관', lat: 48.8576, lng: 2.3622, icon: '🏛' },
-      { name: '피카소 미술관 (외관)', lat: 48.8599, lng: 2.3622, icon: '🎨' },
-      { name: "L'As du Fallafel", lat: 48.8571, lng: 2.3561, icon: '🥙' },
-      { name: 'Mariage Frères Marais', lat: 48.8572, lng: 2.3536, icon: '🍵' },
+      { name: '빅토르 위고 하우스', lat: 48.8553, lng: 2.3618, icon: '🏠' },
+      { name: '카르나발레 박물관', lat: 48.8577, lng: 2.3623, icon: '🏛' },
+      { name: '피카소 미술관 (외관)', lat: 48.8598, lng: 2.3527, icon: '🎨' },
+      { name: "L'As du Fallafel", lat: 48.8574, lng: 2.3548, icon: '🥙' },
+      { name: 'Mariage Frères Marais', lat: 48.857, lng: 2.3533, icon: '🍵' },
       { name: '오텔 드 빌 (시청사)', lat: 48.8566, lng: 2.3522, icon: '🏛' },
-      { name: '퐁뇌프 / 시테섬', lat: 48.8572, lng: 2.3417, icon: '🌉' },
-      { name: '노트르담 대성당', lat: 48.8530, lng: 2.3499, icon: '⛪' },
-      { name: '퐁생루이 다리', lat: 48.8519, lng: 2.3538, icon: '🌉' },
-      { name: '생루이섬', lat: 48.8515, lng: 2.3561, icon: '🏝' },
+      { name: '퐁뇌프 / 시테섬', lat: 48.8581, lng: 2.3412, icon: '🌉' },
+      { name: '노트르담 대성당', lat: 48.853, lng: 2.3499, icon: '⛪' },
+      { name: '퐁생루이 다리', lat: 48.8519, lng: 2.354, icon: '🌉' },
+      { name: '생루이섬', lat: 48.8516, lng: 2.3561, icon: '🏝' },
       { name: '루브르 박물관 야경', lat: 48.8606, lng: 2.3376, icon: '🌇' },
-      { name: 'Breizh Café Montorgueil', lat: 48.8631, lng: 2.3468, icon: '🥞' }
+      { name: 'Breizh Café Montorgueil', lat: 48.8633, lng: 2.3475, icon: '🥞' }
     ]]
   },
 
   3: {
     title: 'Day 3 — 3/9 (월) · 루브르 & 오랑주리 & 샹젤리제',
-    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
-    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
+    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
+    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
     connectHotels: true,
     segments: [[
       { name: '오텔 드 빌 (시청사)', lat: 48.8566, lng: 2.3522, icon: '📸', maps_url: 'https://www.google.com/maps?q=48.8566,2.3522' },
       { name: '루브르 박물관', lat: 48.8606, lng: 2.3376, icon: '🏛', maps_url: 'https://www.google.com/maps?q=48.8606,2.3376' },
       { name: '퐁데자르', lat: 48.8583, lng: 2.3373, icon: '🌉', maps_url: 'https://www.google.com/maps?q=48.8583,2.3373' },
-      { name: 'Palais-Royal', lat: 48.8638, lng: 2.3370, icon: '🌿', maps_url: 'https://www.google.com/maps?q=48.8638,2.3370' },
-      { name: 'Galerie Vivienne', lat: 48.8648, lng: 2.3386, icon: '🛍', maps_url: 'https://www.google.com/maps?q=48.8648,2.3386' },
-      { name: 'Bistrot Victoires', lat: 48.8625, lng: 2.3425, icon: '🦆', maps_url: 'https://www.google.com/maps?q=48.8625,2.3425', lang_id: 'bistrot_victoires' },
+      { name: 'Palais-Royal', lat: 48.8638, lng: 2.337, icon: '🌿', maps_url: 'https://www.google.com/maps?q=48.8638,2.337' },
+      { name: 'Galerie Vivienne', lat: 48.8651, lng: 2.3394, icon: '🛍', maps_url: 'https://www.google.com/maps?q=48.8651,2.3394' },
+      { name: 'Bistrot Victoires', lat: 48.8632, lng: 2.3435, icon: '🦆', maps_url: 'https://www.google.com/maps?q=48.8632,2.3435', lang_id: 'bistrot_victoires' },
       { name: '갤러리 라파예트 오스만', lat: 48.8736, lng: 2.3323, icon: '🛍', maps_url: 'https://www.google.com/maps?q=48.8736,2.3323' },
-      { name: '방돔 광장', lat: 48.8675, lng: 2.3294, icon: '💎', maps_url: 'https://www.google.com/maps?q=48.8675,2.3294' },
-      { name: '튈르리 정원', lat: 48.8638, lng: 2.3274, icon: '🌿', maps_url: 'https://www.google.com/maps?q=48.8638,2.3274' },
+      { name: '방돔 광장', lat: 48.8675, lng: 2.3296, icon: '💎', maps_url: 'https://www.google.com/maps?q=48.8675,2.3296' },
+      { name: '튈르리 정원', lat: 48.8634, lng: 2.3274, icon: '🌿', maps_url: 'https://www.google.com/maps?q=48.8634,2.3274' },
       { name: '오랑주리 미술관', lat: 48.8638, lng: 2.3225, icon: '🎨', maps_url: 'https://www.google.com/maps?q=48.8638,2.3225' },
       { name: '콩코르드 광장', lat: 48.8656, lng: 2.3211, icon: '🏛', maps_url: 'https://www.google.com/maps?q=48.8656,2.3211' },
       { name: '샹젤리제 거리', lat: 48.8698, lng: 2.3078, icon: '🛍', maps_url: 'https://www.google.com/maps?q=48.8698,2.3078' },
-      { name: '개선문', lat: 48.8738, lng: 2.2950, icon: '🌄', maps_url: 'https://www.google.com/maps?q=48.8738,2.2950' },
-      { name: 'Bouillon République', lat: 48.8671, lng: 2.3631, icon: '🐌', maps_url: 'https://www.google.com/maps?q=48.8671,2.3631', lang_id: 'bouillon_republique' }
+      { name: '개선문', lat: 48.8738, lng: 2.295, icon: '🌄', maps_url: 'https://www.google.com/maps?q=48.8738,2.295' },
+      { name: 'Bouillon République', lat: 48.8674, lng: 2.362, icon: '🐌', maps_url: 'https://www.google.com/maps?q=48.8674,2.362', lang_id: 'bouillon_republique' }
     ]]
   },
 
   4: {
     title: 'Day 4 — 3/10 (화) · 생마르탱 운하 & 에펠탑',
-    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
-    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
+    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
+    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
     connectHotels: true,
     segments: [[
-      { name: 'Le Pain des Copains', lat: 48.8684, lng: 2.3594, icon: '🥐', maps_url: 'https://www.google.com/maps?q=48.8684,2.3594', lang_id: 'boulangerie_general' },
-      { name: '생마르탱 운하', lat: 48.8698, lng: 2.3637, icon: '🛶', maps_url: 'https://www.google.com/maps?q=48.8698,2.3637' },
-      { name: '유토피아 베이커리', lat: 48.8625, lng: 2.3520, icon: '🥖', maps_url: 'https://www.google.com/maps?q=48.8625,2.3520', lang_id: 'boulangerie_general' },
+      { name: 'Le Pain des Copains', lat: 48.8699, lng: 2.3614, icon: '🥐', maps_url: 'https://www.google.com/maps?q=48.8699,2.3614', lang_id: 'boulangerie_general' },
+      { name: '생마르탱 운하', lat: 48.8722, lng: 2.3651, icon: '🛶', maps_url: 'https://www.google.com/maps?q=48.8722,2.3651' },
+      { name: '유토피아 베이커리', lat: 48.8709, lng: 2.3595, icon: '🥖', maps_url: 'https://www.google.com/maps?q=48.8709,2.3595', lang_id: 'boulangerie_general' },
       { name: 'Square Jules Ferry', lat: 48.8679, lng: 2.3648, icon: '🌳', maps_url: 'https://www.google.com/maps?q=48.8679,2.3648' },
-      { name: 'La Poste (160 Rue du Temple)', lat: 48.8618, lng: 2.3548, icon: '💌', maps_url: 'https://www.google.com/maps?q=48.8618,2.3548', lang_id: 'la_poste' },
+      { name: 'La Poste (160 Rue du Temple)', lat: 48.862, lng: 2.3545, icon: '💌', maps_url: 'https://www.google.com/maps?q=48.862,2.3545', lang_id: 'la_poste' },
       { name: '레퓌블리크 광장', lat: 48.8674, lng: 2.3630, icon: '🗽', maps_url: 'https://www.google.com/maps?q=48.8674,2.3630' },
-      { name: '트로카데로 광장', lat: 48.8638, lng: 2.2888, icon: '📸', maps_url: 'https://www.google.com/maps?q=48.8638,2.2888' },
+      { name: '트로카데로 광장', lat: 48.8638, lng: 2.2889, icon: '📸', maps_url: 'https://www.google.com/maps?q=48.8638,2.2889' },
       { name: '에펠탑', lat: 48.8584, lng: 2.2945, icon: '🗼', maps_url: 'https://www.google.com/maps?q=48.8584,2.2945' },
       { name: '마르스 광장', lat: 48.8556, lng: 2.2988, icon: '🌿', maps_url: 'https://www.google.com/maps?q=48.8556,2.2988' },
-      { name: 'Rue Cler', lat: 48.8564, lng: 2.3053, icon: '☕', maps_url: 'https://www.google.com/maps?q=48.8564,2.3053' },
+      { name: 'Rue Cler', lat: 48.8566, lng: 2.3053, icon: '☕', maps_url: 'https://www.google.com/maps?q=48.8566,2.3053' },
       { name: "Rue de l'Université / Rue Saint-Dominique", lat: 48.8591, lng: 2.3008, icon: '🏙', maps_url: 'https://www.google.com/maps?q=48.8591,2.3008' },
-      { name: 'Sunflower Café', lat: 48.8550, lng: 2.2978, icon: '☕', maps_url: 'https://www.google.com/maps?q=48.8550,2.2978', lang_id: 'cafe_general' },
-      { name: '비라켐 다리', lat: 48.8517, lng: 2.2880, icon: '🌉', maps_url: 'https://www.google.com/maps?q=48.8517,2.2880' },
-      { name: "L'Atypic", lat: 48.8527, lng: 2.2965, icon: '🥩', maps_url: 'https://www.google.com/maps?q=48.8527,2.2965', lang_id: 'latypic' },
-      { name: '바토 파리지앵 선착장', lat: 48.8601, lng: 2.2958, icon: '🚢', maps_url: 'https://www.google.com/maps?q=48.8601,2.2958', lang_id: 'bateaux_parisiens' }
+      { name: 'Sunflower Café', lat: 48.8561, lng: 2.3018, icon: '☕', maps_url: 'https://www.google.com/maps?q=48.8561,2.3018', lang_id: 'cafe_general' },
+      { name: '비라켐 다리', lat: 48.8516, lng: 2.2887, icon: '🌉', maps_url: 'https://www.google.com/maps?q=48.8516,2.2887' },
+      { name: "L'Atypic", lat: 48.8533, lng: 2.2961, icon: '🥩', maps_url: 'https://www.google.com/maps?q=48.8533,2.2961', lang_id: 'latypic' },
+      { name: '바토 파리지앵 선착장', lat: 48.86, lng: 2.2956, icon: '🚢', maps_url: 'https://www.google.com/maps?q=48.86,2.2956', lang_id: 'bateaux_parisiens' }
     ]]
   },
 
   5: {
     title: 'Day 5 — 3/11 (수) · 파리 → 스트라스부르',
-    startHotel: { name: '디스트릭트 레퓌블리크 (파리 숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel' },
-    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel' },
+    startHotel: { name: '디스트릭트 레퓌블리크 (파리 숙소)', lat: 48.8673, lng: 2.3620, icon: '🏨', kind: 'hotel' },
+    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5843, lng: 7.7358, icon: '🏨', kind: 'hotel' },
     connectHotels: false,
     focusSegmentIndex: 1,
     segments: [
       [
-        { name: '파리 동역 (Gare de l’Est)', lat: 48.8767, lng: 2.3590, icon: '🚄', maps_url: 'https://www.google.com/maps?q=48.8767,2.3590', lang_id: 'general_train' }
+        { name: '파리 동역 (Gare de l’Est)', lat: 48.8767, lng: 2.359, icon: '🚄', maps_url: 'https://www.google.com/maps?q=48.8767,2.359', lang_id: 'general_train' }
       ],
       [
         { name: '스트라스부르 역', lat: 48.5851, lng: 7.7341, icon: '🚄', maps_url: 'https://www.google.com/maps?q=48.5851,7.7341' },
-        { name: 'Winstub Le Zehnerglock', lat: 48.5804, lng: 7.7468, icon: '🍽', maps_url: 'https://www.google.com/maps?q=48.5804,7.7468', lang_id: 'winstub_alsace' },
+        { name: 'Winstub Le Zehnerglock', lat: 48.5799, lng: 7.748, icon: '🍽', maps_url: 'https://www.google.com/maps?q=48.5799,7.748', lang_id: 'winstub_alsace' },
         { name: '스트라스부르 대성당', lat: 48.5818, lng: 7.7507, icon: '⛩', maps_url: 'https://www.google.com/maps?q=48.5818,7.7507' },
         { name: '구텐베르크 광장', lat: 48.5809, lng: 7.7476, icon: '🏛', maps_url: 'https://www.google.com/maps?q=48.5809,7.7476' },
-        { name: '강변 산책 / 구시가지', lat: 48.5799, lng: 7.7445, icon: '🌊', maps_url: 'https://www.google.com/maps?q=48.5799,7.7445' },
-        { name: 'La Fignette', lat: 48.5798, lng: 7.7460, icon: '🔥', maps_url: 'https://www.google.com/maps?q=48.5798,7.7460', lang_id: 'la_fignette' }
+        { name: '강변 산책 / 구시가지', lat: 48.5795, lng: 7.7432, icon: '🌊', maps_url: 'https://www.google.com/maps?q=48.5795,7.7432' },
+        { name: 'La Fignette', lat: 48.579, lng: 7.7463, icon: '🔥', maps_url: 'https://www.google.com/maps?q=48.579,7.7463', lang_id: 'la_fignette' }
       ]
     ]
   },
 
   6: {
     title: 'Day 6 — 3/12 (목) · 콜마르 당일치기 & 스트라스부르',
-    startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel' },
-    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel' },
+    startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5843, lng: 7.7358, icon: '🏨', kind: 'hotel' },
+    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5843, lng: 7.7358, icon: '🏨', kind: 'hotel' },
     connectHotels: false,
     focusSegmentIndex: 1,
     segments: [
@@ -122,46 +122,46 @@ window.TRIP_DAYS = {
         { name: '스트라스부르 역', lat: 48.5851, lng: 7.7341, icon: '🚂', maps_url: 'https://www.google.com/maps?q=48.5851,7.7341' }
       ],
       [
-        { name: '콜마르 역', lat: 48.0764, lng: 7.3584, icon: '🚂', maps_url: 'https://www.google.com/maps?q=48.0764,7.3584' },
-        { name: '콜마르 구시가지', lat: 48.0785, lng: 7.3580, icon: '🏘', maps_url: 'https://www.google.com/maps?q=48.0785,7.3580' },
-        { name: '쁘띠 베니스', lat: 48.0771, lng: 7.3564, icon: '🌊', maps_url: 'https://www.google.com/maps?q=48.0771,7.3564' },
-        { name: 'WISTUB BRENNER', lat: 48.0782, lng: 7.3568, icon: '🍷', maps_url: 'https://www.google.com/maps?q=48.0782,7.3568', lang_id: 'wistub_brenner' },
-        { name: 'Pâtisserie Gilg', lat: 48.0791, lng: 7.3567, icon: '🍰', maps_url: 'https://www.google.com/maps?q=48.0791,7.3567', lang_id: 'patisserie_general' },
-        { name: 'Maison des Têtes', lat: 48.0806, lng: 7.3579, icon: '🏛', maps_url: 'https://www.google.com/maps?q=48.0806,7.3579' },
-        { name: '운터린덴 미술관 (외관)', lat: 48.0806, lng: 7.3562, icon: '🎨', maps_url: 'https://www.google.com/maps?q=48.0806,7.3562' },
-        { name: '콜마르 역', lat: 48.0764, lng: 7.3584, icon: '🚂', maps_url: 'https://www.google.com/maps?q=48.0764,7.3584' }
+        { name: '콜마르 역', lat: 48.0757, lng: 7.3555, icon: '🚂', maps_url: 'https://www.google.com/maps?q=48.0757,7.3555' },
+        { name: '콜마르 구시가지', lat: 48.0786, lng: 7.3588, icon: '🏘', maps_url: 'https://www.google.com/maps?q=48.0786,7.3588' },
+        { name: '쁘띠 베니스', lat: 48.0769, lng: 7.3562, icon: '🌊', maps_url: 'https://www.google.com/maps?q=48.0769,7.3562' },
+        { name: 'WISTUB BRENNER', lat: 48.0788, lng: 7.3578, icon: '🍷', maps_url: 'https://www.google.com/maps?q=48.0788,7.3578', lang_id: 'wistub_brenner' },
+        { name: 'Pâtisserie Gilg', lat: 48.0801, lng: 7.356, icon: '🍰', maps_url: 'https://www.google.com/maps?q=48.0801,7.356', lang_id: 'patisserie_general' },
+        { name: 'Maison des Têtes', lat: 48.0812, lng: 7.3583, icon: '🏛', maps_url: 'https://www.google.com/maps?q=48.0812,7.3583' },
+        { name: '운터린덴 미술관 (외관)', lat: 48.0806, lng: 7.3554, icon: '🎨', maps_url: 'https://www.google.com/maps?q=48.0806,7.3554' },
+        { name: '콜마르 역', lat: 48.0757, lng: 7.3555, icon: '🚂', maps_url: 'https://www.google.com/maps?q=48.0757,7.3555' }
       ],
       [
         { name: '스트라스부르 역', lat: 48.5851, lng: 7.7341, icon: '🚂', maps_url: 'https://www.google.com/maps?q=48.5851,7.7341' },
         { name: 'Maison Kammerzell', lat: 48.5819, lng: 7.7507, icon: '🐟', maps_url: 'https://www.google.com/maps?q=48.5819,7.7507', lang_id: 'maison_kammerzell' },
-        { name: '쿠베르교 & 보방 댐', lat: 48.5795, lng: 7.7387, icon: '🌉', maps_url: 'https://www.google.com/maps?q=48.5795,7.7387' },
-        { name: '쁘띠 프랑스', lat: 48.5793, lng: 7.7410, icon: '🌙', maps_url: 'https://www.google.com/maps?q=48.5793,7.7410' }
+        { name: '쿠베르교 & 보방 댐', lat: 48.5793, lng: 7.7386, icon: '🌉', maps_url: 'https://www.google.com/maps?q=48.5793,7.7386' },
+        { name: '쁘띠 프랑스', lat: 48.5793, lng: 7.741, icon: '🌙', maps_url: 'https://www.google.com/maps?q=48.5793,7.741' }
       ]
     ]
   },
 
   7: {
     title: 'Day 7 — 3/13 (금) · 독일 켈 & 스트라스부르 쇼핑',
-    startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel' },
-    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel' },
+    startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5843, lng: 7.7358, icon: '🏨', kind: 'hotel' },
+    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5843, lng: 7.7358, icon: '🏨', kind: 'hotel' },
     connectHotels: true,
     segments: [[
-      { name: 'Ancienne Synagogue / Les Halles', lat: 48.5805, lng: 7.7481, icon: '🚋', maps_url: 'https://www.google.com/maps?q=48.5805,7.7481' },
-      { name: 'Port du Rhin', lat: 48.5746, lng: 7.7768, icon: '🚋', maps_url: 'https://www.google.com/maps?q=48.5746,7.7768' },
-      { name: '두 히브 가든', lat: 48.5745, lng: 7.8050, icon: '🌿', maps_url: 'https://www.google.com/maps?q=48.5745,7.8050' },
-      { name: 'Passerelle des Deux Rives', lat: 48.5749, lng: 7.7967, icon: '🌉', maps_url: 'https://www.google.com/maps?q=48.5749,7.7967' },
+      { name: 'Ancienne Synagogue / Les Halles', lat: 48.5851, lng: 7.7421, icon: '🚋', maps_url: 'https://www.google.com/maps?q=48.5851,7.7421' },
+      { name: 'Port du Rhin', lat: 48.5739, lng: 7.7828, icon: '🚋', maps_url: 'https://www.google.com/maps?q=48.5739,7.7828' },
+      { name: '두 히브 가든', lat: 48.5744, lng: 7.8054, icon: '🌿', maps_url: 'https://www.google.com/maps?q=48.5744,7.8054' },
+      { name: 'Passerelle des Deux Rives', lat: 48.5751, lng: 7.7973, icon: '🌉', maps_url: 'https://www.google.com/maps?q=48.5751,7.7973' },
       { name: '라인강변 산책 포인트', lat: 48.5758, lng: 7.8038, icon: '🌊', maps_url: 'https://www.google.com/maps?q=48.5758,7.8038' },
-      { name: 'Café Backhaus Dreher', lat: 48.5793, lng: 7.8102, icon: '🥨', maps_url: 'https://www.google.com/maps?q=48.5793,7.8102', lang_id: 'cafe_general' },
-      { name: 'City Center Kehl (DM)', lat: 48.5734, lng: 7.8156, icon: '🛒', maps_url: 'https://www.google.com/maps?q=48.5734,7.8156' },
-      { name: 'Place des Halles / Auchan', lat: 48.5855, lng: 7.7418, icon: '🛍', maps_url: 'https://www.google.com/maps?q=48.5855,7.7418' },
-      { name: 'Le Tire-Bouchon', lat: 48.5814, lng: 7.7492, icon: '🍷', maps_url: 'https://www.google.com/maps?q=48.5814,7.7492', lang_id: 'le_tire_bouchon' }
+      { name: 'Café Backhaus Dreher', lat: 48.5786, lng: 7.8104, icon: '🥨', maps_url: 'https://www.google.com/maps?q=48.5786,7.8104', lang_id: 'cafe_general' },
+      { name: 'City Center Kehl (DM)', lat: 48.5735, lng: 7.8159, icon: '🛒', maps_url: 'https://www.google.com/maps?q=48.5735,7.8159' },
+      { name: 'Place des Halles / Auchan', lat: 48.5851, lng: 7.7421, icon: '🛍', maps_url: 'https://www.google.com/maps?q=48.5851,7.7421' },
+      { name: 'Le Tire-Bouchon', lat: 48.5814, lng: 7.749, icon: '🍷', maps_url: 'https://www.google.com/maps?q=48.5814,7.749', lang_id: 'le_tire_bouchon' }
     ]]
   },
 
   8: {
     title: 'Day 8 — 3/14 (토) · 스트라스부르 → CDG 출국',
-    startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel' },
-    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel' },
+    startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5843, lng: 7.7358, icon: '🏨', kind: 'hotel' },
+    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5843, lng: 7.7358, icon: '🏨', kind: 'hotel' },
     connectHotels: false,
     focusSegmentIndex: 1,
     segments: [
@@ -170,11 +170,11 @@ window.TRIP_DAYS = {
       ],
       [
         { name: 'Paris CDG Terminal 2 (Gare TGV)', lat: 49.0097, lng: 2.5479, icon: '🚄', maps_url: 'https://www.google.com/maps?q=49.0097,2.5479' },
-        { name: 'CDG Terminal 1', lat: 49.0062, lng: 2.5725, icon: '✈️', maps_url: 'https://www.google.com/maps?q=49.0062,2.5725' },
-        { name: '맥도날드 (CDG T1)', lat: 49.0065, lng: 2.5732, icon: '🍔', maps_url: 'https://www.google.com/maps?q=49.0065,2.5732' },
-        { name: '아시아나 카운터 (T1 Hall 1)', lat: 49.0062, lng: 2.5725, icon: '🛄', maps_url: 'https://www.google.com/maps?q=49.0062,2.5725' },
-        { name: 'Bistrot Benoît', lat: 49.0066, lng: 2.5740, icon: '🍽', maps_url: 'https://www.google.com/maps?q=49.0066,2.5740', lang_id: 'general_restaurant' },
-        { name: '탑승 게이트 OZ0502', lat: 49.0070, lng: 2.5745, icon: '✈️', maps_url: 'https://www.google.com/maps?q=49.0070,2.5745' }
+        { name: 'CDG Terminal 1', lat: 49.0062, lng: 2.5728, icon: '✈️', maps_url: 'https://www.google.com/maps?q=49.0062,2.5728' },
+        { name: '맥도날드 (CDG T1)', lat: 49.0062, lng: 2.5728, icon: '🍔', maps_url: 'https://www.google.com/maps?q=49.0062,2.5728' },
+        { name: '아시아나 카운터 (T1 Hall 1)', lat: 49.0062, lng: 2.5728, icon: '🛄', maps_url: 'https://www.google.com/maps?q=49.0062,2.5728' },
+        { name: 'Bistrot Benoît', lat: 49.0062, lng: 2.5728, icon: '🍽', maps_url: 'https://www.google.com/maps?q=49.0062,2.5728', lang_id: 'general_restaurant' },
+        { name: '탑승 게이트 OZ0502', lat: 49.0062, lng: 2.5728, icon: '✈️', maps_url: 'https://www.google.com/maps?q=49.0062,2.5728' }
       ]
     ]
   }
