@@ -807,29 +807,6 @@ window.SOUVENIR_DATA = [
         "where": "마레 지구 전용 매장 (Day 2)",
         "forWhom": "나/선물",
         "day": "Day 2"
-      },
-      {
-        "id": "s03",
-        "text": "로네펠트(Ronnefeldt) 홍차",
-        "where": "갤러리 라파예트 식품관 or 티 전문점",
-        "forWhom": "선물",
-        "day": "Day 3"
-      },
-      {
-        "id": "s04",
-        "text": "르 보르디에 버터 (유자·천일염 맛)",
-        "where": "갤러리 라파예트 고메 식품관",
-        "forWhom": "나",
-        "day": "Day 3",
-        "warn": "⚠️ 출국 직전 보냉백+얼음 필수! (Day 8 구매 권장)"
-      },
-      {
-        "id": "s05",
-        "text": "라 꽁비에트 버터 (개별 포장)",
-        "where": "갤러리 라파예트 고메 식품관",
-        "forWhom": "나/선물",
-        "day": "Day 3",
-        "warn": "⚠️ 출국 직전 보냉백+얼음 필수! (Day 8 구매 권장)"
       }
     ]
   },
@@ -844,27 +821,6 @@ window.SOUVENIR_DATA = [
         "day": "Day 5–7"
       },
       {
-        "id": "s07",
-        "text": "게랑드 소금 (Fleur de Sel)",
-        "where": "프랑스 대형 마트",
-        "forWhom": "나",
-        "day": "Day 5–7"
-      },
-      {
-        "id": "s08",
-        "text": "마이유(Maille) 트러플 머스터드",
-        "where": "프랑스 대형 마트",
-        "forWhom": "나/선물",
-        "day": "Day 5–7"
-      },
-      {
-        "id": "s09",
-        "text": "트러플 오일 / 트러플 소금",
-        "where": "프랑스 대형 마트",
-        "forWhom": "나",
-        "day": "Day 5–7"
-      },
-      {
         "id": "s10",
         "text": "본마망 타르트 과자 (레몬·라즈베리 등)",
         "where": "Auchan 스트라스부르 빵 코너",
@@ -874,13 +830,6 @@ window.SOUVENIR_DATA = [
       {
         "id": "s11",
         "text": "본마망 봉지형 마들렌 (사과·라즈베리)",
-        "where": "Auchan 스트라스부르",
-        "forWhom": "선물",
-        "day": "Day 7"
-      },
-      {
-        "id": "s12",
-        "text": "본마망 한정 맛 잼",
         "where": "Auchan 스트라스부르",
         "forWhom": "선물",
         "day": "Day 7"
@@ -912,39 +861,6 @@ window.SOUVENIR_DATA = [
         "where": "대형 마트 (틴케이스)",
         "forWhom": "나/선물",
         "day": "Day 5–7"
-      },
-      {
-        "id": "s17",
-        "text": "엘레팡 허브티 — Nuit Tranquille 숙면차",
-        "where": "프랑스 대형 마트",
-        "forWhom": "나",
-        "day": "Day 5–7"
-      },
-      {
-        "id": "s18",
-        "text": "르 쁘띠 마르세이에 과일향 바디워시",
-        "where": "프랑스 대형 마트",
-        "forWhom": "선물",
-        "day": "Day 5–7"
-      }
-    ]
-  },
-  {
-    "section": "💊 프랑스 약국 (Pharmacie)",
-    "items": [
-      {
-        "id": "s19",
-        "text": "눅스(Nuxe) 미니 세트 — 립밤·핸드크림·미스트",
-        "where": "파리 약국 (초록 십자가 간판)",
-        "forWhom": "선물",
-        "day": "Day 2–4"
-      },
-      {
-        "id": "s20",
-        "text": "꼬달리(Caudalie) 미니 세트",
-        "where": "파리 약국 or 시티파르마",
-        "forWhom": "선물",
-        "day": "Day 2–4"
       }
     ]
   },
@@ -963,41 +879,6 @@ window.SOUVENIR_DATA = [
         "text": "카밀(Kamill) 핸드크림 — 클래식·미니 묶음",
         "where": "DM 독일 켈",
         "forWhom": "선물",
-        "day": "Day 7"
-      },
-      {
-        "id": "s23",
-        "text": "허바신(Herbacin) 승무원 핸드크림 틴케이스",
-        "where": "DM 독일 켈",
-        "forWhom": "선물",
-        "day": "Day 7"
-      },
-      {
-        "id": "s24",
-        "text": "디아더마(Diaderma) 당근 오일",
-        "where": "DM 독일 켈",
-        "forWhom": "나",
-        "day": "Day 7"
-      },
-      {
-        "id": "s25",
-        "text": "dm 여행용 미니 세트 (샴푸·바디워시·크림)",
-        "where": "DM 독일 켈",
-        "forWhom": "나/선물",
-        "day": "Day 7"
-      },
-      {
-        "id": "s26",
-        "text": "아조나(Ajona) 고농축 치약 미니 (빨간색)",
-        "where": "DM 독일 켈",
-        "forWhom": "나/선물",
-        "day": "Day 7"
-      },
-      {
-        "id": "s27",
-        "text": "엘멕스(Elmex) 아침용/밤용 치약",
-        "where": "DM 독일 켈",
-        "forWhom": "나/선물",
         "day": "Day 7"
       },
       {
@@ -1050,20 +931,6 @@ window.SOUVENIR_DATA = [
       {
         "id": "s34",
         "text": "하리보(Haribo) 한국에 없는 맛 — 박스 단위",
-        "where": "독일 마트 켈",
-        "forWhom": "선물",
-        "day": "Day 7"
-      },
-      {
-        "id": "s35",
-        "text": "리터 스포트 시즌 한정판 초콜릿",
-        "where": "독일 마트 켈",
-        "forWhom": "선물",
-        "day": "Day 7"
-      },
-      {
-        "id": "s36",
-        "text": "킨더 해피 히포 (Happy Hippo)",
         "where": "독일 마트 켈",
         "forWhom": "선물",
         "day": "Day 7"
