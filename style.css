@@ -749,16 +749,16 @@ body {
   z-index: 10;
 }
 .event-action-btn{
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: 1px solid rgba(201,168,76,0.45);
-  border-radius: 6px;
-  background: var(--navy2);
-  color: var(--gold);
+  border: none;
+  border-radius: 7px;
+  background: rgba(201,168,76,0.18);
+  color: var(--gold-light);
   cursor: pointer;
 }
 .event-action-btn svg{
@@ -767,6 +767,6 @@ body {
   display: block;
 }
 .event-action-btn:active{
-  background: rgba(201,168,76,0.15);
+  background: rgba(201,168,76,0.32);
   transform: translateY(1px);
 }

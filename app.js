@@ -672,23 +672,32 @@ function buildVenueIndex(){
         name: v.name,
         maps_query: v.maps_query || '',
         lines: v.lines || [],
-        catLabel: cat.label || cat.id
+        catLabel: v.catLabel || cat.label || cat.id
       });
     }
   }
   return venues;
 }
 
-const __VENUES = buildVenueIndex();
-const __VENUE_BY_ID = Object.fromEntries(__VENUES.filter(v => v.id).map(v => [v.id, v]));
+let __VENUES = null;
+let __VENUE_BY_ID = null;
+
+function getVenueIndex(){
+  if (!__VENUES) {
+    __VENUES = buildVenueIndex();
+    __VENUE_BY_ID = Object.fromEntries(__VENUES.filter(v => v.id).map(v => [v.id, v]));
+  }
+  return { venues: __VENUES, byId: __VENUE_BY_ID };
+}
 
 function getVenueById(id){
-  return __VENUE_BY_ID[id] || null;
+  return getVenueIndex().byId[id] || null;
 }
 
 function findVenueForTitle(titleText){
+  const { venues } = getVenueIndex();
   const t = normalizeText(titleText);
-  const sorted = [...__VENUES].sort((a, b) => (b.key || '').length - (a.key || '').length);
+  const sorted = [...venues].sort((a, b) => (b.key || '').length - (a.key || '').length);
   for (const v of sorted){
     const k = normalizeText(v.key);
     if (k && t.includes(k)) return v;
@@ -853,20 +862,63 @@ function cleanMapQuery(raw, eventType){
 }
 
 // ── SPOT DATA LOOKUP ──
-// Build a flat map of all spots from TRIP_DAYS for quick lookup by name
 function buildSpotIndex(){
   const idx = {};
   if (!window.TRIP_DAYS) return idx;
+
+  function register(spot){
+    if (!spot?.name) return;
+    const key = spot.name.trim();
+    idx[key] = spot;
+
+    // Also register without parenthetical suffixes: "피카소 미술관 (외관)" → "피카소 미술관"
+    const noParens = key.replace(/\s*\([^)]*\)\s*$/, '').trim();
+    if (noParens && noParens !== key) idx[noParens] = spot;
+
+    // Also register without slash variants: "퐁뇌프 / 시테섬" → "퐁뇌프 다리, 시테섬" won't auto-match
+    // but register short first token: "퐁뇌프"
+    const firstToken = key.split(/[\s/,·&]+/)[0].trim();
+    if (firstToken.length > 3 && !idx[firstToken]) idx[firstToken] = spot;
+  }
+
   Object.values(window.TRIP_DAYS).forEach(day => {
-    (day.segments || []).forEach(seg => {
-      seg.forEach(spot => {
-        if (spot.name) idx[spot.name.trim()] = spot;
-      });
-    });
-    [day.startHotel, day.endHotel].forEach(h => {
-      if (h?.name) idx[h.name.trim()] = h;
-    });
+    (day.segments || []).forEach(seg => seg.forEach(register));
+    [day.startHotel, day.endHotel].forEach(register);
   });
+
+  // Manual aliases for HTML↔data mismatches
+  const aliases = [
+    // HTML title (after stripTitlePrefix)  →  data.js key
+    ['피카소 미술관', '피카소 미술관 (외관)'],
+    ['오텔 드 빌(시청사) 광장', '오텔 드 빌 (시청사)'],
+    ['시청사 광장 사진', '오텔 드 빌 (시청사)'],
+    ['퐁뇌프 다리, 시테섬', '퐁뇌프 / 시테섬'],
+    ["Rue de l'Université & Rue Saint-Dominique", "Rue de l'Université / Rue Saint-Dominique"],
+    ['끌레흐 가(Rue Cler)', 'Rue Cler'],
+    ['우체국: La Poste', 'La Poste (160 Rue du Temple)'],
+    ['La Poste', 'La Poste (160 Rue du Temple)'],
+    ['바토 파리지앵 탑승', '바토 파리지앵 선착장'],
+    ['운터린덴 미술관', '운터린덴 미술관 (외관)'],
+    ['Maison des Têtes', 'Maison des Têtes'],
+    ['Passerelle des Deux Rives 다리', 'Passerelle des Deux Rives'],
+    ['Winstub Le Zehnerglock', 'Winstub Le Zehnerglock'],
+    ['WISTUB BRENNER', 'WISTUB BRENNER'],
+    ['갤러리 라파예트 백화점(오스만)', '갤러리 라파예트 오스만'],
+    ['방돔 광장 거쳐 튈르리 정원 이동', '튈르리 정원'],
+    ['오랑주리 미술관', '오랑주리 미술관'],
+    ['개선문 광장', '개선문'],
+    ['Square Jules Ferry (쥘 페리 광장)', 'Square Jules Ferry'],
+    ['City Center Kehl(쇼핑몰)', 'City Center Kehl (DM)'],
+    ['Place des Halles(쇼핑몰)', 'Place des Halles / Auchan'],
+    ['쁘띠 프랑스 야경 산책', '쁘띠 프랑스'],
+    ['쿠베르교 & 보방 댐 주변 야경', '쿠베르교 & 보방 댐'],
+    ['대성당 야경 감상', '스트라스부르 대성당'],
+  ];
+
+  aliases.forEach(([alias, target]) => {
+    if (idx[target] && !idx[alias]) idx[alias] = idx[target];
+  });
+
   return idx;
 }
 
