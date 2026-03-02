@@ -240,13 +240,12 @@ body {
 .event.food::before { border-color:#e17055; }
 .event.sightseeing::before { border-color:#00b894; }
 .event.hotel::before { border-color:#a29bfe; }
-.event.note::before { border-color:rgba(160,160,160,0.9); width:6px; height:6px; left:-3px; }
+.event.note::before { border-color:rgba(201,168,76,0.3); width:6px; height:6px; left:-3px; }
 .event-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 12px; }
 .event.transport .event-card { border-left:3px solid #5ba4cf; }
 .event.food .event-card { border-left:3px solid #e17055; }
 .event.sightseeing .event-card { border-left:3px solid #00b894; }
 .event.hotel .event-card { border-left:3px solid #a29bfe; }
-.event.note .event-card { border-left:3px solid rgba(160,160,160,0.85); }
 .event-time { font-family:'DM Mono',monospace; font-size:0.63rem; color:var(--muted); margin-bottom:3px; }
 .event-title { font-size:0.87rem; font-weight:500; color:var(--cream); line-height:1.4; }
 .event-detail { font-size:0.75rem; color:rgba(245,240,232,0.5); margin-top:4px; line-height:1.5; }

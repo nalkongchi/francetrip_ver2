@@ -192,60 +192,26 @@ function initLeafletMap() {
   showDay(1, document.querySelector('.map-day-btn'));
 }
 
-function isSameSpot(a, b) {
-  if (!a || !b) return false;
-  const sameName = (a.name || '').trim() === (b.name || '').trim();
-  const sameLat = Number(a.lat || 0).toFixed(5) === Number(b.lat || 0).toFixed(5);
-  const sameLng = Number(a.lng || 0).toFixed(5) === Number(b.lng || 0).toFixed(5);
-  return sameName && sameLat && sameLng;
-}
-
-function dedupeConsecutiveSpots(spots) {
-  const out = [];
-  (spots || []).forEach((spot) => {
-    if (!spot) return;
-    if (!out.length || !isSameSpot(out[out.length - 1], spot)) {
-      out.push(spot);
-    }
-  });
-  return out;
-}
-
 function getDayDisplay(day) {
   const startHotel = day.startHotel ? { ...day.startHotel, kind: 'hotel' } : null;
   const endHotel = day.endHotel ? { ...day.endHotel, kind: 'hotel' } : null;
-  const groups = Array.isArray(day.segments) ? day.segments.map(group => dedupeConsecutiveSpots((group || []).map(spot => ({ ...spot })))) : [];
-
-  const routeSpots = [];
-  if (startHotel) routeSpots.push(startHotel);
-  groups.forEach(group => routeSpots.push(...group));
-  if (!day.mapHideEndHotel && endHotel) routeSpots.push(endHotel);
-
-  const normalizedRoute = dedupeConsecutiveSpots(routeSpots);
-  let displaySpots = [...normalizedRoute];
-
-  if (displaySpots.length > 1 && isSameSpot(displaySpots[0], displaySpots[displaySpots.length - 1])) {
-    displaySpots = displaySpots.slice(0, -1);
-  }
-
-  return { startHotel, endHotel, groups, routeSpots: normalizedRoute, displaySpots };
+  const groups = Array.isArray(day.segments) ? day.segments.map(group => (group || []).map(spot => ({ ...spot }))) : [];
+  const displaySpots = [];
+  if (startHotel) displaySpots.push(startHotel);
+  groups.forEach(group => displaySpots.push(...group));
+  if (endHotel) displaySpots.push(endHotel);
+  return { startHotel, endHotel, groups, displaySpots };
 }
 
 function getLineGroups(day, display) {
-  const { startHotel, endHotel, groups, routeSpots } = display;
-
-  if (day.mapContinuousRoute && routeSpots.length > 1) {
-    return [routeSpots];
-  }
-
+  const { startHotel, endHotel, groups } = display;
   if (day.connectHotels && groups.length === 1) {
     const route = [];
     if (startHotel) route.push(startHotel);
     route.push(...groups[0]);
-    if (!day.mapHideEndHotel && endHotel) route.push(endHotel);
-    return [dedupeConsecutiveSpots(route)];
+    if (endHotel) route.push(endHotel);
+    return [route];
   }
-
   return groups;
 }
 
@@ -260,147 +226,6 @@ function getFocusGroup(day, lineGroups, displaySpots) {
     return lineGroups[0];
   }
   return displaySpots;
-}
-
-
-function distanceKm(a, b) {
-  if (!a || !b) return Infinity;
-  const toRad = (deg) => deg * Math.PI / 180;
-  const dLat = toRad((b.lat || 0) - (a.lat || 0));
-  const dLng = toRad((b.lng || 0) - (a.lng || 0));
-  const lat1 = toRad(a.lat || 0);
-  const lat2 = toRad(b.lat || 0);
-  const sinLat = Math.sin(dLat / 2);
-  const sinLng = Math.sin(dLng / 2);
-  const h = sinLat * sinLat + Math.cos(lat1) * Math.cos(lat2) * sinLng * sinLng;
-  return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
-}
-
-function minDistanceToGroup(spot, group) {
-  if (!spot || !Array.isArray(group) || !group.length) return Infinity;
-  let min = Infinity;
-  group.forEach((pt) => {
-    min = Math.min(min, distanceKm(spot, pt));
-  });
-  return min;
-}
-
-function isHotelNearGroup(hotel, group, radiusKm = 3.5) {
-  return minDistanceToGroup(hotel, group) <= radiusKm;
-}
-
-function getBoundsMeta(spots) {
-  const pts = (spots || []).filter(Boolean);
-  if (!pts.length) {
-    return { minLat: 48.8566, maxLat: 48.8566, minLng: 2.3522, maxLng: 2.3522 };
-  }
-
-  let minLat = pts[0].lat;
-  let maxLat = pts[0].lat;
-  let minLng = pts[0].lng;
-  let maxLng = pts[0].lng;
-
-  pts.forEach((pt) => {
-    minLat = Math.min(minLat, pt.lat);
-    maxLat = Math.max(maxLat, pt.lat);
-    minLng = Math.min(minLng, pt.lng);
-    maxLng = Math.max(maxLng, pt.lng);
-  });
-
-  return { minLat, maxLat, minLng, maxLng };
-}
-
-function makeContextAnchor(boundsMeta, mode, label) {
-  const latSpan = Math.max(boundsMeta.maxLat - boundsMeta.minLat, 0.012);
-  const lngSpan = Math.max(boundsMeta.maxLng - boundsMeta.minLng, 0.018);
-  const latPad = latSpan * 0.28;
-  const lngPad = lngSpan * 0.28;
-
-  if (mode === 'incoming') {
-    return {
-      name: label || '이전 구간 / 숙소',
-      lat: boundsMeta.maxLat + (latPad * 0.35),
-      lng: boundsMeta.minLng - lngPad,
-      icon: '↖',
-      kind: 'context'
-    };
-  }
-
-  return {
-    name: label || '다음 구간',
-    lat: boundsMeta.minLat - (latPad * 0.35),
-    lng: boundsMeta.maxLng + lngPad,
-    icon: '↘',
-    kind: 'context'
-  };
-}
-
-function buildMapRenderPlan(day, display, lineGroups) {
-  const isAllView = day.mapViewport === 'all';
-
-  if (isAllView) {
-    return {
-      lineGroups,
-      displaySpots: display.displaySpots || [],
-      extraMarkers: [],
-      focusPoints: (display.routeSpots || []).map((spot) => [spot.lat, spot.lng]).filter(Boolean)
-    };
-  }
-
-  const focusGroup = getFocusGroup(day, lineGroups, display.displaySpots || []);
-
-  if (!focusGroup || !focusGroup.length) {
-    return {
-      lineGroups,
-      displaySpots: display.displaySpots || [],
-      extraMarkers: [],
-      focusPoints: (display.displaySpots || []).map((spot) => [spot.lat, spot.lng]).filter(Boolean)
-    };
-  }
-
-  const focusIndex = lineGroups.findIndex((group) => group === focusGroup);
-  const boundsMeta = getBoundsMeta(focusGroup);
-  const localHotelRadiusKm = day.mapLocalHotelRadiusKm || 3.5;
-  const mapShowContextConnector = day.mapShowContextConnector !== false;
-
-  let displaySpots = dedupeConsecutiveSpots([...(focusGroup || [])]);
-  const renderGroups = [];
-  const extraMarkers = [];
-
-  const startHotelLocal = !!(display.startHotel && isHotelNearGroup(display.startHotel, focusGroup, localHotelRadiusKm));
-  const endHotelLocal = !!(!day.mapHideEndHotel && display.endHotel && isHotelNearGroup(display.endHotel, focusGroup, localHotelRadiusKm));
-
-  if (startHotelLocal) {
-    renderGroups.push(dedupeConsecutiveSpots([display.startHotel, focusGroup[0]]));
-    displaySpots = dedupeConsecutiveSpots([display.startHotel, ...displaySpots]);
-  } else {
-    const hasHiddenBefore = focusIndex > 0 || (!!display.startHotel && !startHotelLocal);
-    if (hasHiddenBefore && mapShowContextConnector) {
-      const anchor = makeContextAnchor(boundsMeta, 'incoming', day.mapIncomingLabel);
-      renderGroups.push([anchor, focusGroup[0]]);
-      extraMarkers.push(anchor);
-    }
-  }
-
-  renderGroups.push(focusGroup);
-
-  if (endHotelLocal) {
-    renderGroups.push(dedupeConsecutiveSpots([focusGroup[focusGroup.length - 1], display.endHotel]));
-    displaySpots = dedupeConsecutiveSpots([...displaySpots, display.endHotel]);
-  } else {
-    const hasHiddenAfter = (focusIndex > -1 && focusIndex < lineGroups.length - 1) || (!!display.endHotel && !day.mapHideEndHotel && !endHotelLocal);
-    if (hasHiddenAfter && mapShowContextConnector) {
-      const anchor = makeContextAnchor(boundsMeta, 'outgoing', day.mapOutgoingLabel);
-      renderGroups.push([focusGroup[focusGroup.length - 1], anchor]);
-      extraMarkers.push(anchor);
-    }
-  }
-
-  const focusPoints = [...displaySpots, ...extraMarkers]
-    .map((spot) => [spot.lat, spot.lng])
-    .filter(Boolean);
-
-  return { lineGroups: renderGroups, displaySpots, extraMarkers, focusPoints };
 }
 
 function showDay(dayNum, btn) {
@@ -418,20 +243,15 @@ function showDay(dayNum, btn) {
 
   const color = DAY_COLORS[dayNum] || '#c9a84c';
   const display = getDayDisplay(day);
+  const displaySpots = display.displaySpots;
   const lineGroups = getLineGroups(day, display);
-  const renderPlan = buildMapRenderPlan(day, display, lineGroups);
-  const mapLineGroups = renderPlan.lineGroups || lineGroups;
-  const mapDisplaySpots = renderPlan.displaySpots || display.displaySpots || [];
 
-  mapLineGroups.forEach(group => {
+  lineGroups.forEach(group => {
     if (!group || group.length < 2) return;
 
-    const hasContext = group.some((spot) => spot.kind === 'context');
     const line = L.polyline(
       group.map(spot => [spot.lat, spot.lng]),
-      hasContext
-        ? { color, weight: 2.8, opacity: 0.58, dashArray: '4,7' }
-        : { color, weight: 3.5, opacity: 0.85, dashArray: '8,5' }
+      { color, weight: 3.5, opacity: 0.85, dashArray: '8,5' }
     ).addTo(leafletMap);
 
     curLayers.push(line);
@@ -439,7 +259,7 @@ function showDay(dayNum, btn) {
 
   let stopNumber = 1;
 
-  mapDisplaySpots.forEach((spot) => {
+  displaySpots.forEach((spot, i) => {
     const isHotel = spot.kind === 'hotel';
     const sz = isHotel ? 32 : 26;
 
@@ -464,24 +284,8 @@ function showDay(dayNum, btn) {
     curMarkers.push(marker);
   });
 
-  (renderPlan.extraMarkers || []).forEach((spot) => {
-    const marker = L.marker([spot.lat, spot.lng], {
-      icon: L.divIcon({
-        html: `<div style="width:20px;height:20px;background:rgba(13,18,38,0.75);border:1.5px dashed rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.35);"><span style="color:#fff;font-size:10px">${spot.icon || '↗'}</span></div>`,
-        className: '',
-        iconSize: [20, 20],
-        iconAnchor: [10, 10]
-      })
-    }).addTo(leafletMap)
-      .bindPopup(
-        `<b style="color:#c9a84c">${spot.name}</b><br><span style="color:#999;font-size:0.72rem">지도 밖 구간을 요약해서 이어 둔 선</span>`,
-        { className: 'dark-popup' }
-      );
-
-    curLayers.push(marker);
-  });
-
-  const focusPoints = renderPlan.focusPoints || [];
+  const focusGroup = getFocusGroup(day, lineGroups, displaySpots);
+  const focusPoints = (focusGroup || []).map(spot => [spot.lat, spot.lng]).filter(Boolean);
 
   if (focusPoints.length) {
     const bounds = L.latLngBounds(focusPoints);
@@ -494,7 +298,7 @@ function showDay(dayNum, btn) {
   if (titleEl) titleEl.textContent = day.title;
   if (spotsEl) {
     let stopLabelNumber = 1;
-    spotsEl.innerHTML = mapDisplaySpots
+    spotsEl.innerHTML = displaySpots
       .map((spot, idx) => {
         const isHotel = spot.kind === 'hotel';
         const prefix = isHotel ? '🏨' : `${stopLabelNumber++}.`;
@@ -1101,7 +905,7 @@ function getTitleTextWithoutTags(titleEl){
 function cleanMapQuery(raw, eventType){
   let q = (raw || '').replace(/\s+/g, ' ').trim();
   q = q.replace(/^[^\p{L}\p{N}\(]+/u, '').trim();
-  q = q.replace(/^(아침|점심|저녁|아점|카페\/티타임|카페|브런치|티타임)(\([^)]*\))?\s*:\s*/u, '').trim();
+  q = q.replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/u, '').trim();
 
   if (eventType === 'hotel'){
     const match = q.match(/\(([^)]+)\)/);
@@ -1162,19 +966,6 @@ function buildSpotIndex(){
     ['Square Jules Ferry (쥘 페리 광장)', 'Square Jules Ferry'],
     ['City Center Kehl(쇼핑몰)', 'City Center Kehl (DM)'],
     ['Place des Halles(쇼핑몰)', 'Place des Halles / Auchan'],
-    ['보쥬 광장 (Place des Vosges)', '보쥬 광장'],
-    ['오텔 드 빌(시청사)', '오텔 드 빌 (시청사)'],
-    ['퐁데자르 다리', '퐁데자르'],
-    ['튈르리 정원 휴식', '튈르리 정원'],
-    ['샹젤리제 거리 걷기', '샹젤리제 거리'],
-    ['생마르탱 운하 산책', '생마르탱 운하'],
-    ['강변 산책, 구시가지 골목 산책', '강변 산책 / 구시가지'],
-    ['콜마르 구시가지 초입 워킹', '콜마르 구시가지'],
-    ['쁘띠 베니스 중심 산책', '쁘띠 베니스'],
-    ['라인강변 산책', '라인강변 산책 포인트'],
-    ['샤를 드 골 공항', 'Paris CDG Terminal 2 (Gare TGV)'],
-    ['유람선 선착장', '바토 파리지앵 선착장'],
-    ['아시아나 카운터 오픈 (Terminal 1, Hall 1) 및 수하물 위탁', '아시아나 카운터 (T1 Hall 1)'],
     ['쁘띠 프랑스 야경 산책', '쁘띠 프랑스'],
     ['쿠베르교 & 보방 댐 주변 야경', '쿠베르교 & 보방 댐'],
     ['대성당 야경 감상', '스트라스부르 대성당'],
@@ -1193,76 +984,12 @@ function getSpotIndex(){
   return __SPOT_INDEX;
 }
 
-function findSpotForTitle(titleText){
-  const idx = getSpotIndex();
-  const t = normalizeText(titleText);
-  const entries = Object.entries(idx).sort((a, b) => (b[0] || '').length - (a[0] || '').length);
-  for (const [key, spot] of entries) {
-    const k = normalizeText(key);
-    if (!k) continue;
-    const looksGeneric = !/[\s\(\/\-&']/u.test(key) && key.length < 6;
-    if (looksGeneric) continue;
-    if (t.includes(k)) return spot;
-  }
-  return null;
-}
-
 function stripTitlePrefix(text){
   // Remove leading emoji/symbols and non-Korean/Latin chars
   let s = text.replace(/^[^\uAC00-\uD7A3a-zA-Z0-9('"]+/, '').trim();
-  // Remove meal prefixes like "아침:", "점심(카페):", "아점:"
-  s = s.replace(/^(아침|점심|저녁|아점|카페\/티타임|카페|브런치|티타임)(\([^)]*\))?\s*:\s*/, '').trim();
+  // Remove meal prefixes like "아침:", "저녁:", "카페/티타임:"
+  s = s.replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/, '').trim();
   return s;
-}
-
-function getFoodFallbackVenue(text){
-  const t = text || '';
-  if (/(pâtisserie|patisserie|파티세리|디저트|에끌레어|밀푀유|타르트|마카롱)/i.test(t)) {
-    return getVenueById('patisserie_general') || getVenueById('cafe_general');
-  }
-  if (/(boulangerie|bakery|베이커리|빵집|크루아상|바게트|pain|backhaus)/i.test(t)) {
-    return getVenueById('boulangerie_general');
-  }
-  if (/(café|cafe|카페|tea|티|salon de thé)/i.test(t)) {
-    return getVenueById('cafe_general');
-  }
-  return getVenueById('general_restaurant');
-}
-
-function normalizeMapToken(text){
-  let q = (text || '').replace(/\s+/g, ' ').trim();
-  q = q.replace(/^[^\p{L}\p{N}\(]+/u, '').trim();
-  q = q.replace(/^(?:지하철로|도보|도보로|숙소\s*→|공항\s*→)\s*/u, '').trim();
-  q = q.replace(/^(?:TGV|TER|CDGVAL)(?:\([^)]*\))?\s*/iu, '').trim();
-  q = q.replace(/^(?:탑승하여|탑승 후)\s*/u, '').trim();
-  q = q.replace(/\s*(?:탑승|이동|복귀|통과|출국|위탁|오픈).*$/u, '').trim();
-  q = q.replace(/\s*(?:으로|로)\s*$/u, '').trim();
-  q = q.replace(/^제(\d)터미널/iu, (_, n) => `Terminal ${n}`);
-  if (/^(시외우등버스|아시아나\s+OZ\d+)$/iu.test(q)) return '';
-  if (/^(보안 검색|출국 심사)$/u.test(q)) return '';
-  return q;
-}
-
-function deriveTransportMapQuery(raw){
-  const base = (raw || '').replace(/^[^\p{L}\p{N}\(]+/u, '').trim();
-  const parts = base.split('→').map((part) => normalizeMapToken(part)).filter(Boolean);
-
-  if (parts.length > 1) {
-    const preferred = [...parts].reverse().find((part) => !/(숙소|식당)$/u.test(part));
-    if (preferred) return preferred;
-  }
-
-  if (parts.length === 1) return parts[0];
-  return normalizeMapToken(base);
-}
-
-function deriveMapQueryForCard(raw, type, spot, langVenue){
-  if (langVenue?.maps_query) return langVenue.maps_query;
-  if (type === 'note') return '';
-  if (type === 'transport') return deriveTransportMapQuery(raw);
-
-  const fallbackSource = (spot?.name || stripTitlePrefix(raw) || raw);
-  return cleanMapQuery(fallbackSource, type);
 }
 
 function getLangVenueForCard(card){
@@ -1280,10 +1007,6 @@ function getLangVenueForCard(card){
     return getVenueById('general_hotel');
   }
 
-  if (type === 'transport' && /(\\bTGV\\b|\\bTER\\b|기차|역|플랫폼|열차)/i.test(raw)) {
-    return getVenueById('general_train');
-  }
-
   return null;
 }
 
@@ -1291,16 +1014,17 @@ function getMapsUrlForCard(card){
   const titleEl = card.querySelector('.event-title');
   if (!titleEl) return '';
   const raw = getTitleTextWithoutTags(titleEl);
+  // 지도 버튼이 도움이 안 되는 안내/절차 카드들은 지도 숨김
+  if (/공항\s*→\s*숙소\s*이동/.test(raw)) return '';
+  if (/택스리펀\s*처리\s*및\s*대기/.test(raw)) return '';
   const stripped = stripTitlePrefix(raw);
 
   const idx = getSpotIndex();
-  const spot = idx[stripped] || idx[raw.trim()] || findSpotForTitle(stripped) || findSpotForTitle(raw);
+  const spot = idx[stripped] || idx[raw.trim()];
   if (spot?.maps_url) return spot.maps_url;
 
   const type = getEventType(card);
-  const langVenue = getLangVenueForCard(card);
-  const fallbackQuery = deriveMapQueryForCard(raw, type, spot, langVenue);
-  if (fallbackQuery) return mapsUrlForQuery(fallbackQuery);
+  if (type === 'transport' || type === 'note') return '';
 
   return '';
 }
