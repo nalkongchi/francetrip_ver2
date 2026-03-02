@@ -551,48 +551,7 @@ function toggleCheck(id) {
 
 renderChecklist();
 
-// ── SOUVENIR ──
-let souvenirState = JSON.parse(localStorage.getItem('fr_souvenirs') || '{}');
-
-function saveSouvenirs() {
-  try { localStorage.setItem('fr_souvenirs', JSON.stringify(souvenirState)); } catch(e) {}
-}
-
-function toggleSouvenir(id) {
-  souvenirState[id] = !souvenirState[id];
-  saveSouvenirs();
-  renderSouvenirs();
-}
-
-function renderSouvenirs() {
-  const container = document.getElementById('souvenir-list');
-  if (!container || !window.SOUVENIR_DATA) return;
-
-  container.innerHTML = SOUVENIR_DATA.map(sec => {
-    const items = sec.items.map(item => {
-      const isDone = !!souvenirState[item.id];
-      return `<div class="souvenir-item ${isDone ? 'done' : ''}" onclick="toggleSouvenir('${item.id}')">
-        <div class="souvenir-check-box"></div>
-        <div style="flex:1;min-width:0;">
-          <div class="souvenir-label">${item.text}</div>
-          <div class="souvenir-meta">
-            <span class="souvenir-tag where">📍 ${item.where}</span>
-            <span class="souvenir-tag forWhom">👤 ${item.forWhom}</span>
-            <span class="souvenir-tag">🗓 ${item.day}</span>
-          </div>
-          ${item.warn ? `<div class="souvenir-warn">${item.warn}</div>` : ''}
-        </div>
-      </div>`;
-    }).join('');
-
-    return `<div class="souvenir-section">
-      <div class="souvenir-section-title">${sec.section}</div>
-      ${items}
-    </div>`;
-  }).join('');
-}
-
-renderSouvenirs();
+// ── ACCORDION ──
 function toggleAcc(header) {
   const body = header.nextElementSibling;
   const open = body.classList.contains('open');
@@ -748,7 +707,17 @@ function openLangSheet(venue){
   const bodyEl = document.getElementById('langSheetBody');
   if (!backdrop || !titleEl || !bodyEl) return;
 
-  titleEl.textContent = `${venue.name} · ${venue.catLabel}`;
+  titleEl.textContent = venue.name || '';
+
+  // Add subtitle element if not present
+  let subtitleEl = backdrop.querySelector('.sheet-subtitle');
+  if (!subtitleEl) {
+    subtitleEl = document.createElement('div');
+    subtitleEl.className = 'sheet-subtitle';
+    titleEl.insertAdjacentElement('afterend', subtitleEl);
+  }
+  subtitleEl.textContent = (venue.catLabel || '').toUpperCase();
+
   bodyEl.innerHTML = '';
 
   const card = document.createElement('div');
@@ -758,12 +727,28 @@ function openLangSheet(venue){
     const row = document.createElement('div');
     row.className = 'lang-line';
 
+    // Left: fr + pron + ko
     const frWrap = document.createElement('div');
-    frWrap.className = 'lang-fr';
+    frWrap.className = 'lang-fr-wrap';
 
-    const frText = document.createElement('div');
+    const frText = document.createElement('span');
+    frText.className = 'lang-fr';
     frText.textContent = line.fr || '';
 
+    const pronText = (line.pron || '').trim();
+    const pronEl = document.createElement('span');
+    pronEl.className = 'lang-pron';
+    if (pronText) pronEl.textContent = `(${pronText})`;
+
+    const koEl = document.createElement('span');
+    koEl.className = 'lang-ko';
+    koEl.textContent = (line.ko || '').trim();
+
+    frWrap.appendChild(frText);
+    if (pronText) frWrap.appendChild(pronEl);
+    frWrap.appendChild(koEl);
+
+    // Right: speak button
     const speak = document.createElement('button');
     speak.className = 'icon-btn speak-btn';
     speak.textContent = '🔊';
@@ -777,22 +762,8 @@ function openLangSheet(venue){
       } catch (e) {}
     });
 
-    frWrap.appendChild(frText);
-    frWrap.appendChild(speak);
-
-    const pronText = (line.pron || line.pron_ko || '').trim();
-
-    const pronKor = document.createElement('div');
-    pronKor.className = 'lang-pron';
-    if (pronText) pronKor.textContent = `(${pronText})`;
-
-    const ko = document.createElement('div');
-    ko.className = 'lang-ko';
-    ko.textContent = (line.ko || '').trim();
-
     row.appendChild(frWrap);
-    if (pronText) row.appendChild(pronKor);
-    row.appendChild(ko);
+    row.appendChild(speak);
     card.appendChild(row);
   });
 
@@ -881,37 +852,63 @@ function cleanMapQuery(raw, eventType){
   return q;
 }
 
-function getLanguageVenueForCard(card, titleText, specificVenue){
-  if (specificVenue) return specificVenue;
+// ── SPOT DATA LOOKUP ──
+// Build a flat map of all spots from TRIP_DAYS for quick lookup by name
+function buildSpotIndex(){
+  const idx = {};
+  if (!window.TRIP_DAYS) return idx;
+  Object.values(window.TRIP_DAYS).forEach(day => {
+    (day.segments || []).forEach(seg => {
+      seg.forEach(spot => {
+        if (spot.name) idx[spot.name.trim()] = spot;
+      });
+    });
+    [day.startHotel, day.endHotel].forEach(h => {
+      if (h?.name) idx[h.name.trim()] = h;
+    });
+  });
+  return idx;
+}
 
+let __SPOT_INDEX = null;
+function getSpotIndex(){
+  if (!__SPOT_INDEX) __SPOT_INDEX = buildSpotIndex();
+  return __SPOT_INDEX;
+}
+
+function getLangVenueForCard(card){
+  // First try: get spot data from title text → lang_id field
+  const titleEl = card.querySelector('.event-title');
+  if (!titleEl) return null;
+  const titleText = getTitleTextWithoutTags(titleEl);
+
+  // Strip meal prefix (아침: / 저녁: etc.)
+  const stripped = titleText.replace(/^[^\p{L}\p{N}(]+/u, '').replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/u, '').trim();
+
+  const spot = getSpotIndex()[stripped] || getSpotIndex()[titleText.trim()];
+  if (spot?.lang_id) return getVenueById(spot.lang_id);
+
+  // Fallback: hotel check-in/out
   const type = getEventType(card);
-  if (type === 'food') return getVenueById('general_restaurant');
-
   if (type === 'hotel' && /(숙소|체크인|체크아웃|짐 보관)/.test(titleText)) {
     return getVenueById('general_hotel');
-  }
-
-  if (type === 'transport' && /(tgv|ter|기차|역|gare|train|탑승)/i.test(titleText)) {
-    return getVenueById('general_train');
   }
 
   return null;
 }
 
-function getMapQueryForCard(card, titleEl, specificVenue){
+function getMapsUrlForCard(card){
+  const titleEl = card.querySelector('.event-title');
+  if (!titleEl) return '';
+  const titleText = getTitleTextWithoutTags(titleEl);
+  const stripped = titleText.replace(/^[^\p{L}\p{N}(]+/u, '').replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/u, '').trim();
+
+  const spot = getSpotIndex()[stripped] || getSpotIndex()[titleText.trim()];
+  if (spot?.maps_url) return spot.maps_url;
+
+  // No maps_url for transport/note types
   const type = getEventType(card);
   if (type === 'transport' || type === 'note') return '';
-
-  if (specificVenue?.maps_query) return specificVenue.maps_query;
-
-  const titleText = getTitleTextWithoutTags(titleEl);
-  const cleaned = cleanMapQuery(titleText, type);
-  if (cleaned) return cleaned;
-
-  const detailText = (card.querySelector('.event-detail')?.textContent || '').replace(/\s+/g, ' ').trim();
-  if (detailText && (type === 'food' || type === 'sightseeing')) {
-    return detailText.split(/[·,\n]/)[0].trim();
-  }
 
   return '';
 }
@@ -941,24 +938,22 @@ function enhanceScheduleLinks(){
   cards.forEach((card) => {
     if (card.dataset.quickEnhanced === '1') return;
 
-    const titleEl = card.querySelector('.event-title');
-    if (!titleEl) return;
-
-    const titleText = getTitleTextWithoutTags(titleEl);
-    const specificVenue = findVenueForTitle(titleText);
-    const langVenue = getLanguageVenueForCard(card, titleText, specificVenue);
-    const mapQuery = getMapQueryForCard(card, titleEl, specificVenue);
+    const langVenue = getLangVenueForCard(card);
+    const mapsUrl   = getMapsUrlForCard(card);
 
     const shouldShowLang = !!langVenue;
-    const shouldShowMap = !!mapQuery;
+    const shouldShowMap  = !!mapsUrl;
 
-    if (!shouldShowLang && !shouldShowMap) {
-      card.dataset.quickEnhanced = '1';
-      return;
-    }
+    card.dataset.quickEnhanced = '1';
+
+    if (!shouldShowLang && !shouldShowMap) return;
+
+    // ── 안 B: 버튼을 .event 바깥 상단 우측에 배치 ──
+    const eventEl = card.closest('.event');
+    if (!eventEl || eventEl.dataset.actionsAdded === '1') return;
 
     const actions = document.createElement('div');
-    actions.className = 'card-actions-top';
+    actions.className = 'card-actions-outer';
 
     if (shouldShowLang) {
       const langBtn = createEventActionButton('lang');
@@ -969,14 +964,15 @@ function enhanceScheduleLinks(){
     if (shouldShowMap) {
       const mapBtn = createEventActionButton('map');
       mapBtn.addEventListener('click', () => {
-        window.open(mapsUrlForQuery(mapQuery), '_blank', 'noopener,noreferrer');
+        window.open(mapsUrl, '_blank', 'noopener,noreferrer');
       });
       actions.appendChild(mapBtn);
     }
 
-    card.classList.add('has-quick-actions');
-    card.appendChild(actions);
-    card.dataset.quickEnhanced = '1';
+    // Insert actions div before the event-card inside .event
+    eventEl.insertBefore(actions, card);
+    eventEl.dataset.actionsAdded = '1';
+    eventEl.classList.add('has-quick-actions');
   });
 }
 
