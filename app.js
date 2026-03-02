@@ -192,26 +192,60 @@ function initLeafletMap() {
   showDay(1, document.querySelector('.map-day-btn'));
 }
 
+function isSameSpot(a, b) {
+  if (!a || !b) return false;
+  const sameName = (a.name || '').trim() === (b.name || '').trim();
+  const sameLat = Number(a.lat || 0).toFixed(5) === Number(b.lat || 0).toFixed(5);
+  const sameLng = Number(a.lng || 0).toFixed(5) === Number(b.lng || 0).toFixed(5);
+  return sameName && sameLat && sameLng;
+}
+
+function dedupeConsecutiveSpots(spots) {
+  const out = [];
+  (spots || []).forEach((spot) => {
+    if (!spot) return;
+    if (!out.length || !isSameSpot(out[out.length - 1], spot)) {
+      out.push(spot);
+    }
+  });
+  return out;
+}
+
 function getDayDisplay(day) {
   const startHotel = day.startHotel ? { ...day.startHotel, kind: 'hotel' } : null;
   const endHotel = day.endHotel ? { ...day.endHotel, kind: 'hotel' } : null;
-  const groups = Array.isArray(day.segments) ? day.segments.map(group => (group || []).map(spot => ({ ...spot }))) : [];
-  const displaySpots = [];
-  if (startHotel) displaySpots.push(startHotel);
-  groups.forEach(group => displaySpots.push(...group));
-  if (endHotel) displaySpots.push(endHotel);
-  return { startHotel, endHotel, groups, displaySpots };
+  const groups = Array.isArray(day.segments) ? day.segments.map(group => dedupeConsecutiveSpots((group || []).map(spot => ({ ...spot })))) : [];
+
+  const routeSpots = [];
+  if (startHotel) routeSpots.push(startHotel);
+  groups.forEach(group => routeSpots.push(...group));
+  if (!day.mapHideEndHotel && endHotel) routeSpots.push(endHotel);
+
+  const normalizedRoute = dedupeConsecutiveSpots(routeSpots);
+  let displaySpots = [...normalizedRoute];
+
+  if (displaySpots.length > 1 && isSameSpot(displaySpots[0], displaySpots[displaySpots.length - 1])) {
+    displaySpots = displaySpots.slice(0, -1);
+  }
+
+  return { startHotel, endHotel, groups, routeSpots: normalizedRoute, displaySpots };
 }
 
 function getLineGroups(day, display) {
-  const { startHotel, endHotel, groups } = display;
+  const { startHotel, endHotel, groups, routeSpots } = display;
+
+  if (day.mapContinuousRoute && routeSpots.length > 1) {
+    return [routeSpots];
+  }
+
   if (day.connectHotels && groups.length === 1) {
     const route = [];
     if (startHotel) route.push(startHotel);
     route.push(...groups[0]);
-    if (endHotel) route.push(endHotel);
-    return [route];
+    if (!day.mapHideEndHotel && endHotel) route.push(endHotel);
+    return [dedupeConsecutiveSpots(route)];
   }
+
   return groups;
 }
 
@@ -226,6 +260,15 @@ function getFocusGroup(day, lineGroups, displaySpots) {
     return lineGroups[0];
   }
   return displaySpots;
+}
+
+function getFocusPoints(day, display, lineGroups) {
+  if (day.mapViewport === 'all') {
+    return (display.routeSpots || []).map(spot => [spot.lat, spot.lng]).filter(Boolean);
+  }
+
+  const focusGroup = getFocusGroup(day, lineGroups, display.displaySpots || []);
+  return (focusGroup || []).map(spot => [spot.lat, spot.lng]).filter(Boolean);
 }
 
 function showDay(dayNum, btn) {
@@ -284,8 +327,7 @@ function showDay(dayNum, btn) {
     curMarkers.push(marker);
   });
 
-  const focusGroup = getFocusGroup(day, lineGroups, displaySpots);
-  const focusPoints = (focusGroup || []).map(spot => [spot.lat, spot.lng]).filter(Boolean);
+  const focusPoints = getFocusPoints(day, display, lineGroups);
 
   if (focusPoints.length) {
     const bounds = L.latLngBounds(focusPoints);

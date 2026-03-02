@@ -446,6 +446,8 @@ window.TRIP_DAYS = {
       "maps_url": "https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98"
     },
     "connectHotels": false,
+    "mapContinuousRoute": true,
+    "mapViewport": "all",
     "focusSegmentIndex": 1,
     "segments": [
       [
@@ -524,6 +526,8 @@ window.TRIP_DAYS = {
       "maps_url": "https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98"
     },
     "connectHotels": false,
+    "mapContinuousRoute": true,
+    "mapViewport": "all",
     "focusSegmentIndex": 1,
     "segments": [
       [
@@ -734,6 +738,9 @@ window.TRIP_DAYS = {
       "maps_url": "https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98"
     },
     "connectHotels": false,
+    "mapContinuousRoute": true,
+    "mapViewport": "all",
+    "mapHideEndHotel": true,
     "focusSegmentIndex": 1,
     "segments": [
       [
