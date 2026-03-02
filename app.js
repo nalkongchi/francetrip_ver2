@@ -905,7 +905,7 @@ function getTitleTextWithoutTags(titleEl){
 function cleanMapQuery(raw, eventType){
   let q = (raw || '').replace(/\s+/g, ' ').trim();
   q = q.replace(/^[^\p{L}\p{N}\(]+/u, '').trim();
-  q = q.replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/u, '').trim();
+  q = q.replace(/^(아침|점심|저녁|아점|카페\/티타임|카페|브런치|티타임)(\([^)]*\))?\s*:\s*/u, '').trim();
 
   if (eventType === 'hotel'){
     const match = q.match(/\(([^)]+)\)/);
@@ -966,6 +966,19 @@ function buildSpotIndex(){
     ['Square Jules Ferry (쥘 페리 광장)', 'Square Jules Ferry'],
     ['City Center Kehl(쇼핑몰)', 'City Center Kehl (DM)'],
     ['Place des Halles(쇼핑몰)', 'Place des Halles / Auchan'],
+    ['보쥬 광장 (Place des Vosges)', '보쥬 광장'],
+    ['오텔 드 빌(시청사)', '오텔 드 빌 (시청사)'],
+    ['퐁데자르 다리', '퐁데자르'],
+    ['튈르리 정원 휴식', '튈르리 정원'],
+    ['샹젤리제 거리 걷기', '샹젤리제 거리'],
+    ['생마르탱 운하 산책', '생마르탱 운하'],
+    ['강변 산책, 구시가지 골목 산책', '강변 산책 / 구시가지'],
+    ['콜마르 구시가지 초입 워킹', '콜마르 구시가지'],
+    ['쁘띠 베니스 중심 산책', '쁘띠 베니스'],
+    ['라인강변 산책', '라인강변 산책 포인트'],
+    ['샤를 드 골 공항', 'Paris CDG Terminal 2 (Gare TGV)'],
+    ['유람선 선착장', '바토 파리지앵 선착장'],
+    ['아시아나 카운터 오픈 (Terminal 1, Hall 1) 및 수하물 위탁', '아시아나 카운터 (T1 Hall 1)'],
     ['쁘띠 프랑스 야경 산책', '쁘띠 프랑스'],
     ['쿠베르교 & 보방 댐 주변 야경', '쿠베르교 & 보방 댐'],
     ['대성당 야경 감상', '스트라스부르 대성당'],
@@ -984,12 +997,76 @@ function getSpotIndex(){
   return __SPOT_INDEX;
 }
 
+function findSpotForTitle(titleText){
+  const idx = getSpotIndex();
+  const t = normalizeText(titleText);
+  const entries = Object.entries(idx).sort((a, b) => (b[0] || '').length - (a[0] || '').length);
+  for (const [key, spot] of entries) {
+    const k = normalizeText(key);
+    if (!k) continue;
+    const looksGeneric = !/[\s\(\/\-&']/u.test(key) && key.length < 6;
+    if (looksGeneric) continue;
+    if (t.includes(k)) return spot;
+  }
+  return null;
+}
+
 function stripTitlePrefix(text){
   // Remove leading emoji/symbols and non-Korean/Latin chars
   let s = text.replace(/^[^\uAC00-\uD7A3a-zA-Z0-9('"]+/, '').trim();
-  // Remove meal prefixes like "아침:", "저녁:", "카페/티타임:"
-  s = s.replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/, '').trim();
+  // Remove meal prefixes like "아침:", "점심(카페):", "아점:"
+  s = s.replace(/^(아침|점심|저녁|아점|카페\/티타임|카페|브런치|티타임)(\([^)]*\))?\s*:\s*/, '').trim();
   return s;
+}
+
+function getFoodFallbackVenue(text){
+  const t = text || '';
+  if (/(pâtisserie|patisserie|파티세리|디저트|에끌레어|밀푀유|타르트|마카롱)/i.test(t)) {
+    return getVenueById('patisserie_general') || getVenueById('cafe_general');
+  }
+  if (/(boulangerie|bakery|베이커리|빵집|크루아상|바게트|pain|backhaus)/i.test(t)) {
+    return getVenueById('boulangerie_general');
+  }
+  if (/(café|cafe|카페|tea|티|salon de thé)/i.test(t)) {
+    return getVenueById('cafe_general');
+  }
+  return getVenueById('general_restaurant');
+}
+
+function normalizeMapToken(text){
+  let q = (text || '').replace(/\s+/g, ' ').trim();
+  q = q.replace(/^[^\p{L}\p{N}\(]+/u, '').trim();
+  q = q.replace(/^(?:지하철로|도보|도보로|숙소\s*→|공항\s*→)\s*/u, '').trim();
+  q = q.replace(/^(?:TGV|TER|CDGVAL)(?:\([^)]*\))?\s*/iu, '').trim();
+  q = q.replace(/^(?:탑승하여|탑승 후)\s*/u, '').trim();
+  q = q.replace(/\s*(?:탑승|이동|복귀|통과|출국|위탁|오픈).*$/u, '').trim();
+  q = q.replace(/\s*(?:으로|로)\s*$/u, '').trim();
+  q = q.replace(/^제(\d)터미널/iu, (_, n) => `Terminal ${n}`);
+  if (/^(시외우등버스|아시아나\s+OZ\d+)$/iu.test(q)) return '';
+  if (/^(보안 검색|출국 심사)$/u.test(q)) return '';
+  return q;
+}
+
+function deriveTransportMapQuery(raw){
+  const base = (raw || '').replace(/^[^\p{L}\p{N}\(]+/u, '').trim();
+  const parts = base.split('→').map((part) => normalizeMapToken(part)).filter(Boolean);
+
+  if (parts.length > 1) {
+    const preferred = [...parts].reverse().find((part) => !/(숙소|식당)$/u.test(part));
+    if (preferred) return preferred;
+  }
+
+  if (parts.length === 1) return parts[0];
+  return normalizeMapToken(base);
+}
+
+function deriveMapQueryForCard(raw, type, spot, langVenue){
+  if (langVenue?.maps_query) return langVenue.maps_query;
+  if (type === 'note') return '';
+  if (type === 'transport') return deriveTransportMapQuery(raw);
+
+  const fallbackSource = (spot?.name || stripTitlePrefix(raw) || raw);
+  return cleanMapQuery(fallbackSource, type);
 }
 
 function getLangVenueForCard(card){
@@ -1007,6 +1084,10 @@ function getLangVenueForCard(card){
     return getVenueById('general_hotel');
   }
 
+  if (type === 'transport' && /(\\bTGV\\b|\\bTER\\b|기차|역|플랫폼|열차)/i.test(raw)) {
+    return getVenueById('general_train');
+  }
+
   return null;
 }
 
@@ -1017,11 +1098,13 @@ function getMapsUrlForCard(card){
   const stripped = stripTitlePrefix(raw);
 
   const idx = getSpotIndex();
-  const spot = idx[stripped] || idx[raw.trim()];
+  const spot = idx[stripped] || idx[raw.trim()] || findSpotForTitle(stripped) || findSpotForTitle(raw);
   if (spot?.maps_url) return spot.maps_url;
 
   const type = getEventType(card);
-  if (type === 'transport' || type === 'note') return '';
+  const langVenue = getLangVenueForCard(card);
+  const fallbackQuery = deriveMapQueryForCard(raw, type, spot, langVenue);
+  if (fallbackQuery) return mapsUrlForQuery(fallbackQuery);
 
   return '';
 }
