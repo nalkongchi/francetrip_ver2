@@ -546,7 +546,7 @@ function renderChecklist() {
     el.innerHTML = items.map(item => {
       const isDone = !!checkState[item.id];
       return `<label class="check-item ${isDone ? 'done' : ''}" onclick="toggleCheck('${item.id}')">
-        <div class="check-box">${isDone ? '✓' : ''}</div>
+        <div class="check-box"></div>
         <div>
           <div class="check-label">${item.text}</div>
           ${item.note ? `<div class="check-note">${item.note}</div>` : ''}
@@ -585,7 +585,7 @@ function renderSouvenirs() {
     const items = sec.items.map(item => {
       const isDone = !!souvenirState[item.id];
       return `<div class="souvenir-item ${isDone ? 'done' : ''}" onclick="toggleSouvenir('${item.id}')">
-        <div class="souvenir-check-box">${isDone ? '✓' : ''}</div>
+        <div class="souvenir-check-box"></div>
         <div style="flex:1;min-width:0;">
           <div class="souvenir-label">${item.text}</div>
           <div class="souvenir-meta">
