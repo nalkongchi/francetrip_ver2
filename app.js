@@ -876,21 +876,26 @@ function getSpotIndex(){
   return __SPOT_INDEX;
 }
 
+function stripTitlePrefix(text){
+  // Remove leading emoji/symbols and non-Korean/Latin chars
+  let s = text.replace(/^[^\uAC00-\uD7A3a-zA-Z0-9('"]+/, '').trim();
+  // Remove meal prefixes like "아침:", "저녁:", "카페/티타임:"
+  s = s.replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/, '').trim();
+  return s;
+}
+
 function getLangVenueForCard(card){
-  // First try: get spot data from title text → lang_id field
   const titleEl = card.querySelector('.event-title');
   if (!titleEl) return null;
-  const titleText = getTitleTextWithoutTags(titleEl);
+  const raw = getTitleTextWithoutTags(titleEl);
+  const stripped = stripTitlePrefix(raw);
 
-  // Strip meal prefix (아침: / 저녁: etc.)
-  const stripped = titleText.replace(/^[^\p{L}\p{N}(]+/u, '').replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/u, '').trim();
-
-  const spot = getSpotIndex()[stripped] || getSpotIndex()[titleText.trim()];
+  const idx = getSpotIndex();
+  const spot = idx[stripped] || idx[raw.trim()];
   if (spot?.lang_id) return getVenueById(spot.lang_id);
 
-  // Fallback: hotel check-in/out
   const type = getEventType(card);
-  if (type === 'hotel' && /(숙소|체크인|체크아웃|짐 보관)/.test(titleText)) {
+  if (type === 'hotel' && /(숙소|체크인|체크아웃|짐 보관)/.test(raw)) {
     return getVenueById('general_hotel');
   }
 
@@ -900,13 +905,13 @@ function getLangVenueForCard(card){
 function getMapsUrlForCard(card){
   const titleEl = card.querySelector('.event-title');
   if (!titleEl) return '';
-  const titleText = getTitleTextWithoutTags(titleEl);
-  const stripped = titleText.replace(/^[^\p{L}\p{N}(]+/u, '').replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/u, '').trim();
+  const raw = getTitleTextWithoutTags(titleEl);
+  const stripped = stripTitlePrefix(raw);
 
-  const spot = getSpotIndex()[stripped] || getSpotIndex()[titleText.trim()];
+  const idx = getSpotIndex();
+  const spot = idx[stripped] || idx[raw.trim()];
   if (spot?.maps_url) return spot.maps_url;
 
-  // No maps_url for transport/note types
   const type = getEventType(card);
   if (type === 'transport' || type === 'note') return '';
 
