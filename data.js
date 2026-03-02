@@ -509,6 +509,8 @@ window.LANGUAGE_DATA = {
             { "fr": "L'addition, s'il vous plaît.", "pron": "라디씨옹, 씰 부 쁠레.", "ko": "계산서 주세요." }
           ]
         },
+        {
+          "id": "general_restaurant",
           "name": "레스토랑 공통 (어디서나)",
           "maps_query": "",
           "lines": [
