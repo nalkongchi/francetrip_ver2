@@ -446,8 +446,10 @@ window.TRIP_DAYS = {
       "maps_url": "https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98"
     },
     "connectHotels": false,
-    "mapContinuousRoute": true,
-    "mapViewport": "all",
+    "mapContinuousRoute": false,
+    "mapViewport": "focus",
+    "mapShowContextConnector": true,
+    "mapIncomingLabel": "파리 출발 · TGV 이동",
     "focusSegmentIndex": 1,
     "segments": [
       [
@@ -738,8 +740,10 @@ window.TRIP_DAYS = {
       "maps_url": "https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98"
     },
     "connectHotels": false,
-    "mapContinuousRoute": true,
-    "mapViewport": "all",
+    "mapContinuousRoute": false,
+    "mapViewport": "focus",
+    "mapShowContextConnector": true,
+    "mapIncomingLabel": "스트라스부르 출발 · TGV 이동",
     "mapHideEndHotel": true,
     "focusSegmentIndex": 1,
     "segments": [

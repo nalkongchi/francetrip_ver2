@@ -262,13 +262,145 @@ function getFocusGroup(day, lineGroups, displaySpots) {
   return displaySpots;
 }
 
-function getFocusPoints(day, display, lineGroups) {
-  if (day.mapViewport === 'all') {
-    return (display.routeSpots || []).map(spot => [spot.lat, spot.lng]).filter(Boolean);
+
+function distanceKm(a, b) {
+  if (!a || !b) return Infinity;
+  const toRad = (deg) => deg * Math.PI / 180;
+  const dLat = toRad((b.lat || 0) - (a.lat || 0));
+  const dLng = toRad((b.lng || 0) - (a.lng || 0));
+  const lat1 = toRad(a.lat || 0);
+  const lat2 = toRad(b.lat || 0);
+  const sinLat = Math.sin(dLat / 2);
+  const sinLng = Math.sin(dLng / 2);
+  const h = sinLat * sinLat + Math.cos(lat1) * Math.cos(lat2) * sinLng * sinLng;
+  return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+
+function minDistanceToGroup(spot, group) {
+  if (!spot || !Array.isArray(group) || !group.length) return Infinity;
+  let min = Infinity;
+  group.forEach((pt) => {
+    min = Math.min(min, distanceKm(spot, pt));
+  });
+  return min;
+}
+
+function isHotelNearGroup(hotel, group, radiusKm = 3.5) {
+  return minDistanceToGroup(hotel, group) <= radiusKm;
+}
+
+function getBoundsMeta(spots) {
+  const pts = (spots || []).filter(Boolean);
+  if (!pts.length) {
+    return { minLat: 48.8566, maxLat: 48.8566, minLng: 2.3522, maxLng: 2.3522 };
+  }
+
+  let minLat = pts[0].lat;
+  let maxLat = pts[0].lat;
+  let minLng = pts[0].lng;
+  let maxLng = pts[0].lng;
+
+  pts.forEach((pt) => {
+    minLat = Math.min(minLat, pt.lat);
+    maxLat = Math.max(maxLat, pt.lat);
+    minLng = Math.min(minLng, pt.lng);
+    maxLng = Math.max(maxLng, pt.lng);
+  });
+
+  return { minLat, maxLat, minLng, maxLng };
+}
+
+function makeContextAnchor(boundsMeta, mode, label) {
+  const latSpan = Math.max(boundsMeta.maxLat - boundsMeta.minLat, 0.012);
+  const lngSpan = Math.max(boundsMeta.maxLng - boundsMeta.minLng, 0.018);
+  const latPad = latSpan * 0.28;
+  const lngPad = lngSpan * 0.28;
+
+  if (mode === 'incoming') {
+    return {
+      name: label || '이전 구간 / 숙소',
+      lat: boundsMeta.maxLat + (latPad * 0.35),
+      lng: boundsMeta.minLng - lngPad,
+      icon: '↖',
+      kind: 'context'
+    };
+  }
+
+  return {
+    name: label || '다음 구간',
+    lat: boundsMeta.minLat - (latPad * 0.35),
+    lng: boundsMeta.maxLng + lngPad,
+    icon: '↘',
+    kind: 'context'
+  };
+}
+
+function buildMapRenderPlan(day, display, lineGroups) {
+  const isAllView = day.mapViewport === 'all';
+
+  if (isAllView) {
+    return {
+      lineGroups,
+      displaySpots: display.displaySpots || [],
+      extraMarkers: [],
+      focusPoints: (display.routeSpots || []).map((spot) => [spot.lat, spot.lng]).filter(Boolean)
+    };
   }
 
   const focusGroup = getFocusGroup(day, lineGroups, display.displaySpots || []);
-  return (focusGroup || []).map(spot => [spot.lat, spot.lng]).filter(Boolean);
+
+  if (!focusGroup || !focusGroup.length) {
+    return {
+      lineGroups,
+      displaySpots: display.displaySpots || [],
+      extraMarkers: [],
+      focusPoints: (display.displaySpots || []).map((spot) => [spot.lat, spot.lng]).filter(Boolean)
+    };
+  }
+
+  const focusIndex = lineGroups.findIndex((group) => group === focusGroup);
+  const boundsMeta = getBoundsMeta(focusGroup);
+  const localHotelRadiusKm = day.mapLocalHotelRadiusKm || 3.5;
+  const mapShowContextConnector = day.mapShowContextConnector !== false;
+
+  let displaySpots = dedupeConsecutiveSpots([...(focusGroup || [])]);
+  const renderGroups = [];
+  const extraMarkers = [];
+
+  const startHotelLocal = !!(display.startHotel && isHotelNearGroup(display.startHotel, focusGroup, localHotelRadiusKm));
+  const endHotelLocal = !!(!day.mapHideEndHotel && display.endHotel && isHotelNearGroup(display.endHotel, focusGroup, localHotelRadiusKm));
+
+  if (startHotelLocal) {
+    renderGroups.push(dedupeConsecutiveSpots([display.startHotel, focusGroup[0]]));
+    displaySpots = dedupeConsecutiveSpots([display.startHotel, ...displaySpots]);
+  } else {
+    const hasHiddenBefore = focusIndex > 0 || (!!display.startHotel && !startHotelLocal);
+    if (hasHiddenBefore && mapShowContextConnector) {
+      const anchor = makeContextAnchor(boundsMeta, 'incoming', day.mapIncomingLabel);
+      renderGroups.push([anchor, focusGroup[0]]);
+      extraMarkers.push(anchor);
+    }
+  }
+
+  renderGroups.push(focusGroup);
+
+  if (endHotelLocal) {
+    renderGroups.push(dedupeConsecutiveSpots([focusGroup[focusGroup.length - 1], display.endHotel]));
+    displaySpots = dedupeConsecutiveSpots([...displaySpots, display.endHotel]);
+  } else {
+    const hasHiddenAfter = (focusIndex > -1 && focusIndex < lineGroups.length - 1) || (!!display.endHotel && !day.mapHideEndHotel && !endHotelLocal);
+    if (hasHiddenAfter && mapShowContextConnector) {
+      const anchor = makeContextAnchor(boundsMeta, 'outgoing', day.mapOutgoingLabel);
+      renderGroups.push([focusGroup[focusGroup.length - 1], anchor]);
+      extraMarkers.push(anchor);
+    }
+  }
+
+  const focusPoints = [...displaySpots, ...extraMarkers]
+    .map((spot) => [spot.lat, spot.lng])
+    .filter(Boolean);
+
+  return { lineGroups: renderGroups, displaySpots, extraMarkers, focusPoints };
 }
 
 function showDay(dayNum, btn) {
@@ -286,15 +418,20 @@ function showDay(dayNum, btn) {
 
   const color = DAY_COLORS[dayNum] || '#c9a84c';
   const display = getDayDisplay(day);
-  const displaySpots = display.displaySpots;
   const lineGroups = getLineGroups(day, display);
+  const renderPlan = buildMapRenderPlan(day, display, lineGroups);
+  const mapLineGroups = renderPlan.lineGroups || lineGroups;
+  const mapDisplaySpots = renderPlan.displaySpots || display.displaySpots || [];
 
-  lineGroups.forEach(group => {
+  mapLineGroups.forEach(group => {
     if (!group || group.length < 2) return;
 
+    const hasContext = group.some((spot) => spot.kind === 'context');
     const line = L.polyline(
       group.map(spot => [spot.lat, spot.lng]),
-      { color, weight: 3.5, opacity: 0.85, dashArray: '8,5' }
+      hasContext
+        ? { color, weight: 2.8, opacity: 0.58, dashArray: '4,7' }
+        : { color, weight: 3.5, opacity: 0.85, dashArray: '8,5' }
     ).addTo(leafletMap);
 
     curLayers.push(line);
@@ -302,7 +439,7 @@ function showDay(dayNum, btn) {
 
   let stopNumber = 1;
 
-  displaySpots.forEach((spot, i) => {
+  mapDisplaySpots.forEach((spot) => {
     const isHotel = spot.kind === 'hotel';
     const sz = isHotel ? 32 : 26;
 
@@ -327,7 +464,24 @@ function showDay(dayNum, btn) {
     curMarkers.push(marker);
   });
 
-  const focusPoints = getFocusPoints(day, display, lineGroups);
+  (renderPlan.extraMarkers || []).forEach((spot) => {
+    const marker = L.marker([spot.lat, spot.lng], {
+      icon: L.divIcon({
+        html: `<div style="width:20px;height:20px;background:rgba(13,18,38,0.75);border:1.5px dashed rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.35);"><span style="color:#fff;font-size:10px">${spot.icon || '↗'}</span></div>`,
+        className: '',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+      })
+    }).addTo(leafletMap)
+      .bindPopup(
+        `<b style="color:#c9a84c">${spot.name}</b><br><span style="color:#999;font-size:0.72rem">지도 밖 구간을 요약해서 이어 둔 선</span>`,
+        { className: 'dark-popup' }
+      );
+
+    curLayers.push(marker);
+  });
+
+  const focusPoints = renderPlan.focusPoints || [];
 
   if (focusPoints.length) {
     const bounds = L.latLngBounds(focusPoints);
@@ -340,7 +494,7 @@ function showDay(dayNum, btn) {
   if (titleEl) titleEl.textContent = day.title;
   if (spotsEl) {
     let stopLabelNumber = 1;
-    spotsEl.innerHTML = displaySpots
+    spotsEl.innerHTML = mapDisplaySpots
       .map((spot, idx) => {
         const isHotel = spot.kind === 'hotel';
         const prefix = isHotel ? '🏨' : `${stopLabelNumber++}.`;
