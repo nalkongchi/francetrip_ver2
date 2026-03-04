@@ -6,58 +6,6 @@ window.LANGUAGE_DATA = {
       "label": "카페 주문",
       "venues": [
         {
-  "version": "2026-03-01",
-  "lang": "fr",
-  "notes": "각 장소(카페/레스토랑/호텔/기차)에서 바로 써먹는 실전 문장 모음. fr=프랑스어, pron=한글발음(대략), ko=한국어 뜻.",
-  "categories": [,
-            {
-              "fr": "Pour la boisson chaude, je voudrais le Chocolat Carette avec de la crème Chantilly.",
-              "pron": "뿌흐 라 부아쏭 쇼드, 즈 부드헤 르 쇼꼴라 까레뜨 아벡 드 라 크헴 샹티이.",
-              "ko": "뜨거운 음료는 샹티이 크림 올린 쇼콜라 까레뜨로 할게요."
-            },
-            {
-              "fr": "Est-ce que je peux remplacer le croissant par un pain au chocolat ?",
-              "pron": "에스끄 즈 뿌 헤-쁠라쎄 르 크후아쌍 빠흐 앙 뺑 오 쇼꼴라?",
-              "ko": "크루아상을 뺑 오 쇼콜라로 바꿀 수 있을까요?"
-            },
-            {
-              "fr": "Et je voudrais aussi ajouter un pain au chocolat et un chausson aux pommes.",
-              "pron": "에 즈 부드헤 오씨 아주떼 앙 뺑 오 쇼꼴라 에 앙 쇼쏭 오 뽐므.",
-              "ko": "그리고 뺑 오 쇼콜라 하나랑 쇼송 오 뽐므 하나 추가로 부탁드려요."
-            },
-            {
-              "fr": "Sur place, s’il vous plaît.",
-              "pron": "쒸흐 쁠라쓰, 씰 부 쁠레.",
-              "ko": "매장에서 먹을게요."
-            },
-            {
-              "fr": "À emporter, s’il vous plaît.",
-              "pron": "아 앙뽀흐떼, 씰 부 쁠레.",
-              "ko": "테이크아웃 할게요."
-            },
-            {
-              "fr": "Je peux avoir un verre d’eau, s’il vous plaît ?",
-              "pron": "즈 뿌 아부와흐 앙 베흐 도, 씰 부 쁠레?",
-              "ko": "물 한 잔 받을 수 있을까요?"
-            },
-            {
-              "fr": "L’addition, s’il vous plaît.",
-              "pron": "라디씨옹, 씰 부 쁠레.",
-              "ko": "계산서 주세요."
-            },
-            {
-              "fr": "Je peux payer par carte ?",
-              "pron": "즈 뿌 뻬예 빠흐 까흐뜨?",
-              "ko": "카드로 결제할 수 있나요?"
-            },
-            {
-              "fr": "Merci !",
-              "pron": "메흐씨!",
-              "ko": "감사합니다!"
-            }
-          ]
-        },
-        {
           "id": "cafe_general",
           "name": "카페 공통 (어디서나)",
           "catLabel": "카페 주문",
