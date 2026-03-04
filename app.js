@@ -731,15 +731,25 @@ function openLangSheet(venue){
 
   bodyEl.innerHTML = '';
 
-  const card = document.createElement('div');
-  card.className = 'lang-card';
+  function makeSpeakBtn(fr) {
+    const speak = document.createElement('button');
+    speak.className = 'icon-btn speak-btn';
+    speak.textContent = '🔊';
+    speak.setAttribute('aria-label', 'Speak');
+    speak.addEventListener('click', () => {
+      try {
+        const u = new SpeechSynthesisUtterance(fr || '');
+        u.lang = 'fr-FR';
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(u);
+      } catch (e) {}
+    });
+    return speak;
+  }
 
-  (venue.lines || []).forEach((line) => {
-    const row = document.createElement('div');
-    row.className = 'lang-line';
-
-    const frWrap = document.createElement('div');
-    frWrap.className = 'lang-fr-wrap';
+  function makeBubble(line) {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
 
     const frText = document.createElement('span');
     frText.className = 'lang-fr';
@@ -754,29 +764,82 @@ function openLangSheet(venue){
     koEl.className = 'lang-ko';
     koEl.textContent = (line.ko || '').trim();
 
-    frWrap.appendChild(frText);
-    if (pronText) frWrap.appendChild(pronEl);
-    frWrap.appendChild(koEl);
+    bubble.appendChild(makeSpeakBtn(line.fr));
+    bubble.appendChild(frText);
+    if (pronText) bubble.appendChild(pronEl);
+    bubble.appendChild(koEl);
 
-    const speak = document.createElement('button');
-    speak.className = 'icon-btn speak-btn';
-    speak.textContent = '🔊';
-    speak.setAttribute('aria-label', 'Speak');
-    speak.addEventListener('click', () => {
-      try {
-        const u = new SpeechSynthesisUtterance(line.fr || '');
-        u.lang = 'fr-FR';
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(u);
-      } catch (e) {}
+    if (line.tip) {
+      const tipEl = document.createElement('span');
+      tipEl.className = 'lang-tip';
+      tipEl.textContent = line.tip;
+      bubble.appendChild(tipEl);
+    }
+
+    return bubble;
+  }
+
+  // 그룹 구조 (groups) vs flat 구조 (lines) 자동 분기
+  if (venue.groups && venue.groups.length > 0) {
+    venue.groups.forEach((group) => {
+      const groupEl = document.createElement('div');
+      groupEl.className = 'bubble-group';
+
+      if (group.label) {
+        const labelEl = document.createElement('div');
+        labelEl.className = 'bubble-context';
+        labelEl.textContent = group.label;
+        groupEl.appendChild(labelEl);
+      }
+
+      (group.lines || []).forEach((line) => {
+        groupEl.appendChild(makeBubble(line));
+      });
+
+      bodyEl.appendChild(groupEl);
+    });
+  } else {
+    const card = document.createElement('div');
+    card.className = 'lang-card';
+
+    (venue.lines || []).forEach((line) => {
+      const row = document.createElement('div');
+      row.className = 'lang-line';
+
+      const frWrap = document.createElement('div');
+      frWrap.className = 'lang-fr-wrap';
+
+      const frText = document.createElement('span');
+      frText.className = 'lang-fr';
+      frText.textContent = line.fr || '';
+
+      const pronText = (line.pron || '').trim();
+      const pronEl = document.createElement('span');
+      pronEl.className = 'lang-pron';
+      if (pronText) pronEl.textContent = `(${pronText})`;
+
+      const koEl = document.createElement('span');
+      koEl.className = 'lang-ko';
+      koEl.textContent = (line.ko || '').trim();
+
+      frWrap.appendChild(frText);
+      if (pronText) frWrap.appendChild(pronEl);
+      frWrap.appendChild(koEl);
+
+      if (line.tip) {
+        const tipEl = document.createElement('span');
+        tipEl.className = 'lang-tip';
+        tipEl.textContent = line.tip;
+        frWrap.appendChild(tipEl);
+      }
+
+      row.appendChild(frWrap);
+      row.appendChild(makeSpeakBtn(line.fr));
+      card.appendChild(row);
     });
 
-    row.appendChild(frWrap);
-    row.appendChild(speak);
-    card.appendChild(row);
-  });
-
-  bodyEl.appendChild(card);
+    bodyEl.appendChild(card);
+  }
   backdrop.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
