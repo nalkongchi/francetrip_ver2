@@ -712,6 +712,48 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
+// ── LANG SHEET GESTURES ──
+function wireLangSheetGestures(){
+  const backdrop = document.getElementById('langSheet');
+  const sheet = backdrop?.querySelector('.sheet');
+  const closeBtn = document.getElementById('langSheetClose');
+  if (!backdrop || !sheet) return;
+
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) closeLangSheet();
+  });
+  closeBtn?.addEventListener('click', closeLangSheet);
+
+  let startY = 0;
+  let currentY = 0;
+  let dragging = false;
+
+  const sheetHandle = sheet.querySelector('.sheet-handle');
+  const dragTarget = sheetHandle || sheet;
+
+  dragTarget.addEventListener('touchstart', (e) => {
+    if (!e.touches?.length) return;
+    dragging = true;
+    startY = e.touches[0].clientY;
+    currentY = startY;
+  }, { passive: true });
+
+  dragTarget.addEventListener('touchmove', (e) => {
+    if (!dragging || !e.touches?.length) return;
+    currentY = e.touches[0].clientY;
+    const dy = Math.max(0, currentY - startY);
+    sheet.style.transform = `translateY(${dy}px)`;
+  }, { passive: true });
+
+  dragTarget.addEventListener('touchend', () => {
+    if (!dragging) return;
+    dragging = false;
+    const dy = Math.max(0, currentY - startY);
+    sheet.style.transform = '';
+    if (dy > 90) closeLangSheet();
+  });
+}
+
 // ── SCHEDULE RENDER ──
 function renderSchedule(dayNum) {
   const data = window.SCHEDULE_DATA && window.SCHEDULE_DATA[dayNum];
