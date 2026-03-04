@@ -864,6 +864,15 @@ body {
   display: block;
   line-height: 1.55;
 }
+.lang-fr-wrap .lang-tip {
+  font-size: 0.7rem;
+  color: rgba(201,168,76,0.55);
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px dashed rgba(201,168,76,0.15);
+  display: block;
+  line-height: 1.55;
+}
 .bubble .speak-btn {
   position: absolute;
   top: 10px;

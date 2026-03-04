@@ -983,6 +983,7 @@ function buildVenueIndex(){
         id: v.id || '',
         name: v.name,
         lines: v.lines || [],
+        groups: v.groups || null,
         catLabel: v.catLabel || cat.label || cat.id
       });
     }
