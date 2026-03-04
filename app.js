@@ -712,6 +712,82 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
+// ── LANG SHEET ──
+function openLangSheet(venue){
+  const backdrop = document.getElementById('langSheet');
+  const titleEl = document.getElementById('langSheetTitle');
+  const bodyEl = document.getElementById('langSheetBody');
+  if (!backdrop || !titleEl || !bodyEl) return;
+
+  titleEl.textContent = venue.name || '';
+
+  let subtitleEl = backdrop.querySelector('.sheet-subtitle');
+  if (!subtitleEl) {
+    subtitleEl = document.createElement('div');
+    subtitleEl.className = 'sheet-subtitle';
+    titleEl.insertAdjacentElement('afterend', subtitleEl);
+  }
+  subtitleEl.textContent = (venue.catLabel || '').toUpperCase();
+
+  bodyEl.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = 'lang-card';
+
+  (venue.lines || []).forEach((line) => {
+    const row = document.createElement('div');
+    row.className = 'lang-line';
+
+    const frWrap = document.createElement('div');
+    frWrap.className = 'lang-fr-wrap';
+
+    const frText = document.createElement('span');
+    frText.className = 'lang-fr';
+    frText.textContent = line.fr || '';
+
+    const pronText = (line.pron || '').trim();
+    const pronEl = document.createElement('span');
+    pronEl.className = 'lang-pron';
+    if (pronText) pronEl.textContent = `(${pronText})`;
+
+    const koEl = document.createElement('span');
+    koEl.className = 'lang-ko';
+    koEl.textContent = (line.ko || '').trim();
+
+    frWrap.appendChild(frText);
+    if (pronText) frWrap.appendChild(pronEl);
+    frWrap.appendChild(koEl);
+
+    const speak = document.createElement('button');
+    speak.className = 'icon-btn speak-btn';
+    speak.textContent = '🔊';
+    speak.setAttribute('aria-label', 'Speak');
+    speak.addEventListener('click', () => {
+      try {
+        const u = new SpeechSynthesisUtterance(line.fr || '');
+        u.lang = 'fr-FR';
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(u);
+      } catch (e) {}
+    });
+
+    row.appendChild(frWrap);
+    row.appendChild(speak);
+    card.appendChild(row);
+  });
+
+  bodyEl.appendChild(card);
+  backdrop.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLangSheet(){
+  const backdrop = document.getElementById('langSheet');
+  if (!backdrop) return;
+  backdrop.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
 // ── LANG SHEET GESTURES ──
 function wireLangSheetGestures(){
   const backdrop = document.getElementById('langSheet');
