@@ -306,7 +306,7 @@ function showDay(dayNum, btn) {
       })
       .join('');
   }
-  try{ enhanceScheduleLinks(); }catch(e){}
+
 }
 
 function flyTo(idx) {
@@ -712,7 +712,84 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-// === Map + Language buttons in schedule (auto-detect venue name) ===
+// ── SCHEDULE RENDER ──
+function renderSchedule(dayNum) {
+  const data = window.SCHEDULE_DATA && window.SCHEDULE_DATA[dayNum];
+  if (!data) return;
+
+  const container = document.getElementById('day-' + dayNum);
+  if (!container) return;
+
+  // header
+  const h = data.header;
+  let html = `<div class="day-header"><div class="day-icon">${h.icon}</div><div><h2>${h.title}</h2><p>${h.sub}</p></div></div>`;
+  html += '<div class="timeline">';
+
+  for (const ev of data.events) {
+    const hasFold = !!ev.foldNote;
+    const hasTags = ev.tags && ev.tags.length > 0;
+    const tagHtml = hasTags
+      ? ev.tags.map(t => `<span class="tag ${t.cls}">${t.text}</span>`).join('')
+      : '';
+
+    html += `<div class="event ${ev.type}" data-id="${ev.id}">`;
+    html += `<div class="event-card">`;
+    html += `<div class="event-time">${ev.time || ''}</div>`;
+    html += `<div class="event-title">${ev.title || ''}${tagHtml}</div>`;
+    if (ev.detail) html += `<div class="event-detail">${ev.detail}</div>`;
+    if (ev.note)   html += `<div class="event-note">${ev.note}</div>`;
+    if (hasFold) {
+      html += `<details class="fold-note"><summary>⚠️ 참고</summary><div class="fold-body">${ev.foldNote}</div></details>`;
+    }
+    html += `</div>`; // event-card
+    html += `</div>`; // event
+  }
+
+  html += '</div>'; // timeline
+  container.innerHTML = html;
+
+  // 버튼 부착
+  attachScheduleButtons(dayNum);
+}
+
+function attachScheduleButtons(dayNum) {
+  const data = window.SCHEDULE_DATA && window.SCHEDULE_DATA[dayNum];
+  if (!data) return;
+
+  for (const ev of data.events) {
+    if (!ev.maps_url && !ev.lang_id) continue;
+
+    const eventEl = document.querySelector(`[data-id="${ev.id}"]`);
+    if (!eventEl || eventEl.dataset.actionsAdded === '1') continue;
+
+    const actions = document.createElement('div');
+    actions.className = 'card-actions-outer';
+
+    if (ev.lang_id) {
+      const venue = getVenueById(ev.lang_id);
+      if (venue) {
+        const langBtn = createEventActionButton('lang');
+        langBtn.addEventListener('click', () => openLangSheet(venue));
+        actions.appendChild(langBtn);
+      }
+    }
+
+    if (ev.maps_url) {
+      const mapBtn = createEventActionButton('map');
+      mapBtn.addEventListener('click', () => {
+        window.open(ev.maps_url, '_blank', 'noopener,noreferrer');
+      });
+      actions.appendChild(mapBtn);
+    }
+
+    const card = eventEl.querySelector('.event-card');
+    if (card) eventEl.insertBefore(actions, card);
+    eventEl.dataset.actionsAdded = '1';
+    eventEl.classList.add('has-quick-actions');
+  }
+}
+
+// ── VENUE LOOKUP (language.js 기반) ──
 function normalizeText(s){ return (s || '').toLowerCase(); }
 
 function buildVenueIndex(){
@@ -721,12 +798,9 @@ function buildVenueIndex(){
   if (!data || !data.categories) return venues;
   for (const cat of data.categories){
     for (const v of (cat.venues || [])){
-      const key = (v.name || '').split('(')[0].trim();
       venues.push({
         id: v.id || '',
-        key,
         name: v.name,
-        maps_query: v.maps_query || '',
         lines: v.lines || [],
         catLabel: v.catLabel || cat.label || cat.id
       });
@@ -750,285 +824,6 @@ function getVenueById(id){
   return getVenueIndex().byId[id] || null;
 }
 
-function findVenueForTitle(titleText){
-  const { venues } = getVenueIndex();
-  const t = normalizeText(titleText);
-  const sorted = [...venues].sort((a, b) => (b.key || '').length - (a.key || '').length);
-  for (const v of sorted){
-    const k = normalizeText(v.key);
-    if (k && t.includes(k)) return v;
-  }
-  return null;
-}
-
-function mapsUrlForQuery(q){
-  const encoded = encodeURIComponent(q);
-  return `https://www.google.com/maps/search/?api=1&query=${encoded}`;
-}
-
-function openLangSheet(venue){
-  const backdrop = document.getElementById('langSheet');
-  const titleEl = document.getElementById('langSheetTitle');
-  const bodyEl = document.getElementById('langSheetBody');
-  if (!backdrop || !titleEl || !bodyEl) return;
-
-  titleEl.textContent = venue.name || '';
-
-  // Add subtitle element if not present
-  let subtitleEl = backdrop.querySelector('.sheet-subtitle');
-  if (!subtitleEl) {
-    subtitleEl = document.createElement('div');
-    subtitleEl.className = 'sheet-subtitle';
-    titleEl.insertAdjacentElement('afterend', subtitleEl);
-  }
-  subtitleEl.textContent = (venue.catLabel || '').toUpperCase();
-
-  bodyEl.innerHTML = '';
-
-  const card = document.createElement('div');
-  card.className = 'lang-card';
-
-  (venue.lines || []).forEach((line) => {
-    const row = document.createElement('div');
-    row.className = 'lang-line';
-
-    // Left: fr + pron + ko
-    const frWrap = document.createElement('div');
-    frWrap.className = 'lang-fr-wrap';
-
-    const frText = document.createElement('span');
-    frText.className = 'lang-fr';
-    frText.textContent = line.fr || '';
-
-    const pronText = (line.pron || '').trim();
-    const pronEl = document.createElement('span');
-    pronEl.className = 'lang-pron';
-    if (pronText) pronEl.textContent = `(${pronText})`;
-
-    const koEl = document.createElement('span');
-    koEl.className = 'lang-ko';
-    koEl.textContent = (line.ko || '').trim();
-
-    frWrap.appendChild(frText);
-    if (pronText) frWrap.appendChild(pronEl);
-    frWrap.appendChild(koEl);
-
-    // Right: speak button
-    const speak = document.createElement('button');
-    speak.className = 'icon-btn speak-btn';
-    speak.textContent = '🔊';
-    speak.setAttribute('aria-label', 'Speak');
-    speak.addEventListener('click', () => {
-      try {
-        const u = new SpeechSynthesisUtterance(line.fr || '');
-        u.lang = 'fr-FR';
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(u);
-      } catch (e) {}
-    });
-
-    row.appendChild(frWrap);
-    row.appendChild(speak);
-    card.appendChild(row);
-  });
-
-  bodyEl.appendChild(card);
-  backdrop.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeLangSheet(){
-  const backdrop = document.getElementById('langSheet');
-  if (!backdrop) return;
-  backdrop.classList.add('hidden');
-  document.body.style.overflow = '';
-}
-
-function wireLangSheetGestures(){
-  const backdrop = document.getElementById('langSheet');
-  const sheet = backdrop?.querySelector('.sheet');
-  const closeBtn = document.getElementById('langSheetClose');
-  if (!backdrop || !sheet) return;
-
-  backdrop.addEventListener('click', (e) => {
-    if (e.target === backdrop) closeLangSheet();
-  });
-  closeBtn?.addEventListener('click', closeLangSheet);
-
-  let startY = 0;
-  let currentY = 0;
-  let dragging = false;
-
-  const sheetHandle = sheet.querySelector('.sheet-handle');
-  const dragTarget = sheetHandle || sheet;
-
-  dragTarget.addEventListener('touchstart', (e) => {
-    if (!e.touches?.length) return;
-    dragging = true;
-    startY = e.touches[0].clientY;
-    currentY = startY;
-  }, { passive: true });
-
-  dragTarget.addEventListener('touchmove', (e) => {
-    if (!dragging || !e.touches?.length) return;
-    currentY = e.touches[0].clientY;
-    const dy = Math.max(0, currentY - startY);
-    sheet.style.transform = `translateY(${dy}px)`;
-  }, { passive: true });
-
-  dragTarget.addEventListener('touchend', () => {
-    if (!dragging) return;
-    dragging = false;
-    const dy = Math.max(0, currentY - startY);
-    sheet.style.transform = '';
-    if (dy > 90) closeLangSheet();
-  });
-}
-
-function getEventType(card){
-  const eventEl = card.closest('.event');
-  if (!eventEl) return '';
-  if (eventEl.classList.contains('transport')) return 'transport';
-  if (eventEl.classList.contains('food')) return 'food';
-  if (eventEl.classList.contains('sightseeing')) return 'sightseeing';
-  if (eventEl.classList.contains('hotel')) return 'hotel';
-  if (eventEl.classList.contains('note')) return 'note';
-  return '';
-}
-
-function getTitleTextWithoutTags(titleEl){
-  const clone = titleEl.cloneNode(true);
-  clone.querySelectorAll('.tag').forEach((tag) => tag.remove());
-  return (clone.textContent || '').replace(/\s+/g, ' ').trim();
-}
-
-function cleanMapQuery(raw, eventType){
-  let q = (raw || '').replace(/\s+/g, ' ').trim();
-  q = q.replace(/^[^\p{L}\p{N}\(]+/u, '').trim();
-  q = q.replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/u, '').trim();
-
-  if (eventType === 'hotel'){
-    const match = q.match(/\(([^)]+)\)/);
-    if (match) return match[1].trim();
-    if (/숙소\s*휴식/.test(q)) return '';
-  }
-
-  if (/^(도보 이동|이동)$/.test(q)) return '';
-  return q;
-}
-
-// ── SPOT DATA LOOKUP ──
-function buildSpotIndex(){
-  const idx = {};
-  if (!window.TRIP_DAYS) return idx;
-
-  function register(spot){
-    if (!spot?.name) return;
-    const key = spot.name.trim();
-    idx[key] = spot;
-
-    // Also register without parenthetical suffixes: "피카소 미술관 (외관)" → "피카소 미술관"
-    const noParens = key.replace(/\s*\([^)]*\)\s*$/, '').trim();
-    if (noParens && noParens !== key) idx[noParens] = spot;
-
-    // Also register without slash variants: "퐁뇌프 / 시테섬" → "퐁뇌프 다리, 시테섬" won't auto-match
-    // but register short first token: "퐁뇌프"
-    const firstToken = key.split(/[\s/,·&]+/)[0].trim();
-    if (firstToken.length > 3 && !idx[firstToken]) idx[firstToken] = spot;
-  }
-
-  Object.values(window.TRIP_DAYS).forEach(day => {
-    (day.segments || []).forEach(seg => seg.forEach(register));
-    [day.startHotel, day.endHotel].forEach(register);
-  });
-
-  // Manual aliases for HTML↔data mismatches
-  const aliases = [
-    // HTML title (after stripTitlePrefix)  →  data.js key
-    ['피카소 미술관', '피카소 미술관 (외관)'],
-    ['오텔 드 빌(시청사) 광장', '오텔 드 빌 (시청사)'],
-    ['시청사 광장 사진', '오텔 드 빌 (시청사)'],
-    ['퐁뇌프 다리, 시테섬', '퐁뇌프 / 시테섬'],
-    ["Rue de l'Université & Rue Saint-Dominique", "Rue de l'Université / Rue Saint-Dominique"],
-    ['끌레흐 가(Rue Cler)', 'Rue Cler'],
-    ['우체국: La Poste', 'La Poste (160 Rue du Temple)'],
-    ['La Poste', 'La Poste (160 Rue du Temple)'],
-    ['바토 파리지앵 탑승', '바토 파리지앵 선착장'],
-    ['운터린덴 미술관', '운터린덴 미술관 (외관)'],
-    ['Maison des Têtes', 'Maison des Têtes'],
-    ['Passerelle des Deux Rives 다리', 'Passerelle des Deux Rives'],
-    ['Winstub Le Zehnerglock', 'Winstub Le Zehnerglock'],
-    ['WISTUB BRENNER', 'WISTUB BRENNER'],
-    ['갤러리 라파예트 백화점(오스만)', '갤러리 라파예트 오스만'],
-    ['방돔 광장 거쳐 튈르리 정원 이동', '튈르리 정원'],
-    ['오랑주리 미술관', '오랑주리 미술관'],
-    ['개선문 광장', '개선문'],
-    ['Square Jules Ferry (쥘 페리 광장)', 'Square Jules Ferry'],
-    ['City Center Kehl(쇼핑몰)', 'City Center Kehl (DM)'],
-    ['Place des Halles(쇼핑몰)', 'Place des Halles / Auchan'],
-    ['쁘띠 프랑스 야경 산책', '쁘띠 프랑스'],
-    ['쿠베르교 & 보방 댐 주변 야경', '쿠베르교 & 보방 댐'],
-    ['대성당 야경 감상', '스트라스부르 대성당'],
-  ];
-
-  aliases.forEach(([alias, target]) => {
-    if (idx[target] && !idx[alias]) idx[alias] = idx[target];
-  });
-
-  return idx;
-}
-
-let __SPOT_INDEX = null;
-function getSpotIndex(){
-  if (!__SPOT_INDEX) __SPOT_INDEX = buildSpotIndex();
-  return __SPOT_INDEX;
-}
-
-function stripTitlePrefix(text){
-  // Remove leading emoji/symbols and non-Korean/Latin chars
-  let s = text.replace(/^[^\uAC00-\uD7A3a-zA-Z0-9('"]+/, '').trim();
-  // Remove meal prefixes like "아침:", "저녁:", "카페/티타임:"
-  s = s.replace(/^(아침|점심|저녁|카페\/티타임|카페|브런치|티타임)\s*:\s*/, '').trim();
-  return s;
-}
-
-function getLangVenueForCard(card){
-  const titleEl = card.querySelector('.event-title');
-  if (!titleEl) return null;
-  const raw = getTitleTextWithoutTags(titleEl);
-  const stripped = stripTitlePrefix(raw);
-
-  const idx = getSpotIndex();
-  const spot = idx[stripped] || idx[raw.trim()];
-  if (spot?.lang_id) return getVenueById(spot.lang_id);
-
-  const type = getEventType(card);
-  if (type === 'hotel' && /(숙소|체크인|체크아웃|짐 보관)/.test(raw)) {
-    return getVenueById('general_hotel');
-  }
-
-  return null;
-}
-
-function getMapsUrlForCard(card){
-  const titleEl = card.querySelector('.event-title');
-  if (!titleEl) return '';
-  const raw = getTitleTextWithoutTags(titleEl);
-  // 지도 버튼이 도움이 안 되는 안내/절차 카드들은 지도 숨김
-  if (/공항\s*→\s*숙소\s*이동/.test(raw)) return '';
-  if (/택스리펀\s*처리\s*및\s*대기/.test(raw)) return '';
-  const stripped = stripTitlePrefix(raw);
-
-  const idx = getSpotIndex();
-  const spot = idx[stripped] || idx[raw.trim()];
-  if (spot?.maps_url) return spot.maps_url;
-
-  const type = getEventType(card);
-  if (type === 'transport' || type === 'note') return '';
-
-  return '';
-}
-
 function createEventActionButton(kind){
   const btn = document.createElement('button');
   btn.className = `event-action-btn event-action-btn-${kind}`;
@@ -1047,53 +842,9 @@ function createEventActionButton(kind){
   return btn;
 }
 
-function enhanceScheduleLinks(){
-  const cards = document.querySelectorAll('.event-card');
-  if (!cards?.length) return;
-
-  cards.forEach((card) => {
-    if (card.dataset.quickEnhanced === '1') return;
-
-    const langVenue = getLangVenueForCard(card);
-    const mapsUrl   = getMapsUrlForCard(card);
-
-    const shouldShowLang = !!langVenue;
-    const shouldShowMap  = !!mapsUrl;
-
-    card.dataset.quickEnhanced = '1';
-
-    if (!shouldShowLang && !shouldShowMap) return;
-
-    // ── 안 B: 버튼을 .event 바깥 상단 우측에 배치 ──
-    const eventEl = card.closest('.event');
-    if (!eventEl || eventEl.dataset.actionsAdded === '1') return;
-
-    const actions = document.createElement('div');
-    actions.className = 'card-actions-outer';
-
-    if (shouldShowLang) {
-      const langBtn = createEventActionButton('lang');
-      langBtn.addEventListener('click', () => openLangSheet(langVenue));
-      actions.appendChild(langBtn);
-    }
-
-    if (shouldShowMap) {
-      const mapBtn = createEventActionButton('map');
-      mapBtn.addEventListener('click', () => {
-        window.open(mapsUrl, '_blank', 'noopener,noreferrer');
-      });
-      actions.appendChild(mapBtn);
-    }
-
-    // Insert actions div before the event-card inside .event
-    eventEl.insertBefore(actions, card);
-    eventEl.dataset.actionsAdded = '1';
-    eventEl.classList.add('has-quick-actions');
-  });
-}
-
-// Call after initial load + whenever day is rendered
+// Call after initial load
 document.addEventListener('DOMContentLoaded', () => {
   wireLangSheetGestures();
-  setTimeout(enhanceScheduleLinks, 0);
+  // 첫 번째 day 렌더링
+  for (let d = 1; d <= 8; d++) renderSchedule(d);
 });
