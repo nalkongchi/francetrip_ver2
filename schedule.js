@@ -28,8 +28,11 @@ window.SCHEDULE_DATA = {
       { id: 'day2_11', type: 'sightseeing', time: '17:30–18:00', title: '🌉 퐁생루이 다리', detail: '다리 중앙에서 센강/노을 사진', maps_url: 'https://maps.app.goo.gl/CCcBXkUQF35NpQXB7' },
       { id: 'day2_12', type: 'sightseeing', time: '18:00–18:30', title: '🏝 생루이섬', detail: '베르티용 아이스크림, 생루이 앙 리섬 성당', maps_url: 'https://maps.app.goo.gl/NhtRVs6zj1WZyTix7' },
       { id: 'day2_13', type: 'transport',   time: '18:30–18:50', title: '🚇 지하철로 루브르 이동', note: '✅ 탑승 루트: 7호선 Pont Marie 역 → Palais Royal - Musée du Louvre 역 하차' },
-      { id: 'day2_14', type: 'food',        time: '20:00–21:30', title: '🥞 저녁: Breizh Café Montorgueil', tags: [{type:'confirm',text:'⏰ 20:00'}], detail: 'La Complète 갈레트(햄, 치즈, 계란), 특선 갈레트(Galette de spécialité), Cidre Brut(시드르 브뤼)', maps_url: 'https://maps.app.goo.gl/KQFsWWwbjBQokuza9', foldNote: '메인: La Complète 갈레트(햄, 치즈, 계란) 1개 + 해산물이나 버섯이 들어간 특선 갈레트(Galette de spécialité) 1개<br>주류: 드라이한 사과주 Cidre Brut(시드르 브뤼)를 피셰(단지)로 주문해서 나눠 먹기<br>디저트: 식후에 달콤한 Caramel au beurre salé (수제 솔티드 카라멜 크레페) 하나를 추가(선택)' },
-      { id: 'day2_15', type: 'hotel',       time: '22:00',       title: '🛏 숙소 휴식' }
+      { id: 'day2_14', type: 'sightseeing', time: '18:50–19:40', title: '🌃 루브르 박물관 일몰 & 야경 감상', tags: [{cls:'tag-sunset', text:'🌄 18:45'}], maps_url: 'https://maps.app.goo.gl/L6PMvw6oMAVPDYLP6' },
+      { id: 'day2_15', type: 'transport',   time: '19:40–20:00', title: '🚶 루브르 → 식당 이동', detail: '도보 약 15분', note: '루브르에서 레알(Les Halles) 지구를 지나 몽토르고이유 거리(Rue Montorgueil) 쪽' },
+      { id: 'day2_16', type: 'food',        time: '20:00–21:30', title: '🥞 저녁: Breizh Café Montorgueil', tags: [{cls:'tag-confirm', text:'⏰ 20:00'}], detail: 'La Complète 갈레트(햄, 치즈, 계란), 특선 갈레트(Galette de spécialité), Cidre Brut(시드르 브뤼)', maps_url: 'https://maps.app.goo.gl/KQFsWWwbjBQokuza9', foldNote: '메인: La Complète 갈레트(햄, 치즈, 계란) 1개 + 해산물이나 버섯이 들어간 특선 갈레트(Galette de spécialité) 1개<br>주류: 드라이한 사과주 Cidre Brut(시드르 브뤼)를 피셰(단지)로 주문해서 나눠 먹기<br>디저트: 식후에 달콤한 Caramel au beurre salé (수제 솔티드 카라멜 크레페) 하나를 추가(선택)' },
+      { id: 'day2_17', type: 'transport',   time: '21:30–22:00', title: '🚇 식당 → 숙소 복귀', note: '✅ 지하철 3호선 Sentier → République (환승 없음) / 하차 후: Sortie 5 (Boulevard de Magenta) 출구' },
+      { id: 'day2_18', type: 'hotel',       time: '22:00',       title: '🛏 숙소 휴식' }
     ]
   },
 
