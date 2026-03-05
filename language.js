@@ -823,6 +823,1145 @@ window.LANGUAGE_DATA = {
       ]
     },
     {
+      "label": "Day 3",
+      "venues": [
+        {
+          "id": "day3_01",
+          "name": "오텔 드 빌(시청사) 이동",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "레퓌블리크 역에서 11호선 타는 곳 찾기",
+              "lines": [
+                {
+                  "fr": "Excusez-moi, où est la ligne 11, s'il vous plaît ?",
+                  "pron": "익스뀌제 무아, 우 에 라 리뉴 옹즈, 씰 부 쁠레 ?",
+                  "ko": "실례합니다, 11호선 타는 곳이 어디인가요?",
+                  "tip": "숙소 앞 레퓌블리크 역에서 11호선(갈색 라인) 표지판을 놓쳤을 때"
+                }
+              ]
+            },
+            {
+              "label": "올바른 방향(샤틀레 방향) 승강장 찾기",
+              "lines": [
+                {
+                  "fr": "Pour aller vers Châtelet, c'est de quel côté ?",
+                  "pron": "뿌흐 알레 베흐 샤뜰레, 쎄 드 껠 꼬떼 ?",
+                  "ko": "샤틀레(Châtelet) 방향으로 가려면 어느 쪽인가요?"
+                }
+              ]
+            },
+            {
+              "label": "플랫폼에서 열차 방향 확인하기",
+              "lines": [
+                {
+                  "fr": "Pardon, ce train va à Hôtel de Ville ?",
+                  "pron": "빠흐동, 쓰 뜨항 바 아 오뗄 드 빌 ?",
+                  "ko": "실례합니다, 이 기차 시청사(오텔 드 빌) 역으로 가나요?"
+                }
+              ]
+            },
+            {
+              "label": "오텔 드 빌 역 하차 후 출구 찾기",
+              "lines": [
+                {
+                  "fr": "Où est la sortie pour l'Hôtel de Ville, s'il vous plaît ?",
+                  "pron": "우 에 라 쏘흐띠 뿌흐 로뗄 드 빌, 씰 부 쁠레 ?",
+                  "ko": "시청사(오텔 드 빌)로 나가는 출구는 어디인가요?"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_07",
+          "name": "Galerie Vivienne",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "상점에 들어가서 엽서 찾기",
+              "lines": [
+                {
+                  "fr": "Bonjour ! Est-ce que vous avez des cartes postales ?",
+                  "pron": "봉쥬흐 ! 에스 끄 부 자베 데 꺄흐뜨 뽀스딸 ?",
+                  "ko": "안녕하세요! 혹시 엽서 파나요?",
+                  "tip": "상점에 들어갈 때는 무조건 눈을 맞추며 \"Bonjour!\" 하는 것 잊지 마세요!"
+                },
+                {
+                  "fr": "Où sont les cartes postales, s'il vous plaît ?",
+                  "pron": "우 송 레 꺄흐뜨 뽀스딸, 씰 부 쁠레 ?",
+                  "ko": "엽서는 어디에 있나요?"
+                }
+              ]
+            },
+            {
+              "label": "엽서를 고르며",
+              "lines": [
+                {
+                  "fr": "Je vais prendre ces trois cartes, s'il vous plaît.",
+                  "pron": "쥬 베 쁘항드흐 쎄 뜨후아 꺄흐뜨, 씰 부 쁠레.",
+                  "ko": "이 엽서 세 장으로 할게요."
+                },
+                {
+                  "fr": "Vous en avez d'autres ?",
+                  "pron": "부 장 나베 도뜨흐 ?",
+                  "ko": "다른 디자인도 있나요?",
+                  "tip": "진열된 것 외에 더 보고 싶을 때 유용합니다."
+                }
+              ]
+            },
+            {
+              "label": "우표(Timbre) 같이 파는지 물어보기",
+              "lines": [
+                {
+                  "fr": "Est-ce que vous vendez des timbres pour la Corée du Sud ?",
+                  "pron": "에스 끄 부 방데 데 땅브흐 뿌흐 라 꼬헤 뒤 쉬드 ?",
+                  "ko": "한국으로 보내는 우표도 파시나요?",
+                  "tip": "엽서를 파는 곳에서 우표를 같이 팔기도 하니, 미리 물어보면 나중에 우체국 가는 수고를 덜 수 있습니다."
+                }
+              ]
+            },
+            {
+              "label": "계산 및 마무리",
+              "lines": [
+                {
+                  "fr": "C'est combien en tout ?",
+                  "pron": "쎄 꼼비앙 앙 뚜 ?",
+                  "ko": "전부 얼마인가요?"
+                },
+                {
+                  "fr": "Je peux payer par carte ?",
+                  "pron": "쥬 뿌 뻬예 빠흐 꺄흐뜨 ?",
+                  "ko": "카드로 계산할 수 있나요?",
+                  "tip": "엽서 몇 장은 금액이 너무 작아 카드 결제가 안 될 수도 있으니, 작은 유로 현금을 준비해 가시면 좋습니다."
+                },
+                {
+                  "fr": "Merci, bonne journée !",
+                  "pron": "메흐씨, 본 쥬흐네 !",
+                  "ko": "감사합니다, 좋은 하루 보내세요!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_08",
+          "name": "점심: Bistrot Victoires",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "오픈 대기 및 웨이팅 확인",
+              "lines": [
+                {
+                  "fr": "C'est la queue pour le restaurant ?",
+                  "pron": "쎄 라 뀨 뿌흐 르 헤스또항 ?",
+                  "ko": "이게 식당 대기 줄인가요?"
+                },
+                {
+                  "fr": "Il y a combien de temps d'attente, s'il vous plaît ?",
+                  "pron": "일 야 꼼비앙 드 땅 다땅뜨, 씰 부 쁠레 ?",
+                  "ko": "대기 시간이 얼마나 되나요?"
+                }
+              ]
+            },
+            {
+              "label": "식당 입장 및 자리 안내",
+              "lines": [
+                {
+                  "fr": "Bonjour ! Une table pour deux personnes, s'il vous plaît.",
+                  "pron": "봉쥬흐 ! 윈 따블 뿌흐 두 뻬흐쏜느, 씰 부 쁠레.",
+                  "ko": "안녕하세요! 2명 자리 부탁드립니다."
+                },
+                {
+                  "fr": "La carte, s'il vous plaît.",
+                  "pron": "라 꺄흐뜨, 씰 부 쁠레.",
+                  "ko": "메뉴판 좀 주세요."
+                }
+              ]
+            },
+            {
+              "label": "메인 요리 및 음료 주문",
+              "lines": [
+                {
+                  "fr": "Je voudrais deux confits de canard, s'il vous plaît.",
+                  "pron": "쥬 부드헤 두 꽁피 드 꺄나흐, 씰 부 쁠레.",
+                  "ko": "오리 콩피 2개 주세요."
+                },
+                {
+                  "fr": "Je voudrais un confit de canard, s'il vous plaît.",
+                  "pron": "쥬 부드헤 앙 꽁피 드 꺄나흐, 씰 부 쁠레.",
+                  "ko": "오리 콩피 하나 주세요."
+                },
+                {
+                  "fr": "Et une bavette à l'échalote, s'il vous plaît.",
+                  "pron": "에 윈 바베뜨 아 레샬로뜨, 씰 부 쁠레.",
+                  "ko": "그리고 샬롯 소스를 얹은 바베뜨(스테이크) 하나 주세요."
+                },
+                {
+                  "fr": "Avec deux verres de vin rouge, s'il vous plaît.",
+                  "pron": "아벡 두 베흐 드 뱅 후쥬, 씰 부 쁠레.",
+                  "ko": "레드 와인 두 잔도 같이 부탁드립니다."
+                },
+                {
+                  "fr": "Une carafe d'eau, s'il vous plaît.",
+                  "pron": "윈 꺄하프 도, 씰 부 쁠레.",
+                  "ko": "수돗물(무료 식수) 한 병 주세요."
+                }
+              ]
+            },
+            {
+              "label": "식사 중 빵 추가 (무료)",
+              "lines": [
+                {
+                  "fr": "Encore du pain, s'il vous plaît.",
+                  "pron": "앙꼬흐 뒤 뺑, 씰 부 쁠레.",
+                  "ko": "빵 좀 더 주시겠어요?"
+                }
+              ]
+            },
+            {
+              "label": "계산 및 마무리",
+              "lines": [
+                {
+                  "fr": "L'addition, s'il vous plaît.",
+                  "pron": "라디씨옹, 씰 부 쁠레.",
+                  "ko": "계산서 좀 가져다주세요."
+                },
+                {
+                  "fr": "C'était très bon, merci. Au revoir !",
+                  "pron": "쎄떼 뜨헤 봉, 메흐씨. 오 흐부아 !",
+                  "ko": "정말 맛있었어요, 감사합니다. 안녕히 계세요!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_10",
+          "name": "갤러리 라파예트 백화점",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "8층 옥상 테라스 가는 길 찾기",
+              "lines": [
+                {
+                  "fr": "Excusez-moi, où est la terrasse, s'il vous plaît ?",
+                  "pron": "익스뀌제 무아, 우 에 라 떼하쓰, 씰 부 쁠레 ?",
+                  "ko": "실례합니다, 옥상 테라스는 어디에 있나요?"
+                },
+                {
+                  "fr": "Quel étage pour la terrasse ?",
+                  "pron": "껠 에따쥬 뿌흐 라 떼하쓰 ?",
+                  "ko": "테라스는 몇 층으로 가야 하나요?"
+                }
+              ]
+            },
+            {
+              "label": "본관 1층: 라뒤레 (마카롱 고르기)",
+              "lines": [
+                {
+                  "fr": "Bonjour ! Je voudrais un coffret de six macarons, s'il vous plaît.",
+                  "pron": "봉쥬흐 ! 쥬 부드헤 앙 꼬프헤 드 씨 마꺄홍, 씰 부 쁠레.",
+                  "ko": "안녕하세요! 마카롱 6개들이 세트 하나 주세요."
+                },
+                {
+                  "fr": "Je vais prendre deux pistaches, deux roses, et deux vanilles.",
+                  "pron": "쥬 베 쁘항드흐 두 삐스따슈, 두 호즈, 에 두 바니유.",
+                  "ko": "피스타치오 두 개, 로즈 두 개, 바닐라 두 개로 할게요.",
+                  "tip": "맛 이름만 진열장을 가리키며 덧붙이시면 됩니다."
+                }
+              ]
+            },
+            {
+              "label": "고메관 0층: 피에르 에르메 (이스파한)",
+              "lines": [
+                {
+                  "fr": "Je voudrais un Ispahan à emporter, s'il vous plaît.",
+                  "pron": "쥬 부드헤 앙 이스빠앙 아 앙뽀흐떼, 씰 부 쁠레.",
+                  "ko": "이스파한 하나 포장해 주세요."
+                },
+                {
+                  "fr": "Avez-vous deux petites cuillères, s'il vous plaît ?",
+                  "pron": "아베 부 두 쁘띠뜨 뀌예흐, 씰 부 쁠레 ?",
+                  "ko": "작은 스푼 두 개 주실 수 있나요?"
+                }
+              ]
+            },
+            {
+              "label": "식품관 추가 쇼핑 (치즈/와인)",
+              "lines": [
+                {
+                  "fr": "Je cherche du vin et du fromage pour ce soir.",
+                  "pron": "쥬 셰흐슈 뒤 뱅 에 뒤 프호마쥬 뿌흐 쓰 수아흐.",
+                  "ko": "오늘 저녁에 먹을 와인과 치즈를 찾고 있어요."
+                },
+                {
+                  "fr": "Pouvez-vous me recommander un bon vin ?",
+                  "pron": "뿌베 부 무 흐꼬망데 앙 봉 뱅 ?",
+                  "ko": "좋은 와인 하나 추천해 주시겠어요?"
+                }
+              ]
+            },
+            {
+              "label": "텍스 리펀(면세) 안내",
+              "lines": [
+                {
+                  "fr": "Est-ce que je peux essayer ça ?",
+                  "pron": "에스 끄 쥬 뿌 에쎄예 싸 ?",
+                  "ko": "이거 입어봐도(신어봐도) 될까요?"
+                },
+                {
+                  "fr": "Où est le bureau de détaxe, s'il vous plaît ?",
+                  "pron": "우 에 르 비유호 드 데딱쓰, 씰 부 쁠레 ?",
+                  "ko": "텍스 리펀(면세) 받는 곳이 어디인가요?",
+                  "tip": "라파예트에서 일정 금액 이상 구매하셨다면 영수증과 여권을 챙겨 텍스 리펀 데스크로 가시면 됩니다."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_13",
+          "name": "오랑주리 미술관",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "입장 및 예약 시간 확인",
+              "lines": [
+                {
+                  "fr": "Bonjour ! J'ai une réservation pour quinze heures trente (15h30).",
+                  "pron": "봉쥬흐 ! 제 윈 헤제흐바씨옹 뿌흐 꺙즈 우흐 뜽뜨.",
+                  "ko": "안녕하세요! 15시 30분 예약입니다."
+                },
+                {
+                  "fr": "Voici mes billets.",
+                  "pron": "부아씨 메 비예.",
+                  "ko": "여기 제 티켓들(2장)입니다.",
+                  "tip": "미리 캡처해 둔 스마트폰 바코드나 출력한 티켓을 보여주시면 됩니다."
+                }
+              ]
+            },
+            {
+              "label": "한국어 오디오 가이드 대여하기",
+              "lines": [
+                {
+                  "fr": "Est-ce que vous avez un audioguide en coréen, s'il vous plaît ?",
+                  "pron": "에스 끄 부 자베 앙 오디오기드 앙 꼬헤앙, 씰 부 쁠레 ?",
+                  "ko": "한국어 오디오 가이드가 있나요?"
+                }
+              ]
+            },
+            {
+              "label": "모네의 '수련' 방 찾기",
+              "lines": [
+                {
+                  "fr": "Où sont les Nymphéas de Monet, s'il vous plaît ?",
+                  "pron": "우 송 레 낭페아 드 모네, 씰 부 쁠레 ?",
+                  "ko": "모네의 '수련' 방은 어디에 있나요?",
+                  "tip": "수련 연작은 프랑스어로 '낭페아(Nymphéas)'라고 부릅니다."
+                }
+              ]
+            },
+            {
+              "label": "관람 중 사진 촬영 문의",
+              "lines": [
+                {
+                  "fr": "Je peux prendre des photos ?",
+                  "pron": "쥬 뿌 쁘항드흐 데 포또 ?",
+                  "ko": "사진을 찍어도 되나요?",
+                  "tip": "수련 방은 사진 촬영 가능하지만 플래시(Sans flash)는 절대 금지입니다!"
+                }
+              ]
+            },
+            {
+              "label": "짐 보관소(사물함) 찾기",
+              "lines": [
+                {
+                  "fr": "Où sont les casiers, s'il vous plaît ?",
+                  "pron": "우 송 레 까지에, 씰 부 쁠레 ?",
+                  "ko": "물품 보관함(사물함)은 어디에 있나요?"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_15",
+          "name": "샹젤리제 & Le Café Lacoste",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "인사 및 주문 시작",
+              "lines": [
+                {
+                  "fr": "Bonjour ! Je voudrais commander, s'il vous plaît.",
+                  "pron": "봉쥬흐 ! 쥬 부드헤 꼬망데, 씰 부 쁠레.",
+                  "ko": "안녕하세요! 주문할게요."
+                }
+              ]
+            },
+            {
+              "label": "음료 및 디저트 주문",
+              "lines": [
+                {
+                  "fr": "Je voudrais un café allongé et un café crème, s'il vous plaît.",
+                  "pron": "쥬 부드헤 앙 까페 알롱제 에 앙 까페 크헴, 씰 부 쁠레.",
+                  "ko": "아메리카노(까페 알롱제) 한 잔이랑 라떼(까페 크헴) 한 잔 주세요.",
+                  "tip": "프랑스에서는 아메리카노를 'Café allongé', 카페라떼를 'Café crème'이라고 주로 부릅니다."
+                },
+                {
+                  "fr": "Et cette pâtisserie, s'il vous plaît.",
+                  "pron": "에 쎄뜨 빠띠쓰히, 씰 부 쁠레.",
+                  "ko": "그리고 이 디저트(손으로 가리키며)도 하나 주세요."
+                }
+              ]
+            },
+            {
+              "label": "매장 식사 여부 (Sur place ou à emporter ?)",
+              "lines": [
+                {
+                  "fr": "Sur place, s'il vous plaît.",
+                  "pron": "쉬흐 쁠라스, 씰 부 쁠레.",
+                  "ko": "먹고 갈게요."
+                },
+                {
+                  "fr": "À emporter, s'il vous plaît.",
+                  "pron": "아 앙뽀흐떼, 씰 부 쁠레.",
+                  "ko": "포장해 주세요."
+                }
+              ]
+            },
+            {
+              "label": "계산 및 마무리",
+              "lines": [
+                {
+                  "fr": "C'est combien en tout ?",
+                  "pron": "쎄 꼼비앙 앙 뚜 ?",
+                  "ko": "전부 얼마인가요?"
+                },
+                {
+                  "fr": "Je paye par carte.",
+                  "pron": "쥬 뻬예 빠흐 꺄흐뜨.",
+                  "ko": "카드로 계산할게요."
+                },
+                {
+                  "fr": "Merci, bonne journée !",
+                  "pron": "메흐씨, 본 쥬흐네 !",
+                  "ko": "감사합니다, 좋은 하루 보내세요!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_17",
+          "name": "레퓌블리크 이동",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "샤를 드 골 - 에투알 역에서 1호선 타는 곳 찾기",
+              "lines": [
+                {
+                  "fr": "Excusez-moi, où est la ligne 1, s'il vous plaît ?",
+                  "pron": "익스뀌제 무아, 우 에 라 리뉴 엉, 씰 부 쁠레 ?",
+                  "ko": "실례합니다, 1호선 타는 곳이 어디인가요?"
+                },
+                {
+                  "fr": "Pour aller vers Château de Vincennes, c'est de quel côté ?",
+                  "pron": "뿌흐 알레 베흐 샤또 드 뱅쎈느, 쎄 드 껠 꼬떼 ?",
+                  "ko": "샤또 드 뱅센(Château de Vincennes) 방향으로 가려면 어느 쪽인가요?"
+                }
+              ]
+            },
+            {
+              "label": "샤틀레(Châtelet) 역에서 11호선 갈아타기",
+              "lines": [
+                {
+                  "fr": "Pardon, où est la correspondance pour la ligne 11 ?",
+                  "pron": "빠흐동, 우 에 라 꼬헤스뽕당쓰 뿌흐 라 리뉴 옹즈 ?",
+                  "ko": "실례합니다, 11호선 갈아타는 곳이 어디인가요?",
+                  "tip": "'Correspondance(꼬헤스뽕당쓰)'가 환승이라는 뜻입니다!"
+                }
+              ]
+            },
+            {
+              "label": "11호선 승강장에서 방향 확인하기",
+              "lines": [
+                {
+                  "fr": "Ce train va direction Mairie des Lilas ?",
+                  "pron": "쓰 뜨항 바 디헥씨옹 메히 데 릴라 ?",
+                  "ko": "이 기차 메리 데 릴라(Mairie des Lilas) 방향으로 가는 거 맞나요?"
+                }
+              ]
+            },
+            {
+              "label": "레퓌블리크 하차 후 출구 찾기",
+              "lines": [
+                {
+                  "fr": "Où est la sortie, s'il vous plaît ?",
+                  "pron": "우 에 라 쏘흐띠, 씰 부 쁠레 ?",
+                  "ko": "출구는 어디인가요?"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_18",
+          "name": "저녁: Bouillon République",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "식당 입장 및 자리 안내",
+              "lines": [
+                {
+                  "fr": "Bonjour ! J'ai une réservation pour deux personnes à dix-neuf heures trente (19h30).",
+                  "pron": "봉쥬흐 ! 제 윈 헤제흐바씨옹 뿌흐 두 뻬흐쏜느 아 디즈뇌브 우흐 뜽뜨.",
+                  "ko": "안녕하세요! 19시 30분 2명 예약했습니다."
+                },
+                {
+                  "fr": "La carte, s'il vous plaît.",
+                  "pron": "라 꺄흐뜨, 씰 부 쁠레.",
+                  "ko": "메뉴판 좀 주세요."
+                }
+              ]
+            },
+            {
+              "label": "전채 요리(Entrée) 주문",
+              "lines": [
+                {
+                  "fr": "En entrée, je voudrais six escargots et une soupe à l'oignon, s'il vous plaît.",
+                  "pron": "앙 낭뜨헤, 쥬 부드헤 씨 제스꺄흐고 에 윈 쑤쁘 아 로뇽, 씰 부 쁠레.",
+                  "ko": "전채 요리로는 달팽이 요리 6알이랑 양파 수프 하나 주세요."
+                },
+                {
+                  "fr": "On va partager.",
+                  "pron": "옹 바 빠흐따제.",
+                  "ko": "저희 나눠 먹을 거예요."
+                }
+              ]
+            },
+            {
+              "label": "메인 요리(Plat) 주문",
+              "lines": [
+                {
+                  "fr": "Comme plat, un bœuf bourguignon, s'il vous plaît.",
+                  "pron": "꼼 쁠라, 앙 부프 부흐기뇽, 씰 부 쁠레.",
+                  "ko": "메인 요리로는 뵈프 부르기뇽(프랑스식 소고기 스튜) 하나 주세요."
+                },
+                {
+                  "fr": "Est-ce qu'on pourrait avoir des petites assiettes pour partager ?",
+                  "pron": "에스 꽁 뿌헤 아부아흐 데 쁘띠뜨 자씨에뜨 뿌흐 빠흐따제 ?",
+                  "ko": "나눠 먹게 앞접시 좀 주실 수 있나요?",
+                  "tip": "이 문장을 쓰시면 웨이터가 아주 센스 있게 접시를 두 개씩 세팅해 줄 겁니다!"
+                }
+              ]
+            },
+            {
+              "label": "주류 및 음료 주문",
+              "lines": [
+                {
+                  "fr": "Et pour le vin, une demi-bouteille de vin rouge, Pinot Noir s'il vous plaît.",
+                  "pron": "에 뿌흐 르 뱅, 윈 드미 부떼이 드 뱅 후쥬, 삐노 누아흐 씰 부 쁠레.",
+                  "ko": "그리고 와인은 피노 누아 레드 와인 하프 보틀(반 병)로 부탁드립니다."
+                },
+                {
+                  "fr": "Une carafe d'eau et du pain, s'il vous plaît.",
+                  "pron": "윈 꺄하프 도 에 뒤 뺑, 씰 부 쁠레.",
+                  "ko": "수돗물(무료 식수) 한 병과 빵 좀 주세요.",
+                  "tip": "달팽이 소스나 뵈프 부르기뇽 소스에 빵을 찍어 드시면 진짜 최고입니다!"
+                }
+              ]
+            },
+            {
+              "label": "계산 및 마무리",
+              "lines": [
+                {
+                  "fr": "L'addition, s'il vous plaît.",
+                  "pron": "라디씨옹, 씰 부 쁠레.",
+                  "ko": "계산서 좀 가져다주세요."
+                },
+                {
+                  "fr": "C'était très bon, merci. Au revoir !",
+                  "pron": "쎄떼 뜨헤 봉, 메흐씨. 오 흐부아 !",
+                  "ko": "정말 맛있었어요, 감사합니다. 안녕히 계세요!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Day 3",
+      "venues": [
+        {
+          "id": "day3_01",
+          "name": "오텔 드 빌(시청사) 이동",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "레퓌블리크 역에서 11호선 타는 곳 찾기",
+              "lines": [
+                {
+                  "fr": "Excusez-moi, où est la ligne 11, s'il vous plaît ?",
+                  "pron": "익스뀌제 무아, 우 에 라 리뉴 옹즈, 씰 부 쁠레 ?",
+                  "ko": "실례합니다, 11호선 타는 곳이 어디인가요?"
+                }
+              ]
+            },
+            {
+              "label": "올바른 방향(샤틀레 방향) 승강장 찾기",
+              "lines": [
+                {
+                  "fr": "Pour aller vers Châtelet, c'est de quel côté ?",
+                  "pron": "뿌흐 알레 베흐 샤뜰레, 쎄 드 껠 꼬떼 ?",
+                  "ko": "샤틀레(Châtelet) 방향으로 가려면 어느 쪽인가요?"
+                }
+              ]
+            },
+            {
+              "label": "플랫폼에서 열차 방향 확인하기",
+              "lines": [
+                {
+                  "fr": "Pardon, ce train va à Hôtel de Ville ?",
+                  "pron": "빠흐동, 쓰 뜨항 바 아 오뗄 드 빌 ?",
+                  "ko": "실례합니다, 이 기차 시청사(오텔 드 빌) 역으로 가나요?"
+                }
+              ]
+            },
+            {
+              "label": "오텔 드 빌 역 하차 후 출구 찾기",
+              "lines": [
+                {
+                  "fr": "Où est la sortie pour l'Hôtel de Ville, s'il vous plaît ?",
+                  "pron": "우 에 라 쏘흐띠 뿌흐 로뗄 드 빌, 씰 부 쁠레 ?",
+                  "ko": "시청사(오텔 드 빌)로 나가는 출구는 어디인가요?"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_07",
+          "name": "Galerie Vivienne",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "상점에 들어가서 엽서 찾기",
+              "lines": [
+                {
+                  "fr": "Bonjour ! Est-ce que vous avez des cartes postales ?",
+                  "pron": "봉쥬흐 ! 에스 끄 부 자베 데 꺄흐뜨 뽀스딸 ?",
+                  "ko": "안녕하세요! 혹시 엽서 파나요?",
+                  "tip": "상점에 들어갈 때는 무조건 눈을 맞추며 \"Bonjour!\" 하는 것 잊지 마세요!"
+                },
+                {
+                  "fr": "Où sont les cartes postales, s'il vous plaît ?",
+                  "pron": "우 송 레 꺄흐뜨 뽀스딸, 씰 부 쁠레 ?",
+                  "ko": "엽서는 어디에 있나요?"
+                }
+              ]
+            },
+            {
+              "label": "엽서를 고르며",
+              "lines": [
+                {
+                  "fr": "Je vais prendre ces trois cartes, s'il vous plaît.",
+                  "pron": "쥬 베 쁘항드흐 쎄 뜨후아 꺄흐뜨, 씰 부 쁠레.",
+                  "ko": "이 엽서 세 장으로 할게요."
+                },
+                {
+                  "fr": "Vous en avez d'autres ?",
+                  "pron": "부 장 나베 도뜨흐 ?",
+                  "ko": "다른 디자인도 있나요?",
+                  "tip": "진열된 것 외에 더 보고 싶을 때 유용합니다."
+                }
+              ]
+            },
+            {
+              "label": "우표(Timbre) 같이 파는지 물어보기",
+              "lines": [
+                {
+                  "fr": "Est-ce que vous vendez des timbres pour la Corée du Sud ?",
+                  "pron": "에스 끄 부 방데 데 땅브흐 뿌흐 라 꼬헤 뒤 쉬드 ?",
+                  "ko": "한국으로 보내는 우표도 파시나요?",
+                  "tip": "엽서를 파는 곳에서 우표를 같이 팔기도 하니, 미리 물어보면 나중에 우체국 가는 수고를 덜 수 있습니다."
+                }
+              ]
+            },
+            {
+              "label": "계산 및 마무리",
+              "lines": [
+                {
+                  "fr": "C'est combien en tout ?",
+                  "pron": "쎄 꼼비앙 앙 뚜 ?",
+                  "ko": "전부 얼마인가요?"
+                },
+                {
+                  "fr": "Je peux payer par carte ?",
+                  "pron": "쥬 뿌 뻬예 빠흐 꺄흐뜨 ?",
+                  "ko": "카드로 계산할 수 있나요?",
+                  "tip": "엽서 몇 장은 금액이 너무 작아 카드 결제가 안 될 수도 있으니, 작은 유로 현금을 준비해 가시면 좋습니다."
+                },
+                {
+                  "fr": "Merci, bonne journée !",
+                  "pron": "메흐씨, 본 쥬흐네 !",
+                  "ko": "감사합니다, 좋은 하루 보내세요!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_08",
+          "name": "점심: Bistrot Victoires",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "오픈 대기 및 웨이팅 확인",
+              "lines": [
+                {
+                  "fr": "C'est la queue pour le restaurant ?",
+                  "pron": "쎄 라 뀨 뿌흐 르 헤스또항 ?",
+                  "ko": "이게 식당 대기 줄인가요?"
+                },
+                {
+                  "fr": "Il y a combien de temps d'attente, s'il vous plaît ?",
+                  "pron": "일 야 꼼비앙 드 땅 다땅뜨, 씰 부 쁠레 ?",
+                  "ko": "대기 시간이 얼마나 되나요?"
+                }
+              ]
+            },
+            {
+              "label": "식당 입장 및 자리 안내",
+              "lines": [
+                {
+                  "fr": "Bonjour ! Une table pour deux personnes, s'il vous plaît.",
+                  "pron": "봉쥬흐 ! 윈 따블 뿌흐 두 뻬흐쏜느, 씰 부 쁠레.",
+                  "ko": "안녕하세요! 2명 자리 부탁드립니다."
+                },
+                {
+                  "fr": "La carte, s'il vous plaît.",
+                  "pron": "라 꺄흐뜨, 씰 부 쁠레.",
+                  "ko": "메뉴판 좀 주세요."
+                }
+              ]
+            },
+            {
+              "label": "메인 요리 및 음료 주문",
+              "lines": [
+                {
+                  "fr": "Je voudrais deux confits de canard, s'il vous plaît.",
+                  "pron": "쥬 부드헤 두 꽁피 드 꺄나흐, 씰 부 쁠레.",
+                  "ko": "오리 콩피 2개 주세요."
+                },
+                {
+                  "fr": "Je voudrais un confit de canard, s'il vous plaît.",
+                  "pron": "쥬 부드헤 앙 꽁피 드 꺄나흐, 씰 부 쁠레.",
+                  "ko": "오리 콩피 하나 주세요."
+                },
+                {
+                  "fr": "Et une bavette à l'échalote, s'il vous plaît.",
+                  "pron": "에 윈 바베뜨 아 레샬로뜨, 씰 부 쁠레.",
+                  "ko": "그리고 샬롯 소스를 얹은 바베뜨(스테이크) 하나 주세요."
+                },
+                {
+                  "fr": "Avec deux verres de vin rouge, s'il vous plaît.",
+                  "pron": "아벡 두 베흐 드 뱅 후쥬, 씰 부 쁠레.",
+                  "ko": "레드 와인 두 잔도 같이 부탁드립니다."
+                },
+                {
+                  "fr": "Une carafe d'eau, s'il vous plaît.",
+                  "pron": "윈 꺄하프 도, 씰 부 쁠레.",
+                  "ko": "수돗물(무료 식수) 한 병 주세요."
+                }
+              ]
+            },
+            {
+              "label": "빵 추가 (무료)",
+              "lines": [
+                {
+                  "fr": "Encore du pain, s'il vous plaît.",
+                  "pron": "앙꼬흐 뒤 뺑, 씰 부 쁠레.",
+                  "ko": "빵 좀 더 주시겠어요?"
+                }
+              ]
+            },
+            {
+              "label": "계산 및 마무리",
+              "lines": [
+                {
+                  "fr": "L'addition, s'il vous plaît.",
+                  "pron": "라디씨옹, 씰 부 쁠레.",
+                  "ko": "계산서 좀 가져다주세요."
+                },
+                {
+                  "fr": "C'était très bon, merci. Au revoir !",
+                  "pron": "쎄떼 뜨헤 봉, 메흐씨. 오 흐부아 !",
+                  "ko": "정말 맛있었어요, 감사합니다. 안녕히 계세요!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_10",
+          "name": "갤러리 라파예트 백화점",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "8층 옥상 테라스 가는 길 찾기",
+              "lines": [
+                {
+                  "fr": "Excusez-moi, où est la terrasse, s'il vous plaît ?",
+                  "pron": "익스뀌제 무아, 우 에 라 떼하쓰, 씰 부 쁠레 ?",
+                  "ko": "실례합니다, 옥상 테라스는 어디에 있나요?"
+                },
+                {
+                  "fr": "Quel étage pour la terrasse ?",
+                  "pron": "껠 에따쥬 뿌흐 라 떼하쓰 ?",
+                  "ko": "테라스는 몇 층으로 가야 하나요?"
+                }
+              ]
+            },
+            {
+              "label": "본관 1층: 라뒤레 (마카롱)",
+              "lines": [
+                {
+                  "fr": "Bonjour ! Je voudrais un coffret de six macarons, s'il vous plaît.",
+                  "pron": "봉쥬흐 ! 쥬 부드헤 앙 꼬프헤 드 씨 마꺄홍, 씰 부 쁠레.",
+                  "ko": "안녕하세요! 마카롱 6개들이 세트 하나 주세요."
+                },
+                {
+                  "fr": "Je vais prendre deux pistaches, deux roses, et deux vanilles.",
+                  "pron": "쥬 베 쁘항드흐 두 삐스따슈, 두 호즈, 에 두 바니유.",
+                  "ko": "피스타치오 두 개, 로즈 두 개, 바닐라 두 개로 할게요.",
+                  "tip": "맛 이름만 진열장을 가리키며 덧붙이시면 됩니다."
+                }
+              ]
+            },
+            {
+              "label": "고메관 0층: 피에르 에르메 (이스파한)",
+              "lines": [
+                {
+                  "fr": "Je voudrais un Ispahan à emporter, s'il vous plaît.",
+                  "pron": "쥬 부드헤 앙 이스빠앙 아 앙뽀흐떼, 씰 부 쁠레.",
+                  "ko": "이스파한 하나 포장해 주세요."
+                },
+                {
+                  "fr": "Avez-vous deux petites cuillères, s'il vous plaît ?",
+                  "pron": "아베 부 두 쁘띠뜨 뀌예흐, 씰 부 쁠레 ?",
+                  "ko": "작은 스푼 두 개 주실 수 있나요?"
+                }
+              ]
+            },
+            {
+              "label": "식품관 추가 쇼핑 (치즈/와인)",
+              "lines": [
+                {
+                  "fr": "Je cherche du vin et du fromage pour ce soir.",
+                  "pron": "쥬 셰흐슈 뒤 뱅 에 뒤 프호마쥬 뿌흐 쓰 수아흐.",
+                  "ko": "오늘 저녁에 먹을 와인과 치즈를 찾고 있어요."
+                },
+                {
+                  "fr": "Pouvez-vous me recommander un bon vin ?",
+                  "pron": "뿌베 부 무 흐꼬망데 앙 봉 뱅 ?",
+                  "ko": "좋은 와인 하나 추천해 주시겠어요?"
+                }
+              ]
+            },
+            {
+              "label": "백화점 쇼핑 & 텍스 리펀",
+              "lines": [
+                {
+                  "fr": "Est-ce que je peux essayer ça ?",
+                  "pron": "에스 끄 쥬 뿌 에쎄예 싸 ?",
+                  "ko": "이거 입어봐도(신어봐도) 될까요?"
+                },
+                {
+                  "fr": "Où est le bureau de détaxe, s'il vous plaît ?",
+                  "pron": "우 에 르 비유호 드 데딱쓰, 씰 부 쁠레 ?",
+                  "ko": "텍스 리펀(면세) 받는 곳이 어디인가요?",
+                  "tip": "라파예트에서 일정 금액 이상 구매하셨다면 영수증과 여권을 챙겨 텍스 리펀 데스크로 가시면 됩니다."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_13",
+          "name": "오랑주리 미술관",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "입장 및 예약 시간 확인",
+              "lines": [
+                {
+                  "fr": "Bonjour ! J'ai une réservation pour quinze heures trente (15h30).",
+                  "pron": "봉쥬흐 ! 제 윈 헤제흐바씨옹 뿌흐 꺙즈 우흐 뜽뜨.",
+                  "ko": "안녕하세요! 15시 30분 예약입니다."
+                },
+                {
+                  "fr": "Voici mes billets.",
+                  "pron": "부아씨 메 비예.",
+                  "ko": "여기 제 티켓들(2장)입니다.",
+                  "tip": "미리 캡처해 둔 스마트폰 바코드나 출력한 티켓을 보여주시면 됩니다."
+                }
+              ]
+            },
+            {
+              "label": "한국어 오디오 가이드 대여",
+              "lines": [
+                {
+                  "fr": "Est-ce que vous avez un audioguide en coréen, s'il vous plaît ?",
+                  "pron": "에스 끄 부 자베 앙 오디오기드 앙 꼬헤앙, 씰 부 쁠레 ?",
+                  "ko": "한국어 오디오 가이드가 있나요?"
+                }
+              ]
+            },
+            {
+              "label": "모네의 '수련' 방 찾기",
+              "lines": [
+                {
+                  "fr": "Où sont les Nymphéas de Monet, s'il vous plaît ?",
+                  "pron": "우 송 레 낭페아 드 모네, 씰 부 쁠레 ?",
+                  "ko": "모네의 '수련' 방은 어디에 있나요?",
+                  "tip": "수련 연작은 프랑스어로 '낭페아(Nymphéas)'라고 부릅니다."
+                }
+              ]
+            },
+            {
+              "label": "관람 중 사진 촬영 문의",
+              "lines": [
+                {
+                  "fr": "Je peux prendre des photos ?",
+                  "pron": "쥬 뿌 쁘항드흐 데 포또 ?",
+                  "ko": "사진을 찍어도 되나요?",
+                  "tip": "수련 방은 촬영 가능하지만 플래시(Sans flash)는 절대 금지입니다!"
+                }
+              ]
+            },
+            {
+              "label": "짐 보관소 찾기",
+              "lines": [
+                {
+                  "fr": "Où sont les casiers, s'il vous plaît ?",
+                  "pron": "우 송 레 까지에, 씰 부 쁠레 ?",
+                  "ko": "물품 보관함(사물함)은 어디에 있나요?"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_15",
+          "name": "샹젤리제 & Le Café Lacoste",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "인사 및 주문 시작",
+              "lines": [
+                {
+                  "fr": "Bonjour ! Je voudrais commander, s'il vous plaît.",
+                  "pron": "봉쥬흐 ! 쥬 부드헤 꼬망데, 씰 부 쁠레.",
+                  "ko": "안녕하세요! 주문할게요."
+                }
+              ]
+            },
+            {
+              "label": "음료 및 디저트 주문",
+              "lines": [
+                {
+                  "fr": "Je voudrais un café allongé et un café crème, s'il vous plaît.",
+                  "pron": "쥬 부드헤 앙 까페 알롱제 에 앙 까페 크헴, 씰 부 쁠레.",
+                  "ko": "아메리카노(까페 알롱제) 한 잔이랑 라떼(까페 크헴) 한 잔 주세요.",
+                  "tip": "프랑스에서는 아메리카노를 'Café allongé', 카페라떼를 'Café crème'이라고 부릅니다."
+                },
+                {
+                  "fr": "Et cette pâtisserie, s'il vous plaît.",
+                  "pron": "에 쎄뜨 빠띠쓰히, 씰 부 쁠레.",
+                  "ko": "그리고 이 디저트(손으로 가리키며)도 하나 주세요."
+                }
+              ]
+            },
+            {
+              "label": "매장 식사 여부 (Sur place ou à emporter ?)",
+              "lines": [
+                {
+                  "fr": "Sur place, s'il vous plaît.",
+                  "pron": "쉬흐 쁠라스, 씰 부 쁠레.",
+                  "ko": "먹고 갈게요."
+                },
+                {
+                  "fr": "À emporter, s'il vous plaît.",
+                  "pron": "아 앙뽀흐떼, 씰 부 쁠레.",
+                  "ko": "포장해 주세요."
+                }
+              ]
+            },
+            {
+              "label": "계산 및 마무리",
+              "lines": [
+                {
+                  "fr": "C'est combien en tout ?",
+                  "pron": "쎄 꼼비앙 앙 뚜 ?",
+                  "ko": "전부 얼마인가요?"
+                },
+                {
+                  "fr": "Je paye par carte.",
+                  "pron": "쥬 뻬예 빠흐 꺄흐뜨.",
+                  "ko": "카드로 계산할게요."
+                },
+                {
+                  "fr": "Merci, bonne journée !",
+                  "pron": "메흐씨, 본 쥬흐네 !",
+                  "ko": "감사합니다, 좋은 하루 보내세요!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_17",
+          "name": "레퓌블리크 이동",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "샤를 드 골 - 에투알 역에서 1호선 찾기",
+              "lines": [
+                {
+                  "fr": "Excusez-moi, où est la ligne 1, s'il vous plaît ?",
+                  "pron": "익스뀌제 무아, 우 에 라 리뉴 엉, 씰 부 쁠레 ?",
+                  "ko": "실례합니다, 1호선 타는 곳이 어디인가요?"
+                },
+                {
+                  "fr": "Pour aller vers Château de Vincennes, c'est de quel côté ?",
+                  "pron": "뿌흐 알레 베흐 샤또 드 뱅쎈느, 쎄 드 껠 꼬떼 ?",
+                  "ko": "샤또 드 뱅센(Château de Vincennes) 방향으로 가려면 어느 쪽인가요?"
+                }
+              ]
+            },
+            {
+              "label": "샤틀레 역에서 11호선 환승",
+              "lines": [
+                {
+                  "fr": "Pardon, où est la correspondance pour la ligne 11 ?",
+                  "pron": "빠흐동, 우 에 라 꼬헤스뽕당쓰 뿌흐 라 리뉴 옹즈 ?",
+                  "ko": "실례합니다, 11호선 갈아타는 곳이 어디인가요?",
+                  "tip": "'Correspondance(꼬헤스뽕당쓰)'가 환승이라는 뜻입니다!"
+                }
+              ]
+            },
+            {
+              "label": "11호선 승강장에서 방향 확인",
+              "lines": [
+                {
+                  "fr": "Ce train va direction Mairie des Lilas ?",
+                  "pron": "쓰 뜨항 바 디헥씨옹 메히 데 릴라 ?",
+                  "ko": "이 기차 메리 데 릴라(Mairie des Lilas) 방향으로 가는 거 맞나요?"
+                }
+              ]
+            },
+            {
+              "label": "레퓌블리크 하차 후 출구 찾기",
+              "lines": [
+                {
+                  "fr": "Où est la sortie, s'il vous plaît ?",
+                  "pron": "우 에 라 쏘흐띠, 씰 부 쁠레 ?",
+                  "ko": "출구는 어디인가요?"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day3_18",
+          "name": "저녁: Bouillon République",
+          "catLabel": "Day 3",
+          "groups": [
+            {
+              "label": "식당 입장 및 자리 안내",
+              "lines": [
+                {
+                  "fr": "Bonjour ! J'ai une réservation pour deux personnes à dix-neuf heures trente (19h30).",
+                  "pron": "봉쥬흐 ! 제 윈 헤제흐바씨옹 뿌흐 두 뻬흐쏜느 아 디즈뇌브 우흐 뜽뜨.",
+                  "ko": "안녕하세요! 19시 30분 2명 예약했습니다."
+                },
+                {
+                  "fr": "La carte, s'il vous plaît.",
+                  "pron": "라 꺄흐뜨, 씰 부 쁠레.",
+                  "ko": "메뉴판 좀 주세요."
+                }
+              ]
+            },
+            {
+              "label": "전채 요리(Entrée) 주문",
+              "lines": [
+                {
+                  "fr": "En entrée, je voudrais six escargots et une soupe à l'oignon, s'il vous plaît.",
+                  "pron": "앙 낭뜨헤, 쥬 부드헤 씨 제스꺄흐고 에 윈 쑤쁘 아 로뇽, 씰 부 쁠레.",
+                  "ko": "전채 요리로는 달팽이 요리 6알이랑 양파 수프 하나 주세요."
+                },
+                {
+                  "fr": "On va partager.",
+                  "pron": "옹 바 빠흐따제.",
+                  "ko": "저희 나눠 먹을 거예요."
+                }
+              ]
+            },
+            {
+              "label": "메인 요리(Plat) 주문",
+              "lines": [
+                {
+                  "fr": "Comme plat, un bœuf bourguignon, s'il vous plaît.",
+                  "pron": "꼼 쁠라, 앙 부프 부흐기뇽, 씰 부 쁠레.",
+                  "ko": "메인 요리로는 뵈프 부르기뇽(프랑스식 소고기 스튜) 하나 주세요."
+                },
+                {
+                  "fr": "Est-ce qu'on pourrait avoir des petites assiettes pour partager ?",
+                  "pron": "에스 꽁 뿌헤 아부아흐 데 쁘띠뜨 자씨에뜨 뿌흐 빠흐따제 ?",
+                  "ko": "나눠 먹게 앞접시 좀 주실 수 있나요?",
+                  "tip": "이 문장을 쓰시면 웨이터가 아주 센스 있게 접시를 두 개씩 세팅해 줄 겁니다!"
+                }
+              ]
+            },
+            {
+              "label": "주류 및 음료 주문",
+              "lines": [
+                {
+                  "fr": "Et pour le vin, une demi-bouteille de vin rouge, Pinot Noir s'il vous plaît.",
+                  "pron": "에 뿌흐 르 뱅, 윈 드미 부떼이 드 뱅 후쥬, 삐노 누아흐 씰 부 쁠레.",
+                  "ko": "그리고 와인은 피노 누아 레드 와인 하프 보틀(반 병)로 부탁드립니다."
+                },
+                {
+                  "fr": "Une carafe d'eau et du pain, s'il vous plaît.",
+                  "pron": "윈 꺄하프 도 에 뒤 뺑, 씰 부 쁠레.",
+                  "ko": "수돗물(무료 식수) 한 병과 빵 좀 주세요.",
+                  "tip": "달팽이 소스나 뵈프 부르기뇽 소스에 빵을 찍어 드시면 진짜 최고입니다!"
+                }
+              ]
+            },
+            {
+              "label": "계산 및 마무리",
+              "lines": [
+                {
+                  "fr": "L'addition, s'il vous plaît.",
+                  "pron": "라디씨옹, 씰 부 쁠레.",
+                  "ko": "계산서 좀 가져다주세요."
+                },
+                {
+                  "fr": "C'était très bon, merci. Au revoir !",
+                  "pron": "쎄떼 뜨헤 봉, 메흐씨. 오 흐부아 !",
+                  "ko": "정말 맛있었어요, 감사합니다. 안녕히 계세요!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "label": "카페 주문",
       "venues": [
         {
