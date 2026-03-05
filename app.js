@@ -615,6 +615,83 @@ function toggleAcc(header) {
   header.classList.toggle('open', !open);
 }
 
+function switchSurvTab(el, panelId) {
+  const inner = el.closest('.acc-inner');
+  inner.querySelectorAll('.surv-tab').forEach(t => t.classList.remove('active'));
+  inner.querySelectorAll('.surv-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// ── 환율 계산기 ──
+(function(){
+  const CACHE_KEY = 'fx_eur_krw', CACHE_TS = 'fx_eur_krw_ts', FALLBACK = 1720;
+  let fxRate = FALLBACK;
+  let fxLastInput = 'eur';
+
+  function fmtKrw(n) { return Math.round(n).toLocaleString('ko-KR'); }
+  function fmtTs(ms) { return new Date(ms).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit'}); }
+
+  function setFxRate(r, src, ts) {
+    fxRate = r;
+    const $d = document.getElementById('fx-display');
+    const $u = document.getElementById('fx-updated');
+    const $dot = document.getElementById('fx-dot');
+    const $st = document.getElementById('fx-status-text');
+    if ($d) $d.textContent = fmtKrw(r) + ' 원';
+    if ($u) $u.textContent = ts;
+    if ($dot) $dot.className = src === 'live' ? 'fx-dot' : 'fx-dot offline';
+    if ($st) $st.textContent = src === 'live' ? '실시간' : src === 'cache' ? '캐시' : '기본값';
+  }
+
+  async function fetchFxRate() {
+    const cached = localStorage.getItem(CACHE_KEY);
+    const ts_raw = localStorage.getItem(CACHE_TS);
+    const now = Date.now();
+    if (cached && ts_raw && now - parseInt(ts_raw) < 3600000) {
+      setFxRate(parseFloat(cached), 'cache', fmtTs(parseInt(ts_raw))); return;
+    }
+    try {
+      const d = await (await fetch('https://api.exchangerate-api.com/v4/latest/EUR')).json();
+      localStorage.setItem(CACHE_KEY, d.rates.KRW);
+      localStorage.setItem(CACHE_TS, now);
+      setFxRate(d.rates.KRW, 'live', fmtTs(now));
+    } catch(e) {
+      cached ? setFxRate(parseFloat(cached), 'cache', ts_raw ? fmtTs(parseInt(ts_raw)) : '이전 저장값')
+             : setFxRate(FALLBACK, 'fallback', '기본값 1,720원');
+    }
+  }
+
+  window.calcFx = function() {
+    const $eur = document.getElementById('fx-eur');
+    const $krw = document.getElementById('fx-krw');
+    const $last = document.getElementById('fx-last');
+    if (!$eur || !$krw) return;
+    if (fxLastInput === 'eur') {
+      const v = parseFloat($eur.value);
+      if (isNaN(v) || $eur.value === '') { if ($last) $last.textContent = 'EUR 금액을 입력해주세요'; return; }
+      $krw.value = fmtKrw(v * fxRate);
+      if ($last) $last.textContent = '€' + v + ' → ₩' + fmtKrw(v * fxRate);
+    } else {
+      const v = parseFloat($krw.value.replace(/,/g, ''));
+      if (isNaN(v) || $krw.value === '') { if ($last) $last.textContent = 'KRW 금액을 입력해주세요'; return; }
+      $eur.value = (v / fxRate).toFixed(2);
+      if ($last) $last.textContent = '₩' + fmtKrw(v) + ' → €' + (v / fxRate).toFixed(2);
+    }
+  };
+
+  function wireFx() {
+    const $eur = document.getElementById('fx-eur');
+    const $krw = document.getElementById('fx-krw');
+    if (!$eur || !$krw) return;
+    $eur.addEventListener('focus', () => { fxLastInput = 'eur'; });
+    $krw.addEventListener('focus', () => { fxLastInput = 'krw'; });
+    [$eur, $krw].forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') window.calcFx(); }));
+  }
+
+  document.addEventListener('DOMContentLoaded', () => { wireFx(); fetchFxRate(); });
+})();
+
 // ── MEMO ──
 const memoEl = document.getElementById('free-memo');
 if (memoEl) {

@@ -461,9 +461,55 @@ body {
 .memo-wrap { padding:16px; max-width:600px; margin:0 auto; }
 .memo-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:10px; }
 .memo-card h4 { font-size:0.7rem; color:var(--gold); margin-bottom:10px; font-family:'DM Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; }
+.memo-info-row { display:flex; justify-content:space-between; align-items:baseline; padding:5px 0; border-bottom:1px solid rgba(201,168,76,0.08); }
+.memo-info-row:last-child { border-bottom:none; }
+.memo-label { font-size:0.68rem; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:0.05em; flex-shrink:0; margin-right:10px; }
+.memo-value { font-size:0.78rem; color:var(--text); text-align:right; }
 .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .info-label { font-size:0.63rem; color:var(--muted); }
 .info-val { font-size:0.82rem; color:var(--cream); margin-top:2px; font-weight:500; }
+.info-val-sub { font-size:0.6rem; color:var(--muted); margin-top:2px; font-style:italic; }
+
+/* 생존 프랑스어 탭 */
+.surv-tabs { display:flex; border-bottom:1px solid var(--border); overflow-x:auto; scrollbar-width:none; }
+.surv-tabs::-webkit-scrollbar { display:none; }
+.surv-tab { flex-shrink:0; padding:8px 12px; font-size:0.62rem; font-family:'DM Mono',monospace; letter-spacing:0.06em; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:color 0.2s,border-color 0.2s; white-space:nowrap; }
+.surv-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+.surv-panels { padding:12px 14px 14px; }
+.surv-panel { display:none; }
+.surv-panel.active { display:block; }
+.surv-item { display:flex; justify-content:space-between; align-items:baseline; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.04); gap:8px; }
+.surv-item:last-child { border-bottom:none; }
+.surv-kr { font-size:0.74rem; color:rgba(245,240,232,0.55); flex-shrink:0; min-width:84px; }
+.surv-right { text-align:right; }
+.surv-fr { font-size:0.82rem; color:var(--cream); font-style:italic; }
+.surv-pron { font-size:0.62rem; color:var(--muted); margin-top:1px; }
+.surv-nums { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; }
+.surv-num-item { background:rgba(201,168,76,0.07); border:1px solid rgba(201,168,76,0.15); border-radius:8px; padding:7px 4px; text-align:center; }
+.surv-num-digit { font-size:1rem; color:var(--gold); font-family:'DM Mono',monospace; font-weight:500; }
+.surv-num-fr { font-size:0.68rem; color:var(--cream); font-style:italic; margin-top:2px; }
+.surv-num-pron { font-size:0.57rem; color:var(--muted); margin-top:1px; }
+
+/* 환율 계산기 */
+.fx-section { margin-top:12px; padding-top:12px; border-top:1px solid rgba(201,168,76,0.1); }
+.fx-section-title { font-size:0.7rem; color:var(--gold); font-family:'DM Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px; }
+.fx-rate-row { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px; }
+.fx-rate-label { font-size:0.63rem; color:var(--muted); font-family:'DM Mono',monospace; }
+.fx-rate-value { font-size:1.05rem; color:var(--gold); font-family:'DM Mono',monospace; font-weight:500; margin-top:2px; }
+.fx-rate-right { text-align:right; }
+.fx-rate-updated { font-size:0.58rem; color:var(--muted); font-family:'DM Mono',monospace; }
+.fx-status { display:flex; align-items:center; gap:4px; justify-content:flex-end; margin-top:3px; }
+.fx-dot { width:6px; height:6px; border-radius:50%; background:#4caf7d; flex-shrink:0; }
+.fx-dot.offline { background:rgba(201,168,76,0.5); }
+.fx-status-text { font-size:0.58rem; color:var(--muted); font-family:'DM Mono',monospace; }
+.fx-inputs { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:7px; margin-bottom:8px; }
+.fx-input-wrap label { display:block; font-size:0.6rem; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:0.06em; margin-bottom:4px; }
+.fx-input { width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:9px 10px; color:var(--cream); font-size:0.95rem; font-family:'DM Mono',monospace; text-align:right; outline:none; transition:border-color 0.2s; }
+.fx-input:focus { border-color:var(--gold); }
+.fx-arrow { font-size:1rem; color:var(--gold); opacity:0.45; text-align:center; padding-top:18px; }
+.fx-calc-btn { width:100%; margin-top:8px; padding:9px; background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3); border-radius:8px; color:var(--gold); font-size:0.75rem; font-family:'DM Mono',monospace; letter-spacing:0.06em; cursor:pointer; transition:background 0.15s; }
+.fx-calc-btn:active { background:rgba(201,168,76,0.22); }
+.fx-last-input { font-size:0.6rem; color:var(--muted); font-family:'DM Mono',monospace; text-align:center; margin-top:5px; min-height:14px; }
 .memo-area {
   width:100%; background:var(--card);
   border:1px solid rgba(201,168,76,0.2);
