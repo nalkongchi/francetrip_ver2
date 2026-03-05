@@ -721,13 +721,8 @@ function openLangSheet(venue){
 
   titleEl.textContent = venue.name || '';
 
-  let subtitleEl = backdrop.querySelector('.sheet-subtitle');
-  if (!subtitleEl) {
-    subtitleEl = document.createElement('div');
-    subtitleEl.className = 'sheet-subtitle';
-    titleEl.insertAdjacentElement('afterend', subtitleEl);
-  }
-  subtitleEl.textContent = (venue.catLabel || '').toUpperCase();
+  const dayLabelEl = document.getElementById('langSheetDay');
+  if (dayLabelEl) dayLabelEl.textContent = (venue.catLabel || '').toUpperCase();
 
   bodyEl.innerHTML = '';
 
@@ -855,6 +850,7 @@ function closeLangSheet(){
 function wireLangSheetGestures(){
   const backdrop = document.getElementById('langSheet');
   const sheet = backdrop?.querySelector('.sheet');
+  const body = document.getElementById('langSheetBody');
   const closeBtn = document.getElementById('langSheetClose');
   if (!backdrop || !sheet) return;
 
@@ -866,30 +862,48 @@ function wireLangSheetGestures(){
   let startY = 0;
   let currentY = 0;
   let dragging = false;
+  let canDrag = false;
 
-  const sheetHandle = sheet.querySelector('.sheet-handle');
-  const dragTarget = sheetHandle || sheet;
-
-  dragTarget.addEventListener('touchstart', (e) => {
+  sheet.addEventListener('touchstart', (e) => {
     if (!e.touches?.length) return;
-    dragging = true;
     startY = e.touches[0].clientY;
     currentY = startY;
+    const atTop = !body || body.scrollTop <= 0;
+    const onHandle = e.target.closest('.sheet-handle');
+    canDrag = atTop || !!onHandle;
+    dragging = canDrag;
   }, { passive: true });
 
-  dragTarget.addEventListener('touchmove', (e) => {
+  sheet.addEventListener('touchmove', (e) => {
     if (!dragging || !e.touches?.length) return;
     currentY = e.touches[0].clientY;
-    const dy = Math.max(0, currentY - startY);
+    const dy = currentY - startY;
+    if (dy <= 0) {
+      sheet.style.transform = '';
+      sheet.style.transition = '';
+      dragging = false;
+      return;
+    }
+    sheet.style.transition = 'none';
     sheet.style.transform = `translateY(${dy}px)`;
   }, { passive: true });
 
-  dragTarget.addEventListener('touchend', () => {
+  sheet.addEventListener('touchend', () => {
     if (!dragging) return;
     dragging = false;
     const dy = Math.max(0, currentY - startY);
-    sheet.style.transform = '';
-    if (dy > 90) closeLangSheet();
+    sheet.style.transition = 'transform 0.3s ease';
+    if (dy > 100) {
+      sheet.style.transform = `translateY(100%)`;
+      setTimeout(() => {
+        closeLangSheet();
+        sheet.style.transform = '';
+        sheet.style.transition = '';
+      }, 280);
+    } else {
+      sheet.style.transform = '';
+      setTimeout(() => { sheet.style.transition = ''; }, 300);
+    }
   });
 }
 

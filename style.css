@@ -621,6 +621,18 @@ body {
   top:50%;
   transform:translateY(-50%);
 }
+.sheet-day-label{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-family:'DM Mono', monospace;
+  font-size:0.58rem;
+  color:var(--gold);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  opacity:0.7;
+}
 .sheet-title{
   color:var(--navy);
   font-family:"Playfair Display", serif;
@@ -628,6 +640,7 @@ body {
   letter-spacing:.2px;
   text-align:center;
   width:100%;
+  padding:0 44px;
 }
 .sheet-body{padding:12px 14px 18px; overflow:auto; max-height:72vh; -webkit-overflow-scrolling:touch; touch-action:pan-y;}
 .lang-card{
@@ -699,6 +712,14 @@ body {
   color: var(--gold);
   letter-spacing: 0.02em;
   text-align: center;
+  padding: 0 44px;
+}
+.sheet-day-label{
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(201,168,76,0.55);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 .sheet-subtitle{
   font-family: 'DM Mono', monospace;
