@@ -194,12 +194,13 @@ function initLeafletMap() {
 
 function getDayDisplay(day) {
   const startHotel = day.startHotel ? { ...day.startHotel, kind: 'hotel' } : null;
-  const endHotel = day.endHotel ? { ...day.endHotel, kind: 'hotel' } : null;
+  const endHotel = day.endHotel ? { ...day.endHotel, kind: 'hotel', isEnd: true } : null;
   const groups = Array.isArray(day.segments) ? day.segments.map(group => (group || []).map(spot => ({ ...spot }))) : [];
-  // displaySpots: startHotel은 1번으로 포함, endHotel은 목록/마커에서 제외 (선 연결만)
+  // displaySpots: startHotel 1번, 경유지, endHotel 마지막 (목록 제외, 마커만)
   const displaySpots = [];
   if (startHotel) displaySpots.push(startHotel);
   groups.forEach(group => displaySpots.push(...group));
+  if (endHotel) displaySpots.push(endHotel);
   return { startHotel, endHotel, groups, displaySpots };
 }
 
@@ -214,11 +215,18 @@ function getLineGroups(day, display) {
       if (endHotel) route.push(endHotel);
       return [route];
     } else {
-      // 멀티 세그먼트: startHotel을 첫 세그먼트 앞에, endHotel을 마지막 세그먼트 뒤에 연결
+      // 멀티 세그먼트: 각 세그먼트 앞뒤에 숙소 연결 + 세그먼트 간 연결선 추가
       const result = groups.map(g => [...g]);
       if (startHotel) result[0] = [startHotel, ...result[0]];
       if (endHotel) result[result.length - 1] = [...result[result.length - 1], endHotel];
-      return result;
+      // 세그먼트 사이 연결선: 이전 세그먼트 끝 → 다음 세그먼트 시작
+      const bridges = [];
+      for (let i = 0; i < result.length - 1; i++) {
+        const from = result[i][result[i].length - 1];
+        const to = result[i + 1][0];
+        if (from && to) bridges.push([from, to]);
+      }
+      return [...result, ...bridges];
     }
   }
   return groups;
@@ -268,14 +276,44 @@ function showDay(dayNum, btn) {
 
   let stopNumber = 1;
 
+  // 같은 좌표 중복 방문: 좌표별 번호 배열 미리 계산
+  const coordNums = {};
+  let preNum = 1;
+  displaySpots.forEach(spot => {
+    if (spot.isEnd) return; // endHotel은 번호 없음
+    const key = `${spot.lat},${spot.lng}`;
+    if (!coordNums[key]) coordNums[key] = [];
+    coordNums[key].push(preNum++);
+  });
+
+  const renderedCoords = {};
+
   displaySpots.forEach((spot, i) => {
     const isHotel = spot.kind === 'hotel';
+    const isEnd = spot.isEnd || false;
     const sz = 28;
-    const num = stopNumber++;
+    const key = `${spot.lat},${spot.lng}`;
 
-    const markerHtml = isHotel
-      ? `<div style="width:${sz}px;height:${sz}px;background:rgba(13,18,38,0.95);border:2.5px solid #c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#c9a84c;font-weight:700;font-size:10px">${num}</span></div>`
-      : `<div style="width:${sz}px;height:${sz}px;background:${color};border:2.5px solid rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#111;font-weight:700;font-size:10px">${num}</span></div>`;
+    let markerHtml;
+    if (isEnd) {
+      // endHotel: 골드 테두리, 🏠 아이콘
+      markerHtml = `<div style="width:${sz}px;height:${sz}px;background:rgba(13,18,38,0.95);border:2.5px solid #c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="font-size:11px">🏠</span></div>`;
+    } else if (renderedCoords[key]) {
+      // 이미 그린 좌표 → 건너뜀 (번호는 이미 합쳐서 표시)
+      stopNumber++;
+      return;
+    } else {
+      const nums = coordNums[key] || [stopNumber];
+      const label = nums.join(',');
+      if (isHotel) {
+        markerHtml = `<div style="width:${sz}px;height:${sz}px;background:rgba(13,18,38,0.95);border:2.5px solid #c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#c9a84c;font-weight:700;font-size:${nums.length>1?8:10}px">${label}</span></div>`;
+      } else {
+        markerHtml = `<div style="width:${sz}px;height:${sz}px;background:${color};border:2.5px solid rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#111;font-weight:700;font-size:${nums.length>1?8:10}px">${label}</span></div>`;
+      }
+      renderedCoords[key] = true;
+      stopNumber++;
+    }
+    const num = stopNumber;
 
     const marker = L.marker([spot.lat, spot.lng], {
       icon: L.divIcon({
@@ -308,11 +346,20 @@ function showDay(dayNum, btn) {
   if (titleEl) titleEl.textContent = day.title;
   if (spotsEl) {
     let stopLabelNumber = 1;
+    const seenCoords = {};
     spotsEl.innerHTML = displaySpots
       .map((spot, idx) => {
+        if (spot.isEnd) return ''; // endHotel은 목록 미표시
         const isHotel = spot.kind === 'hotel';
-        const num = stopLabelNumber++;
-        const prefix = isHotel ? `<span style="color:#c9a84c;font-weight:700">${num}.</span>` : `${num}.`;
+        const key = `${spot.lat},${spot.lng}`;
+        const nums = coordNums[key] || [stopLabelNumber];
+        const label = nums.join(',');
+        stopLabelNumber++;
+        if (seenCoords[key]) return ''; // 중복 좌표 한 번만 표시
+        seenCoords[key] = true;
+        const prefix = isHotel
+          ? `<span style="color:#c9a84c;font-weight:700">${label}.</span>`
+          : `${label}.`;
         return `<span class="spot-pill" onclick="flyTo(${idx})">${prefix} ${spot.name}</span>`;
       })
       .join('');

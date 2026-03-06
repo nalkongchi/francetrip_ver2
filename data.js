@@ -12,18 +12,19 @@ window.TRIP_DAYS = {
   1: {
     title: 'Day 1 — 3/7 (토) · 인천 → 파리',
     startHotel: null,
-    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
-    connectHotels: true,
+    endHotel: null,
+    connectHotels: false,
     segments: [[
       { name: '샤를드골 국제공항 (CDG)', lat: 49.0097, lng: 2.5479, icon: '✈️'},
+      { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
       { name: 'Intermarché EXPRESS', lat: 48.8674, lng: 2.3622, icon: '🛒', maps_url: 'https://maps.app.goo.gl/CWgwZwiaHnCQV42H8' }
     ]]
   },
 
   2: {
     title: 'Day 2 — 3/8 (일) · 마레 & 시테섬 & 생루이섬',
-    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
-    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
+    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
+    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
     connectHotels: true,
     segments: [[
       { name: 'Carette (보쥬 광장 점)', lat: 48.8551, lng: 2.3625, icon: '🥐', maps_url: 'https://maps.app.goo.gl/6pMKuJy1v6mad6W67' , lang_id: 'carette_place_des_vosges'},
@@ -45,8 +46,8 @@ window.TRIP_DAYS = {
 
   3: {
     title: 'Day 3 — 3/9 (월) · 루브르 & 오랑주리 & 샹젤리제',
-    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
-    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
+    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
+    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
     connectHotels: true,
     segments: [[
       { name: '오텔 드 빌 (시청사)', lat: 48.8566, lng: 2.3522, icon: '📸', maps_url: 'https://maps.app.goo.gl/yz7zaPuWVHrUW5UGA' },
@@ -68,8 +69,8 @@ window.TRIP_DAYS = {
 
   4: {
     title: 'Day 4 — 3/10 (화) · 생마르탱 운하 & 에펠탑',
-    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
-    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, icon: '🏨', kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
+    startHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
+    endHotel: { name: '디스트릭트 레퓌블리크 (숙소)', lat: 48.8673, lng: 2.3629, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
     connectHotels: true,
     segments: [[
       { name: 'Le Pain des Copains', lat: 48.8684, lng: 2.3594, icon: '🥐', maps_url: 'https://maps.app.goo.gl/B2TddHQuT2KbUm8x6' , lang_id: 'boulangerie_general'},
@@ -114,9 +115,9 @@ window.TRIP_DAYS = {
   6: {
     title: 'Day 6 — 3/12 (목) · 콜마르 당일치기 & 스트라스부르',
     startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
-    endHotel: null,
+    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
     connectHotels: true,
-    focusSegmentIndex: 1,
+    focusSegmentIndex: 2,
     segments: [
       [
         { name: '스트라스부르 역', lat: 48.5851, lng: 7.7341, icon: '🚂', maps_url: 'https://maps.app.goo.gl/bddfiAsgx5PQD3ba9' }
@@ -142,8 +143,8 @@ window.TRIP_DAYS = {
 
   7: {
     title: 'Day 7 — 3/13 (금) · 독일 켈 & 스트라스부르 쇼핑',
-    startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
-    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, icon: '🏨', kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
+    startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
+    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
     connectHotels: true,
     segments: [[
       { name: 'Ancienne Synagogue / Les Halles', lat: 48.5805, lng: 7.7481, icon: '🚋', maps_url: 'https://maps.app.goo.gl/UHs5HMAjjTctNtKi7' },
@@ -161,9 +162,9 @@ window.TRIP_DAYS = {
   8: {
     title: 'Day 8 — 3/14 (토) · 스트라스부르 → CDG 출국',
     startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
-    endHotel: null,
+    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
     connectHotels: true,
-    focusSegmentIndex: 1,
+    focusSegmentIndex: 2,
     segments: [
       [
         { name: '스트라스부르 역 (TGV 출발)', lat: 48.5851, lng: 7.7341, icon: '🚄', maps_url: 'https://maps.app.goo.gl/bddfiAsgx5PQD3ba9' , lang_id: 'general_train'}
