@@ -92,16 +92,16 @@ window.SCHEDULE_DATA = {
     header: { icon: '🚄', title: '파리 → 스트라스부르', sub: '기차 이동 · 알자스 첫날' },
     events: [
       { id: 'day5_01', type: 'hotel',     time: '08:00–09:30', title: "🧳 체크아웃 및 파리 동역(Gare de l'Est) 이동", detail: '파리 동역까지는 걸어서 15분(1km) 소요. 짐이 무겁거나 힘들 경우 우버(Uber) 이용', maps_url: 'https://maps.app.goo.gl/zn61XhanYKruqqum6' },
-      { id: 'day5_02', type: 'transport', time: '09:30–12:00', title: '🚄 TGV → 스트라스부르 이동', detail: "10:08 Paris Gare de l'Est 출발 → 11:54 Strasbourg 도착", maps_url: 'https://maps.app.goo.gl/e6dJPXGKBzUbFnPT8', note: '✅ 기차 OUIGO Grande Vitesse 7691 - 좌석: Voiture 8 / 803–804' },
-      { id: 'day5_03', type: 'hotel',     time: '12:00–12:30', title: '🏨 숙소(시티 레지던스 스트라스부르 센터) 짐 보관', detail: '역에서 도보로 숙소 이동, 짐 보관만', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
+      { id: 'day5_02', lang_id: 'day5_02', type: 'transport', time: '09:30–12:00', title: '🚄 TGV → 스트라스부르 이동', detail: "10:08 Paris Gare de l'Est 출발 → 11:54 Strasbourg 도착", maps_url: 'https://maps.app.goo.gl/e6dJPXGKBzUbFnPT8', note: '✅ 기차 OUIGO Grande Vitesse 7691 - 좌석: Voiture 8 / 803–804' },
+      { id: 'day5_03', lang_id: 'day5_03', type: 'hotel',     time: '12:00–12:30', title: '🏨 숙소(시티 레지던스 스트라스부르 센터) 짐 보관', detail: '역에서 도보로 숙소 이동, 짐 보관만', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
       { id: 'day5_04', type: 'transport', time: '12:30–13:00', title: '🚶 숙소 → Winstub Le Zehnerglock 식당 이동', detail: '도보' },
-      { id: 'day5_05', type: 'food',      time: '13:00–14:30', title: '🍽 점심: Winstub Le Zehnerglock', tags: [{cls:'tag-confirm',text:'⏰ 13:00'}], detail: 'Choucroute Garnie(슈쿠르트), Baeckeoffe(베크오프), 알자스산 화이트 와인(Riesling 리슬링)', maps_url: 'https://maps.app.goo.gl/tsKG6i91WJsgqM1Q9' },
+      { id: 'day5_05', lang_id: 'day5_05', type: 'food',      time: '13:00–14:30', title: '🍽 점심: Winstub Le Zehnerglock', tags: [{cls:'tag-confirm',text:'⏰ 13:00'}], detail: 'Choucroute Garnie(슈쿠르트), Baeckeoffe(베크오프), 알자스산 화이트 와인(Riesling 리슬링)', maps_url: 'https://maps.app.goo.gl/tsKG6i91WJsgqM1Q9' },
       { id: 'day5_06', type: 'sightseeing', time: '14:30–16:00', title: '⛩ 스트라스부르 대성당', detail: '외부 파사드 감상 → 내부 입장 → 천문시계', maps_url: 'https://maps.app.goo.gl/wJAaRakMQhU48mLR9' },
       { id: 'day5_07', type: 'sightseeing', time: '16:00–16:30', title: '🏛 구텐베르크 광장', detail: '광장 동상/분수 주변 한 바퀴', maps_url: 'https://maps.app.goo.gl/m2bGn2zdm24G9wbe7' },
       { id: 'day5_08', type: 'sightseeing', time: '16:30–18:30', title: '🌊 강변 산책, 구시가지 골목 산책' },
-      { id: 'day5_09', type: 'food',      time: '18:30–20:00', title: '🔥 저녁: La Fignette', tags: [{cls:'tag-openrun',text:'🚶오픈런'}], detail: '플람퀴슈(Tarte Flambée Traditionnelle, Gratinée)', maps_url: 'https://maps.app.goo.gl/scasdyVUWjxo9mT39' },
+      { id: 'day5_09', lang_id: 'day5_09', type: 'food',      time: '18:30–20:00', title: '🔥 저녁: La Fignette', tags: [{cls:'tag-openrun',text:'🚶오픈런'}], detail: '플람퀴슈(Tarte Flambée Traditionnelle, Gratinée)', maps_url: 'https://maps.app.goo.gl/scasdyVUWjxo9mT39' },
       { id: 'day5_10', type: 'sightseeing', time: '20:00–21:00', title: '🌙 대성당 야경 감상', maps_url: 'https://maps.app.goo.gl/wJAaRakMQhU48mLR9' },
-      { id: 'day5_11', type: 'transport', time: '21:00–21:30', title: '🚶 도보 이동', detail: '체크인/키 수령(필요 시)' },
+      { id: 'day5_11', lang_id: 'day5_11', type: 'transport', time: '21:00–21:30', title: '🚶 도보 이동', detail: '체크인/키 수령(필요 시)' },
       { id: 'day5_12', type: 'hotel',     time: '21:30',       title: '🛏 숙소 휴식', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' }
     ]
   },
