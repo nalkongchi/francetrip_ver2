@@ -114,9 +114,9 @@ window.TRIP_DAYS = {
   6: {
     title: 'Day 6 — 3/12 (목) · 콜마르 당일치기 & 스트라스부르',
     startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
-    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
+    endHotel: null,
     connectHotels: true,
-    focusSegmentIndex: 2,
+    focusSegmentIndex: 1,
     segments: [
       [
         { name: '스트라스부르 역', lat: 48.5851, lng: 7.7341, icon: '🚂', maps_url: 'https://maps.app.goo.gl/bddfiAsgx5PQD3ba9' }
@@ -161,9 +161,9 @@ window.TRIP_DAYS = {
   8: {
     title: 'Day 8 — 3/14 (토) · 스트라스부르 → CDG 출국',
     startHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
-    endHotel: { name: '시티 레지던스 스트라스부르 센터', lat: 48.5865, lng: 7.7396, kind: 'hotel', maps_url: 'https://maps.app.goo.gl/8LqmD3FP6Ep9ZyH98' },
+    endHotel: null,
     connectHotels: true,
-    focusSegmentIndex: 2,
+    focusSegmentIndex: 1,
     segments: [
       [
         { name: '스트라스부르 역 (TGV 출발)', lat: 48.5851, lng: 7.7341, icon: '🚄', maps_url: 'https://maps.app.goo.gl/bddfiAsgx5PQD3ba9' , lang_id: 'general_train'}

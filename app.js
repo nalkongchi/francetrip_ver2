@@ -196,10 +196,10 @@ function getDayDisplay(day) {
   const startHotel = day.startHotel ? { ...day.startHotel, kind: 'hotel' } : null;
   const endHotel = day.endHotel ? { ...day.endHotel, kind: 'hotel' } : null;
   const groups = Array.isArray(day.segments) ? day.segments.map(group => (group || []).map(spot => ({ ...spot }))) : [];
+  // displaySpots: startHotel은 1번으로 포함, endHotel은 목록/마커에서 제외 (선 연결만)
   const displaySpots = [];
   if (startHotel) displaySpots.push(startHotel);
   groups.forEach(group => displaySpots.push(...group));
-  if (endHotel) displaySpots.push(endHotel);
   return { startHotel, endHotel, groups, displaySpots };
 }
 
