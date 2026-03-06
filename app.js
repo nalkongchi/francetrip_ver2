@@ -205,12 +205,21 @@ function getDayDisplay(day) {
 
 function getLineGroups(day, display) {
   const { startHotel, endHotel, groups } = display;
-  if (day.connectHotels && groups.length === 1) {
-    const route = [];
-    if (startHotel) route.push(startHotel);
-    route.push(...groups[0]);
-    if (endHotel) route.push(endHotel);
-    return [route];
+  if (day.connectHotels) {
+    if (groups.length === 1) {
+      // 단일 세그먼트: 숙소→경로→숙소 하나의 선
+      const route = [];
+      if (startHotel) route.push(startHotel);
+      route.push(...groups[0]);
+      if (endHotel) route.push(endHotel);
+      return [route];
+    } else {
+      // 멀티 세그먼트: startHotel을 첫 세그먼트 앞에, endHotel을 마지막 세그먼트 뒤에 연결
+      const result = groups.map(g => [...g]);
+      if (startHotel) result[0] = [startHotel, ...result[0]];
+      if (endHotel) result[result.length - 1] = [...result[result.length - 1], endHotel];
+      return result;
+    }
   }
   return groups;
 }
@@ -261,11 +270,12 @@ function showDay(dayNum, btn) {
 
   displaySpots.forEach((spot, i) => {
     const isHotel = spot.kind === 'hotel';
-    const sz = isHotel ? 32 : 26;
+    const sz = 28;
+    const num = stopNumber++;
 
     const markerHtml = isHotel
-      ? `<div style="width:${sz}px;height:${sz}px;background:rgba(13,18,38,0.95);border:2.5px solid rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="font-size:12px">🏨</span></div>`
-      : `<div style="width:${sz}px;height:${sz}px;background:${color};border:2.5px solid rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#111;font-weight:700;font-size:10px">${stopNumber++}</span></div>`;
+      ? `<div style="width:${sz}px;height:${sz}px;background:rgba(13,18,38,0.95);border:2.5px solid #c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#c9a84c;font-weight:700;font-size:10px">${num}</span></div>`
+      : `<div style="width:${sz}px;height:${sz}px;background:${color};border:2.5px solid rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#111;font-weight:700;font-size:10px">${num}</span></div>`;
 
     const marker = L.marker([spot.lat, spot.lng], {
       icon: L.divIcon({
@@ -276,7 +286,7 @@ function showDay(dayNum, btn) {
       })
     }).addTo(leafletMap)
       .bindPopup(
-        `<b style="color:#c9a84c">${spot.icon || (isHotel ? '🏨' : '📍')} ${spot.name}</b><br><span style="color:#999;font-size:0.72rem">${isHotel ? '숙소' : '이동 포인트'}</span>`,
+        `<b style="color:#c9a84c">${spot.icon || '📍'} ${spot.name}</b><br><span style="color:#999;font-size:0.72rem">${isHotel ? '숙소' : '이동 포인트'}</span>`,
         { className: 'dark-popup' }
       );
 
@@ -301,7 +311,8 @@ function showDay(dayNum, btn) {
     spotsEl.innerHTML = displaySpots
       .map((spot, idx) => {
         const isHotel = spot.kind === 'hotel';
-        const prefix = isHotel ? '🏨' : `${stopLabelNumber++}.`;
+        const num = stopLabelNumber++;
+        const prefix = isHotel ? `<span style="color:#c9a84c;font-weight:700">${num}.</span>` : `${num}.`;
         return `<span class="spot-pill" onclick="flyTo(${idx})">${prefix} ${spot.name}</span>`;
       })
       .join('');
