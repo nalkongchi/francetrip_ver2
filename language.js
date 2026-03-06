@@ -2566,6 +2566,280 @@ window.LANGUAGE_DATA = {
           ]
         }
       ]
+    },
+
+    {
+      "label": "Day 4",
+      "venues": [
+        {
+          "id": "day4_01",
+          "name": "아침: Le Pain des Copains",
+          "catLabel": "Day 4",
+          "groups": [
+            {
+              "label": "인사 및 베이커리 주문",
+              "lines": [
+                { "fr": "Bonjour ! Je voudrais un croissant aux framboises et un croissant à la pistache, s'il vous plaît.", "pron": "봉쥬흐 ! 쥬 부드헤 앙 크후아쌍 오 프항부아즈 에 앙 크후아쌍 아 라 삐스따슈, 씰 부 쁠레.", "ko": "안녕하세요! 산딸기 크루아상 하나랑 피스타치오 크루아상 하나 주세요." },
+                { "fr": "Et une part de flan, s'il vous plaît.", "pron": "에 윈 빠흐 드 플랑, 씰 부 쁠레.", "ko": "그리고 플랑 한 조각도 주세요." }
+              ]
+            },
+            {
+              "label": "커피 주문",
+              "lines": [
+                { "fr": "Et avec ça, deux cafés allongés, s'il vous plaît.", "pron": "에 아벡 싸, 두 까페 알롱제, 씰 부 쁠레.", "ko": "그리고 따뜻한 아메리카노 두 잔 부탁드립니다." }
+              ]
+            },
+            {
+              "label": "매장 식사 여부",
+              "lines": [
+                { "fr": "Sur place, s'il vous plaît.", "pron": "쉬흐 쁠라스, 씰 부 쁠레.", "ko": "먹고 갈게요." }
+              ]
+            },
+            {
+              "label": "계산",
+              "lines": [
+                { "fr": "C'est combien en tout ?", "pron": "쎄 꼼비앙 앙 뚜 ?", "ko": "전부 얼마인가요?" },
+                { "fr": "Je paye par carte.", "pron": "쥬 뻬예 빠흐 꺄흐뜨.", "ko": "카드로 계산할게요." },
+                { "fr": "Merci, bonne journée !", "pron": "메흐씨, 본 쥬흐네 !", "ko": "감사합니다, 좋은 하루 보내세요!" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day4_03",
+          "name": "점심: 유토피아 베이커리",
+          "catLabel": "Day 4",
+          "groups": [
+            {
+              "label": "베이커리 주문",
+              "lines": [
+                { "fr": "Bonjour ! Je voudrais un éclair au sésame noir, s'il vous plaît.", "pron": "봉쥬흐 ! 쥬 부드헤 앙 네끌레흐 오 쎄잠 누아흐, 씰 부 쁠레.", "ko": "안녕하세요! 흑임자 에끌레어 하나 주세요." },
+                { "fr": "Et une baguette, s'il vous plaît.", "pron": "에 윈 바게뜨, 씰 부 쁠레.", "ko": "그리고 바게트도 하나 주세요." }
+              ]
+            },
+            {
+              "label": "커피 주문 및 포장",
+              "lines": [
+                { "fr": "Et avec ça, un café allongé, s'il vous plaît.", "pron": "에 아벡 싸, 앙 꺄페 알롱제, 씰 부 쁠레.", "ko": "그리고 아메리카노 한 잔 부탁드립니다." },
+                { "fr": "C'est pour emporter.", "pron": "쎄 뿌흐 앙뽀흐떼.", "ko": "포장해 갈 거예요." }
+              ]
+            },
+            {
+              "label": "계산",
+              "lines": [
+                { "fr": "C'est tout, merci. C'est combien ?", "pron": "쎄 뚜, 메흐씨. 쎄 꼼비앙 ?", "ko": "이게 전부입니다. 얼마인가요?" },
+                { "fr": "Je paye par carte.", "pron": "쥬 뻬예 빠흐 꺄흐뜨.", "ko": "카드로 계산할게요." },
+                { "fr": "Merci, bonne journée !", "pron": "메흐씨, 본 쥬흐네 !", "ko": "감사합니다, 좋은 하루 보내세요!" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day4_05",
+          "name": "우체국: La Poste",
+          "catLabel": "Day 4",
+          "groups": [
+            {
+              "label": "우표 요청 (한국행)",
+              "lines": [
+                { "fr": "Bonjour ! Je voudrais envoyer ces cartes postales en Corée du Sud, s'il vous plaît.", "pron": "봉쥬흐 ! 쥬 부드헤 앙부아예 쎄 꺄흐뜨 뽀스딸 앙 꼬헤 뒤 쉬드, 씰 부 쁠레.", "ko": "안녕하세요! 이 엽서들을 한국으로 보내고 싶어요." },
+                { "fr": "Je voudrais des timbres, s'il vous plaît.", "pron": "쥬 부드헤 데 땅브흐, 씰 부 쁠레.", "ko": "우표를 사고 싶어요." }
+              ]
+            },
+            {
+              "label": "결제",
+              "lines": [
+                { "fr": "C'est combien en tout ?", "pron": "쎄 꼼비앙 앙 뚜 ?", "ko": "전부 얼마인가요?" },
+                { "fr": "Je peux payer par carte ?", "pron": "쥬 뿌 뻬예 빠흐 꺄흐뜨 ?", "ko": "카드로 계산할 수 있나요?" }
+              ]
+            },
+            {
+              "label": "우체통 위치 및 투입",
+              "lines": [
+                { "fr": "Où est la boîte aux lettres, s'il vous plaît ?", "pron": "우 에 라 부아뜨 오 레뜨흐, 씰 부 쁠레 ?", "ko": "우체통은 어디에 있나요?" },
+                { "fr": "C'est dans quelle fente pour l'international ?", "pron": "쎄 당 껠 팡뜨 뿌흐 랭떼흐나씨오날 ?", "ko": "국제 우편은 어느 구멍에 넣어야 하나요?" },
+                { "fr": "Merci beaucoup, bonne journée !", "pron": "메흐씨 보꾸, 본 쥬흐네 !", "ko": "정말 감사합니다, 좋은 하루 보내세요!" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day4_06",
+          "name": "우체국 → 트로카데로 이동",
+          "catLabel": "Day 4",
+          "groups": [
+            {
+              "label": "레퓌블리크 역 9호선 찾기",
+              "lines": [
+                { "fr": "Excusez-moi, où est la ligne 9, s'il vous plaît ?", "pron": "익스뀌제 무아, 우 에 라 리뉴 뇌프, 씰 부 쁠레 ?", "ko": "실례합니다, 9호선 타는 곳이 어디인가요?" }
+              ]
+            },
+            {
+              "label": "Pont de Sèvres 방향 확인",
+              "lines": [
+                { "fr": "Pour aller vers Pont de Sèvres, c'est de quel côté ?", "pron": "뿌흐 알레 베흐 뽕 드 쎄브흐, 쎄 드 껠 꼬떼 ?", "ko": "뽕 드 세브르 방향으로 가려면 어느 쪽인가요?" }
+              ]
+            },
+            {
+              "label": "열차 방향 확인",
+              "lines": [
+                { "fr": "Pardon, ce train va bien à Trocadéro ?", "pron": "빠흐동, 쓰 뜨항 바 비앙 아 뜨호꺄데호 ?", "ko": "이 기차 트로카데로 역으로 가는 것 맞나요?" }
+              ]
+            },
+            {
+              "label": "에펠탑 출구 찾기",
+              "lines": [
+                { "fr": "Où est la sortie pour la Tour Eiffel, s'il vous plaît ?", "pron": "우 에 라 쏘흐띠 뿌흐 라 뚜흐 에펠, 씰 부 쁠레 ?", "ko": "에펠탑으로 나가는 출구는 어디인가요?" },
+                { "fr": "C'est par là ?", "pron": "쎄 빠흐 라 ?", "ko": "저쪽인가요?" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day4_13",
+          "name": "Sunflower Café",
+          "catLabel": "Day 4",
+          "groups": [
+            {
+              "label": "자리 및 입장",
+              "lines": [
+                { "fr": "Bonjour ! On peut s'asseoir ici ?", "pron": "봉쥬흐 ! 옹 뿌 싸쑤아흐 이씨 ?", "ko": "안녕하세요! 여기 앉아도 될까요?" }
+              ]
+            },
+            {
+              "label": "주문 (커피 2잔 + 샌드위치)",
+              "lines": [
+                { "fr": "Je voudrais deux cafés allongés, s'il vous plaît.", "pron": "쥬 부드헤 두 까페 알롱제, 씰 부 쁠레.", "ko": "아메리카노 두 잔 주세요." },
+                { "fr": "Et un sandwich à l'avocat, s'il vous plaît.", "pron": "에 앙 썅드위치 아 라보꺄, 씰 부 쁠레.", "ko": "그리고 아보카도 샌드위치 하나 주세요." }
+              ]
+            },
+            {
+              "label": "앞접시 요청",
+              "lines": [
+                { "fr": "On va le partager. Vous avez des petites assiettes ?", "pron": "옹 바 르 빠흐따제. 부 자베 데 쁘띠뜨 자씨에뜨 ?", "ko": "저희 나눠 먹을 거예요. 앞접시 주실 수 있나요?" }
+              ]
+            },
+            {
+              "label": "계산",
+              "lines": [
+                { "fr": "L'addition, s'il vous plaît.", "pron": "라디씨옹, 씰 부 쁠레.", "ko": "계산서 좀 가져다주세요." },
+                { "fr": "C'était très bon, merci. Au revoir !", "pron": "쎄떼 뜨헤 봉, 메흐씨. 오 흐부아 !", "ko": "정말 맛있었어요, 감사합니다. 안녕히 계세요!" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day4_16",
+          "name": "저녁: L'Atypic",
+          "catLabel": "Day 4",
+          "groups": [
+            {
+              "label": "식당 입장 및 예약 확인",
+              "lines": [
+                { "fr": "Bonjour ! J'ai une réservation pour deux personnes à dix-neuf heures quinze (19h15).", "pron": "봉쥬흐 ! 제 윈 헤제흐바씨옹 뿌흐 두 뻬흐쏜느 아 디즈뇌브 우흐 꺙즈.", "ko": "안녕하세요! 19시 15분 2명 예약했습니다." },
+                { "fr": "Au nom de Kim, s'il vous plaît.", "pron": "오 농 드 낌, 씰 부 쁠레.", "ko": "이름은 '김'입니다." }
+              ]
+            },
+            {
+              "label": "전채 및 와인 주문",
+              "lines": [
+                { "fr": "En entrée, on voudrait un foie gras pour partager, s'il vous plaît.", "pron": "앙 낭뜨헤, 옹 부드헤 앙 푸아그하 뿌흐 빠흐따제, 씰 부 쁠레.", "ko": "전채로 푸아그라 하나를 나눠 먹고 싶어요." },
+                { "fr": "Pouvez-vous me recommander un verre de vin blanc moelleux pour accompagner le foie gras ?", "pron": "뿌베 부 무 흐꼬망데 앙 베흐 드 뱅 블랑 무알루 뿌흐 아꽁빠니에 르 푸아그하 ?", "ko": "푸아그라에 곁들일 달콤한 화이트 와인 추천해 주시겠어요?" },
+                { "fr": "Comme un Sauternes, par exemple.", "pron": "꼼 앙 쏘떼흔느, 빠흐 이그잠쁠.", "ko": "예를 들면 소테른 같은 걸로요." }
+              ]
+            },
+            {
+              "label": "메인 주문 및 굽기",
+              "lines": [
+                { "fr": "Et comme plats, un tartare de bœuf et un steak, s'il vous plaît.", "pron": "에 꼼 쁠라, 앙 따흐따흐 드 부프 에 앙 스떼끄, 씰 부 쁠레.", "ko": "메인으로 타르타르 하나랑 스테이크 하나 부탁드립니다." },
+                { "fr": "Saignant, s'il vous plaît.", "pron": "쎄냥, 씰 부 쁠레.", "ko": "미디엄 레어로 주세요." }
+              ]
+            },
+            {
+              "label": "빵 추가",
+              "lines": [
+                { "fr": "Encore du pain et une carafe d'eau, s'il vous plaît.", "pron": "앙꼬흐 뒤 뺑 에 윈 꺄하프 도, 씰 부 쁠레.", "ko": "빵 좀 더 주시고, 수돗물 한 병도 주세요." }
+              ]
+            },
+            {
+              "label": "계산",
+              "lines": [
+                { "fr": "L'addition, s'il vous plaît.", "pron": "라디씨옹, 씰 부 쁠레.", "ko": "계산서 좀 가져다주세요." },
+                { "fr": "C'était exceptionnel, merci beaucoup. Au revoir !", "pron": "쎄떼 익셉씨오넬, 메흐씨 보꾸. 오 흐부아 !", "ko": "정말 훌륭했어요, 대단히 감사합니다. 안녕히 계세요!" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day4_18",
+          "name": "바토 파리지앵 탑승",
+          "catLabel": "Day 4",
+          "groups": [
+            {
+              "label": "인터넷 예매자 줄 찾기",
+              "lines": [
+                { "fr": "Bonjour, on a déjà nos billets. C'est quelle file, s'il vous plaît ?", "pron": "봉쥬흐, 온 아 데쟈 노 비예. 쎄 껠 필, 씰 부 쁠레 ?", "ko": "안녕하세요, 저희는 이미 표가 있는데요. 어느 줄로 가야 하나요?" }
+              ]
+            },
+            {
+              "label": "줄 확인",
+              "lines": [
+                { "fr": "Excusez-moi, c'est bien la queue pour les Bateaux Parisiens ?", "pron": "익스뀌제 무아, 쎄 비앙 라 뀨 뿌흐 레 바또 빠히지앙 ?", "ko": "실례합니다, 여기 바토 파리지앵 타는 줄 맞나요?" }
+              ]
+            },
+            {
+              "label": "탑승 시간 확인",
+              "lines": [
+                { "fr": "L'embarquement commence à quelle heure, s'il vous plaît ?", "pron": "랑바흐끄망 꼬망쓰 아 껠 우흐, 씰 부 쁠레 ?", "ko": "탑승은 몇 시에 시작하나요?" }
+              ]
+            },
+            {
+              "label": "QR코드 검사",
+              "lines": [
+                { "fr": "Voici nos QR codes.", "pron": "부아씨 노 뀌에흐 꼬드.", "ko": "여기 저희 QR코드(2명분)입니다." },
+                { "fr": "Je vais augmenter la luminosité.", "pron": "쥬 베 오그망떼 라 뤼미노지떼.", "ko": "화면 밝기를 올릴게요." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "day4_19",
+          "name": "유람선 선착장 → 숙소",
+          "catLabel": "Day 4",
+          "groups": [
+            {
+              "label": "Alma-Marceau 역 9호선 찾기",
+              "lines": [
+                { "fr": "Excusez-moi, où est la ligne 9, s'il vous plaît ?", "pron": "익스뀌제 무아, 우 에 라 리뉴 뇌프, 씰 부 쁠레 ?", "ko": "실례합니다, 9호선 타는 곳이 어디인가요?" }
+              ]
+            },
+            {
+              "label": "Mairie de Montreuil 방향 확인",
+              "lines": [
+                { "fr": "Pour aller vers Mairie de Montreuil, c'est de quel côté ?", "pron": "뿌흐 알레 베흐 메히 드 몽뜨회이, 쎄 드 껠 꼬떼 ?", "ko": "메리 드 몽트뢰이 방향으로 가려면 어느 쪽인가요?" }
+              ]
+            },
+            {
+              "label": "열차 방향 확인",
+              "lines": [
+                { "fr": "Pardon, ce train va bien à République ?", "pron": "빠흐동, 쓰 뜨항 바 비앙 아 헤쀠블리끄 ?", "ko": "이 기차 레퓌블리크 역으로 가는 것 맞나요?" }
+              ]
+            },
+            {
+              "label": "République 역 출구 찾기",
+              "lines": [
+                { "fr": "Où est la sortie, s'il vous plaît ?", "pron": "우 에 라 쏘흐띠, 씰 부 쁠레 ?", "ko": "출구는 어디인가요?" }
+              ]
+            },
+            {
+              "label": "숙소 도착 후",
+              "lines": [
+                { "fr": "Quelle belle journée ! On est bien rentrés.", "pron": "껠 벨 쥬흐네 ! 온 에 비앙 항뜨헤.", "ko": "정말 멋진 하루였어! 우리 무사히 잘 돌아왔다." }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 };
