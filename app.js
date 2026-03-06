@@ -194,9 +194,9 @@ function initLeafletMap() {
 
 function getDayDisplay(day) {
   const startHotel = day.startHotel ? { ...day.startHotel, kind: 'hotel' } : null;
-  const endHotel = day.endHotel ? { ...day.endHotel, kind: 'hotel', isEnd: true } : null;
+  const endHotel = day.endHotel ? { ...day.endHotel, kind: 'hotel' } : null;
   const groups = Array.isArray(day.segments) ? day.segments.map(group => (group || []).map(spot => ({ ...spot }))) : [];
-  // displaySpots: startHotel 1번, 경유지, endHotel 마지막 (목록 제외, 마커만)
+  // displaySpots: startHotel 1번, 경유지, endHotel 마지막 번호 마커 (목록 미표시)
   const displaySpots = [];
   if (startHotel) displaySpots.push(startHotel);
   groups.forEach(group => displaySpots.push(...group));
@@ -274,66 +274,58 @@ function showDay(dayNum, btn) {
     curLayers.push(line);
   });
 
-  let stopNumber = 1;
-
-  // 같은 좌표 중복 방문: 좌표별 번호 배열 미리 계산
+  // 좌표별 번호 배열 미리 계산 (endHotel 제외)
   const coordNums = {};
   let preNum = 1;
   displaySpots.forEach(spot => {
-    if (spot.isEnd) return; // endHotel은 번호 없음
     const key = `${spot.lat},${spot.lng}`;
     if (!coordNums[key]) coordNums[key] = [];
     coordNums[key].push(preNum++);
   });
 
+  // 좌표별 첫 번째 마커 인덱스 저장 (flyTo 재사용용)
+  const coordFirstMarkerIdx = {};
   const renderedCoords = {};
 
   displaySpots.forEach((spot, i) => {
     const isHotel = spot.kind === 'hotel';
-    const isEnd = spot.isEnd || false;
     const sz = 28;
     const key = `${spot.lat},${spot.lng}`;
 
-    let markerHtml;
-    if (isEnd) {
-      // endHotel: 골드 테두리, 🏠 아이콘
-      markerHtml = `<div style="width:${sz}px;height:${sz}px;background:rgba(13,18,38,0.95);border:2.5px solid #c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="font-size:11px">🏠</span></div>`;
-    } else if (renderedCoords[key]) {
-      // 이미 그린 좌표 → 건너뜀 (번호는 이미 합쳐서 표시)
-      stopNumber++;
+    if (renderedCoords[key]) {
+      // 중복 좌표: 새 마커 안 만들고 첫 번째 마커 인덱스 등록
+      curMarkers.push(curMarkers[coordFirstMarkerIdx[key]]);
       return;
-    } else {
-      const nums = coordNums[key] || [stopNumber];
-      const label = nums.join(',');
-      if (isHotel) {
-        markerHtml = `<div style="width:${sz}px;height:${sz}px;background:rgba(13,18,38,0.95);border:2.5px solid #c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#c9a84c;font-weight:700;font-size:${nums.length>1?8:10}px">${label}</span></div>`;
-      } else {
-        markerHtml = `<div style="width:${sz}px;height:${sz}px;background:${color};border:2.5px solid rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#111;font-weight:700;font-size:${nums.length>1?8:10}px">${label}</span></div>`;
-      }
-      renderedCoords[key] = true;
-      stopNumber++;
     }
-    const num = stopNumber;
+
+    const nums = coordNums[key] || [preNum];
+    const label = nums.join(',');
+    const fontSize = label.length > 2 ? '8px' : '10px';
+
+    const markerHtml = isHotel
+      ? `<div style="width:${sz}px;height:${sz}px;background:rgba(13,18,38,0.95);border:2.5px solid #c9a84c;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#c9a84c;font-weight:700;font-size:${fontSize}">${label}</span></div>`
+      : `<div style="width:${sz}px;height:${sz}px;background:${color};border:2.5px solid rgba(255,255,255,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);"><span style="color:#111;font-weight:700;font-size:${fontSize}">${label}</span></div>`;
 
     const marker = L.marker([spot.lat, spot.lng], {
-      icon: L.divIcon({
-        html: markerHtml,
-        className: '',
-        iconSize: [sz, sz],
-        iconAnchor: [sz / 2, sz / 2]
-      })
-    }).addTo(leafletMap)
-      .bindPopup(
-        `<b style="color:#c9a84c">${spot.icon || '📍'} ${spot.name}</b><br><span style="color:#999;font-size:0.72rem">${isHotel ? '숙소' : '이동 포인트'}</span>`,
-        { className: 'dark-popup' }
-      );
+      icon: L.divIcon({ html: markerHtml, className: '', iconSize: [sz, sz], iconAnchor: [sz/2, sz/2] })
+    }).addTo(leafletMap).bindPopup(
+      `<b style="color:#c9a84c">${spot.icon || '📍'} ${spot.name}</b><br><span style="color:#999;font-size:0.72rem">${isHotel ? '숙소' : '이동 포인트'}</span>`,
+      { className: 'dark-popup' }
+    );
 
+    coordFirstMarkerIdx[key] = curMarkers.length;
+    renderedCoords[key] = true;
     curLayers.push(marker);
     curMarkers.push(marker);
   });
 
-  const focusGroup = getFocusGroup(day, lineGroups, displaySpots);
-  const focusPoints = (focusGroup || []).map(spot => [spot.lat, spot.lng]).filter(Boolean);
+  // 뷰 결정: focusSegmentIndex가 있으면 해당 세그먼트, 없으면 전체 displaySpots
+  let focusPoints;
+  if (typeof day.focusSegmentIndex === 'number' && lineGroups[day.focusSegmentIndex]) {
+    focusPoints = lineGroups[day.focusSegmentIndex].map(spot => [spot.lat, spot.lng]).filter(Boolean);
+  } else {
+    focusPoints = displaySpots.map(spot => [spot.lat, spot.lng]).filter(Boolean);
+  }
 
   if (focusPoints.length) {
     const bounds = L.latLngBounds(focusPoints);
@@ -346,20 +338,14 @@ function showDay(dayNum, btn) {
   if (titleEl) titleEl.textContent = day.title;
   if (spotsEl) {
     let stopLabelNumber = 1;
-    const seenCoords = {};
     spotsEl.innerHTML = displaySpots
       .map((spot, idx) => {
-        if (spot.isEnd) return ''; // endHotel은 목록 미표시
         const isHotel = spot.kind === 'hotel';
-        const key = `${spot.lat},${spot.lng}`;
-        const nums = coordNums[key] || [stopLabelNumber];
-        const label = nums.join(',');
-        stopLabelNumber++;
-        if (seenCoords[key]) return ''; // 중복 좌표 한 번만 표시
-        seenCoords[key] = true;
+        if (isHotel && spot === display.endHotel) return ''; // endHotel은 목록 미표시
+        const num = stopLabelNumber++;
         const prefix = isHotel
-          ? `<span style="color:#c9a84c;font-weight:700">${label}.</span>`
-          : `${label}.`;
+          ? `<span style="color:#c9a84c;font-weight:700">${num}.</span>`
+          : `${num}.`;
         return `<span class="spot-pill" onclick="flyTo(${idx})">${prefix} ${spot.name}</span>`;
       })
       .join('');

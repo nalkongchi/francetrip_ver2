@@ -173,7 +173,6 @@ window.TRIP_DAYS = {
         { name: 'Paris CDG Terminal 2 (Gare TGV)', lat: 49.0097, lng: 2.5479, icon: '🚄' },
         { name: 'CDG Terminal 1', lat: 49.0062, lng: 2.5725, icon: '✈️'},
         { name: '맥도날드 (CDG T1)', lat: 49.0065, lng: 2.5732, icon: '🍔' },
-        { name: '아시아나 카운터 (T1 Hall 1)', lat: 49.0062, lng: 2.5725, icon: '🛄' },
         { name: 'Bistrot Benoît', lat: 49.0066, lng: 2.5740, icon: '🍽' , lang_id: 'general_restaurant'},
         { name: '탑승 게이트 OZ0502', lat: 49.0070, lng: 2.5745, icon: '✈️' }
       ]
