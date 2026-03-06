@@ -72,22 +72,24 @@ function switchPage(id, btn) {
 
 // ── D-DAY ──
 (function() {
+  // 파리 시간 기준으로 날짜 계산
+  const parisDateStr = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
+  const nowParis = new Date(parisDateStr + 'T00:00:00');
   const start = new Date('2026-03-07T00:00:00');
-  const end = new Date('2026-03-14T23:59:59');
-  const now = new Date();
+  const end   = new Date('2026-03-15T00:00:00');
 
   const numEl = document.getElementById('dday-number');
   const lblEl = document.getElementById('dday-label');
   const dscEl = document.getElementById('dday-desc');
   if (!numEl || !lblEl || !dscEl) return;
 
-  if (now < start) {
-    const diff = Math.ceil((start - now) / 86400000);
+  if (nowParis < start) {
+    const diff = Math.ceil((start - nowParis) / 86400000);
     lblEl.textContent = 'TRIP COUNTDOWN';
     numEl.textContent = 'D-' + diff;
     dscEl.textContent = '파리까지 ' + diff + '일 남았어요 ✈️';
-  } else if (now <= end) {
-    const day = Math.floor((now - start) / 86400000) + 1;
+  } else if (nowParis < end) {
+    const day = Math.floor((nowParis - start) / 86400000) + 1;
     lblEl.textContent = 'TRAVEL DAY';
     numEl.textContent = 'DAY ' + day;
     dscEl.textContent = '지금 여행 중! 즐거운 하루 🇫🇷';
