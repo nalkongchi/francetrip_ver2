@@ -201,6 +201,26 @@ body {
   z-index:1;
   touch-action: pan-y pinch-zoom;
 }
+.map-reset-btn {
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:1000;
+  width:34px;
+  height:34px;
+  background:rgba(13,18,38,0.92);
+  border:1.5px solid rgba(201,168,76,0.5);
+  border-radius:8px;
+  color:var(--gold);
+  font-size:1.1rem;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.4);
+  transition:border-color 0.2s,background 0.2s;
+}
+.map-reset-btn:active { background:rgba(201,168,76,0.15); border-color:var(--gold); }
 .leaflet-container {
   touch-action: pan-y pinch-zoom;
 }

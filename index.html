@@ -120,7 +120,10 @@
       <button class="map-day-btn" onclick="showDay(8,this)"><span class="day-num">8</span><span class="day-label">3/14</span></button>
     </div>
   </div>
-  <div id="leaflet-map"></div>
+  <div style="position:relative;">
+    <div id="leaflet-map"></div>
+    <button class="map-reset-btn" onclick="resetMapView()" title="전체 보기">⊙</button>
+  </div>
   <div class="map-strip">
     <div class="map-strip-title" id="map-day-title"></div>
     <div class="spot-pills" id="map-day-spots"></div>

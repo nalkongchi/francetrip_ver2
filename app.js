@@ -173,6 +173,7 @@ const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouch
 let leafletMap = null;
 let curLayers = [];
 let curMarkers = [];
+let curDaySpots = [];
 
 function initLeafletMap() {
   if (leafletMap) return;
@@ -251,6 +252,7 @@ function showDay(dayNum, btn) {
   curLayers.forEach(layer => leafletMap.removeLayer(layer));
   curLayers = [];
   curMarkers = [];
+  curDaySpots = [];
 
   document.querySelectorAll('.map-day-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
@@ -262,6 +264,7 @@ function showDay(dayNum, btn) {
   const display = getDayDisplay(day);
   const displaySpots = display.displaySpots;
   const lineGroups = getLineGroups(day, display);
+  curDaySpots = displaySpots;
 
   lineGroups.forEach(group => {
     if (!group || group.length < 2) return;
@@ -274,10 +277,11 @@ function showDay(dayNum, btn) {
     curLayers.push(line);
   });
 
-  // 좌표별 번호 배열 미리 계산 (endHotel 제외)
+  // 좌표별 번호 배열 미리 계산 (endHotel 제외 — 같은 좌표로 묶이지 않게)
   const coordNums = {};
   let preNum = 1;
   displaySpots.forEach(spot => {
+    if (spot === display.endHotel) return; // endHotel은 별도 번호
     const key = `${spot.lat},${spot.lng}`;
     if (!coordNums[key]) coordNums[key] = [];
     coordNums[key].push(preNum++);
@@ -357,6 +361,12 @@ function flyTo(idx) {
   if (!curMarkers[idx] || !leafletMap) return;
   leafletMap.flyTo(curMarkers[idx].getLatLng(), 16, { duration: 0.8 });
   setTimeout(() => curMarkers[idx].openPopup(), 900);
+}
+
+function resetMapView() {
+  if (!leafletMap || !curDaySpots || !curDaySpots.length) return;
+  const bounds = L.latLngBounds(curDaySpots.map(s => [s.lat, s.lng]));
+  leafletMap.fitBounds(bounds, { padding: [30, 30] });
 }
 
 // ── DAY SWITCH ──
