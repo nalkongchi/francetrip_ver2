@@ -486,6 +486,7 @@ body {
 .memo-info-row { display:flex; justify-content:space-between; align-items:baseline; padding:5px 0; border-bottom:1px solid rgba(201,168,76,0.08); }
 .memo-info-row:last-child { border-bottom:none; }
 .memo-label { font-size:0.68rem; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:0.05em; flex-shrink:0; margin-right:10px; }
+.memo-section-sub { font-size:0.68rem; color:var(--gold-light); font-family:'DM Mono',monospace; letter-spacing:0.05em; margin:10px 0 4px; opacity:0.8; }
 .memo-value { font-size:0.78rem; color:var(--text); text-align:right; }
 .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .info-label { font-size:0.63rem; color:var(--muted); }
