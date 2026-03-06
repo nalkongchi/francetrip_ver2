@@ -261,6 +261,7 @@ body {
 .event.sightseeing::before { border-color:#00b894; }
 .event.hotel::before { border-color:#a29bfe; }
 .event.note::before { border-color:rgba(160,160,160,0.9); width:10px; height:10px; left:-5px; }
+.event.note .event-card { border-left:3px solid rgba(160,160,160,0.5); }
 .event-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 12px; }
 .event.transport .event-card { border-left:3px solid #5ba4cf; }
 .event.food .event-card { border-left:3px solid #e17055; }
@@ -274,6 +275,7 @@ body {
 .tag-confirm { background:rgba(46,213,115,0.15); color:#2ed573; }
 .tag-openrun { background: rgba(245,240,232,0.08); color: var(--gold-light); }
 .tag-sunset { background: rgba(255,159,67,0.16); color: #ffb36b; }
+.tag-toilet { background: rgba(74,144,226,0.15); color: #6ab0f5; }
 
 .fold-note {
   margin-top: 6px;
@@ -895,12 +897,23 @@ body {
   color: var(--gold-light);
   cursor: pointer;
 }
+.event-action-btn.active{
+  background: rgba(201,168,76,0.18);
+  color: var(--gold-light);
+  cursor: pointer;
+}
+.event-action-btn.inactive{
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.18);
+  cursor: default;
+  pointer-events: none;
+}
 .event-action-btn svg{
   width: 12px;
   height: 12px;
   display: block;
 }
-.event-action-btn:active{
+.event-action-btn:active, .event-action-btn.active:active{
   background: rgba(201,168,76,0.32);
   transform: translateY(1px);
 }

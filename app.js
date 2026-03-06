@@ -1093,30 +1093,34 @@ function attachScheduleButtons(dayNum) {
   if (!data) return;
 
   for (const ev of data.events) {
-    if (!ev.maps_url && !ev.lang_id) continue;
-
     const eventEl = document.querySelector(`[data-id="${ev.id}"]`);
     if (!eventEl || eventEl.dataset.actionsAdded === '1') continue;
 
     const actions = document.createElement('div');
     actions.className = 'card-actions-outer';
 
-    if (ev.lang_id) {
-      const venue = getVenueById(ev.lang_id);
-      if (venue) {
-        const langBtn = createEventActionButton('lang');
-        langBtn.addEventListener('click', () => openLangSheet(venue));
-        actions.appendChild(langBtn);
-      }
+    // 언어 버튼 — 항상 표시, 데이터 있으면 활성
+    const langBtn = createEventActionButton('lang');
+    const venue = ev.lang_id ? getVenueById(ev.lang_id) : null;
+    if (venue) {
+      langBtn.classList.add('active');
+      langBtn.addEventListener('click', () => openLangSheet(venue));
+    } else {
+      langBtn.classList.add('inactive');
     }
+    actions.appendChild(langBtn);
 
+    // 지도 버튼 — 항상 표시, 데이터 있으면 활성
+    const mapBtn = createEventActionButton('map');
     if (ev.maps_url) {
-      const mapBtn = createEventActionButton('map');
+      mapBtn.classList.add('active');
       mapBtn.addEventListener('click', () => {
         window.open(ev.maps_url, '_blank', 'noopener,noreferrer');
       });
-      actions.appendChild(mapBtn);
+    } else {
+      mapBtn.classList.add('inactive');
     }
+    actions.appendChild(mapBtn);
 
     const card = eventEl.querySelector('.event-card');
     if (card) eventEl.insertBefore(actions, card);
