@@ -665,19 +665,29 @@ function switchSurvTab(el, panelId) {
   window.calcFx = function() {
     const $eur = document.getElementById('fx-eur');
     const $krw = document.getElementById('fx-krw');
-    const $last = document.getElementById('fx-last');
-    if (!$eur || !$krw) return;
+    const $result = document.getElementById('fx-result');
+    const $fromLabel = document.getElementById('fx-from-label');
+    const $fromVal = document.getElementById('fx-from-val');
+    const $toLabel = document.getElementById('fx-to-label');
+    const $toVal = document.getElementById('fx-to-val');
+    if (!$eur || !$krw || !$result) return;
     if (fxLastInput === 'eur') {
       const v = parseFloat($eur.value);
-      if (isNaN(v) || $eur.value === '') { if ($last) $last.textContent = 'EUR 금액을 입력해주세요'; return; }
-      $krw.value = fmtKrw(v * fxRate);
-      if ($last) $last.textContent = '€' + v + ' → ₩' + fmtKrw(v * fxRate);
+      if (isNaN(v) || $eur.value === '') return;
+      $fromLabel.textContent = 'EUR €';
+      $fromVal.textContent = '€ ' + v;
+      $toLabel.textContent = 'KRW ₩';
+      $toVal.textContent = fmtKrw(v * fxRate) + '원';
     } else {
-      const v = parseFloat($krw.value.replace(/,/g, ''));
-      if (isNaN(v) || $krw.value === '') { if ($last) $last.textContent = 'KRW 금액을 입력해주세요'; return; }
-      $eur.value = (v / fxRate).toFixed(2);
-      if ($last) $last.textContent = '₩' + fmtKrw(v) + ' → €' + (v / fxRate).toFixed(2);
+      const raw = $krw.value.replace(/,/g, '');
+      const v = parseFloat(raw);
+      if (isNaN(v) || $krw.value === '') return;
+      $fromLabel.textContent = 'KRW ₩';
+      $fromVal.textContent = '₩ ' + fmtKrw(v);
+      $toLabel.textContent = 'EUR €';
+      $toVal.textContent = '€ ' + (v / fxRate).toFixed(2);
     }
+    $result.classList.add('visible');
   };
 
   function wireFx() {
